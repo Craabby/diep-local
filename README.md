@@ -10,11 +10,11 @@
 mkdir build && cd build
 cmake ..
 make
-\# to install it, run `sudo make install`
+# to install it, run `sudo make install`
 ```
 ### running
 ```
-\# make sure you are in the build directory
+# make sure you are in the build directory
 ./diep-local
-\# if you installed it, run `diep-local`
+# if you installed it, run `diep-local`
 ```
