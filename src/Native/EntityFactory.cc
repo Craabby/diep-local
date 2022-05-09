@@ -14,6 +14,7 @@ Entity *createObjectEntity(entt::registry *registry)
 {
     Entity *entity = new Entity(registry);
     entt::entity enttEntity = registry->create();
+    entity->entity = enttEntity;
 
     registry->emplace<RelationsComponent>(enttEntity, entity->id);
     registry->emplace<PhysicsComponent>(enttEntity, entity->id);
