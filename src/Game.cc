@@ -8,7 +8,7 @@
 #include <websocketpp/server.hpp>
 
 #include <Client/Client.h>
-#include <Gamemodes/Sandbox.h>
+#include <Gamemodes/SandboxArena.h>
 
 typedef websocketpp::server<websocketpp::config::asio> Server;
 
@@ -16,7 +16,7 @@ GameServer::GameServer(Server *server, std::string gamemode, std::string endpoin
     : server(server),
       gamemode(gamemode),
       endpoint(endpoint),
-      arena(new SandboxArena())
+      arena(new SandboxArena(&entities.registry))
 {
     listen();
     runGameLoop();

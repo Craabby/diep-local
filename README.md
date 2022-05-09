@@ -1,6 +1,9 @@
 # Diep-local-C++
 ## The C++ rewirte of Diep-local
 
+# NOT COMPILING
+### undefined refrences
+
 ### dependencies
 - websocket++
 - boost

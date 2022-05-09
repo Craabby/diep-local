@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Native/Entity.h>
+#include <Native/EntityFactory.h>
 #include <Native/FieldGroups.h>
 
 class CameraEntity : public Entity

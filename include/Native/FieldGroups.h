@@ -28,17 +28,7 @@ enum class FieldGroupId
 
 using entityId = int16_t;
 
-class FieldGroup
-{
-public:
-    entityId entity;
-    std::vector<std::string> fields;
-
-    virtual std::vector<std::string> findUpdate();
-    virtual void wipe();
-};
-
-class RelationsGroup : public FieldGroup
+class RelationsComponent
 {
     struct
     {
@@ -55,12 +45,14 @@ class RelationsGroup : public FieldGroup
     } values;
 
 public:
+    entityId entity;
+
     static constexpr FieldGroupId id = FieldGroupId::relations;
     std::vector<std::string> fields{"parent", "owner", "team"};
 
-    RelationsGroup(entityId entity);
+    RelationsComponent(entityId entity);
 
-    virtual void wipe() override;
+    void wipe();
 
     entityId parent();
     entityId owner();
@@ -70,7 +62,7 @@ public:
     void owner(entityId parent);
     void team(entityId parent);
 };
-class BarrelGroup : public FieldGroup
+class BarrelComponent
 {
 private:
     struct
@@ -88,12 +80,14 @@ private:
     } values;
 
 public:
+    entityId entity;
+
     static constexpr FieldGroupId id = FieldGroupId::barrel;
     std::vector<std::string> fields{"shooting", "reloadTime", "trapezoidalDir"};
 
-    BarrelGroup(entityId entity);
+    BarrelComponent(entityId entity);
 
-    virtual void wipe() override;
+    void wipe();
 
     uint32_t shooting();
     float reloadTime();
@@ -103,7 +97,7 @@ public:
     void reloadTime(float reloadTime);
     void trapezoidalDir(float trapezoidalDir);
 };
-class PhysicsGroup : public FieldGroup
+class PhysicsComponent
 {
     struct
     {
@@ -125,12 +119,14 @@ class PhysicsGroup : public FieldGroup
     } values;
 
 public:
+    entityId entity;
+
     static constexpr FieldGroupId id = FieldGroupId::physics;
     std::vector<std::string> fields{"objectFlags", "sides", "size", "width", "absorbtionFactor", "pushFactor"};
 
-    PhysicsGroup(entityId entity);
+    PhysicsComponent(entityId entity);
 
-    virtual void wipe() override;
+    void wipe();
 
     uint32_t objectFlags();
     uint32_t sides();
@@ -146,7 +142,7 @@ public:
     void absorbtionFactor(float absorbtionFactor);
     void pushFactor(float pushFactor);
 };
-class HealthGroup : public FieldGroup
+class HealthComponent
 {
     struct
     {
@@ -162,11 +158,14 @@ class HealthGroup : public FieldGroup
     } values;
 
 public:
+    entityId entity;
+
     static constexpr FieldGroupId id = FieldGroupId::health;
+    std::vector<std::string> fields{"healthbar", "health", "maxHealth"};
 
-    HealthGroup(entityId entity);
+    HealthComponent(entityId entity);
 
-    virtual void wipe() override;
+    void wipe();
 
     uint32_t healthbar();
     float health();
@@ -176,7 +175,7 @@ public:
     void health(float health);
     void maxHealth(float maxHealth);
 };
-class UnusedGroup : public FieldGroup
+class UnusedComponent
 {
     struct
     {
@@ -188,12 +187,14 @@ class UnusedGroup : public FieldGroup
     } values;
 
 public:
+    entityId entity;
+
     static constexpr FieldGroupId id = FieldGroupId::unused0;
     std::vector<std::string> fields{"unknown"};
 
-    UnusedGroup(entityId entity);
+    UnusedComponent(entityId entity);
 
-    virtual void wipe() override;
+    void wipe();
 
     uint8_t unknown();
 
@@ -208,7 +209,7 @@ class ScoreboardTable
 public:
     ScoreboardTable(T defaultValue, entityId arena);
 };
-class ArenaGroup : public FieldGroup
+class ArenaComponent
 {
     struct
     {
@@ -230,7 +231,7 @@ class ArenaGroup : public FieldGroup
     } state;
     struct Values
     {
-        ArenaGroup *owner;
+        ArenaComponent *owner;
 
         uint32_t GUI = 2;
         float leftX = 0;
@@ -248,16 +249,18 @@ class ArenaGroup : public FieldGroup
         uint32_t playersNeeded = 1;
         uint32_t ticksUntilStart = 250;
 
-        Values(ArenaGroup *owner) : owner(owner) {}
+        Values(ArenaComponent *owner) : owner(owner) {}
     } values{this};
 
 public:
+    entityId entity;
+
     static constexpr FieldGroupId id = FieldGroupId::arena;
     std::vector<std::string> fields{"GUI", "leftX", "topY", "rightX", "bottomY", "scoreboardAmount", "scoreboardNames", "scoreboardScores", "scoreboardColors", "scoreboardSuffixes", "scoreboardTanks", "leaderX", "leaderY", "playersNeeded", "ticksUntilStart"};
 
-    ArenaGroup(entityId entity);
+    ArenaComponent(entityId entity);
 
-    virtual void wipe() override;
+    void wipe();
 
     uint32_t GUI();
     float leftX();
@@ -291,7 +294,7 @@ public:
     void playersNeeded(uint32_t playersNeeded);
     void ticksUntilStart(uint32_t ticksUntilStart);
 };
-class NameGroup : public FieldGroup
+class NameComponent
 {
     struct
     {
@@ -305,12 +308,14 @@ class NameGroup : public FieldGroup
     } values;
 
 public:
+    entityId entity;
+
     static constexpr FieldGroupId id = FieldGroupId::name;
     std::vector<std::string> fields{"nametag", "name"};
 
-    NameGroup(entityId entity);
+    NameComponent(entityId entity);
 
-    virtual void wipe() override;
+    void wipe();
 
     uint8_t nametag();
     std::string name();
@@ -327,7 +332,7 @@ class CameraTable
 public:
     CameraTable(T defaultValue, entityId owner);
 };
-class CameraGroup : public FieldGroup
+class CameraComponent
 {
     struct
     {
@@ -350,12 +355,12 @@ class CameraGroup : public FieldGroup
         uint8_t killedBy;
         uint8_t spawnTick;
         uint8_t deathTick;
-        uint8_t tankOverride;
+        uint8_t tan;
         uint8_t movementSpeed;
     } state;
     struct Values
     {
-        CameraGroup *owner;
+        CameraComponent *owner;
 
         int16_t GUIunknown = 2;
         uint32_t camera = 1;
@@ -376,19 +381,21 @@ class CameraGroup : public FieldGroup
         std::string killedBy = "";
         uint32_t spawnTick = 0;
         uint32_t deathTick = -1;
-        std::string tankOverride = "";
+        std::string tan = "";
         float movementSpeed = 0;
 
-        Values(CameraGroup *owner) : owner(owner) {}
+        Values(CameraComponent *owner) : owner(owner) {}
     } values{this};
 
 public:
+    entityId entity;
+
     static constexpr FieldGroupId id = FieldGroupId::camera;
-    std::vector<std::string> fields{"GUIunknown", "camera", "player", "FOV", "level", "tank", "levelbarProgress", "levelbarMax", "statsAvailable", "statNames", "statLevels", "statLimits", "cameraX", "cameraY", "scorebar", "respawnLevel", "killedBy", "spawnTick", "deathTick", "tankOverride", "movementSpeed"};
+    std::vector<std::string> fields{"GUIunknown", "camera", "player", "FOV", "level", "tank", "levelbarProgress", "levelbarMax", "statsAvailable", "statNames", "statLevels", "statLimits", "cameraX", "cameraY", "scorebar", "respawnLevel", "killedBy", "spawnTick", "deathTick", "tan", "movementSpeed"};
 
-    CameraGroup(entityId entity);
+    CameraComponent(entityId entity);
 
-    virtual void wipe() override;
+    void wipe();
 
     int16_t GUIunknown();
     uint32_t camera();
@@ -409,7 +416,7 @@ public:
     std::string killedBy();
     uint32_t spawnTick();
     uint32_t deathTick();
-    std::string tankOverride();
+    std::string tan();
     float movementSpeed();
 
     void GUIunknown(int16_t guiUnknown);
@@ -431,10 +438,10 @@ public:
     void killedBy(std::string killedBy);
     void spawnTick(uint32_t spawnTick);
     void deathTick(uint32_t deathTick);
-    void tankOverride(std::string tankOverride);
+    void tan(std::string tan);
     void movementSpeed(float movementSpeed);
 };
-class PositionGroup : public FieldGroup
+class PositionComponent
 {
     struct
     {
@@ -452,12 +459,14 @@ class PositionGroup : public FieldGroup
     } values;
 
 public:
+    entityId entity;
+
     static constexpr FieldGroupId id = FieldGroupId::position;
     std::vector<std::string> fields{"x", "y", "angle", "motion"};
 
-    PositionGroup(entityId entity);
+    PositionComponent(entityId entity);
 
-    virtual void wipe() override;
+    void wipe();
 
     int32_t x();
     int32_t y();
@@ -469,7 +478,7 @@ public:
     void angle(uint32_t angle);
     void motion(uint32_t motion);
 };
-class StyleGroup : public FieldGroup
+class StyleComponent
 {
     struct
     {
@@ -489,12 +498,14 @@ class StyleGroup : public FieldGroup
     } values;
 
 public:
+    entityId entity;
+
     static constexpr FieldGroupId id = FieldGroupId::style;
     std::vector<std::string> fields{"styleFlags", "color", "borderThickness", "opacity", "zIndex"};
 
-    StyleGroup(entityId entity);
+    StyleComponent(entityId entity);
 
-    virtual void wipe() override;
+    void wipe();
 
     float styleFlags();
     Color color();
@@ -508,7 +519,7 @@ public:
     void opacity(float opacity);
     void zIndex(uint32_t zIndex);
 };
-class ScoreGroup : public FieldGroup
+class ScoreComponent
 {
     struct
     {
@@ -520,17 +531,19 @@ class ScoreGroup : public FieldGroup
     } values;
 
 public:
+    entityId entity;
+
     static constexpr FieldGroupId id = FieldGroupId::score;
     std::vector<std::string> fields{"score"};
 
-    ScoreGroup(entityId entity);
+    ScoreComponent(entityId entity);
 
-    virtual void wipe() override;
+    void wipe();
 
     float score();
     void score(float score);
 };
-class TeamGroup : public FieldGroup
+class TeamComponent
 {
     struct
     {
@@ -548,10 +561,12 @@ class TeamGroup : public FieldGroup
     } values;
 
 public:
+    entityId entity;
+
     static constexpr FieldGroupId id = FieldGroupId::team;
     std::vector<std::string> fields{"teamColor", "mothershipX", "mothershipY", "mothership"};
 
-    TeamGroup();
+    TeamComponent();
 
-    virtual void wipe() override;
+    void wipe();
 };

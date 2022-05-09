@@ -9,17 +9,19 @@ set(SRCS
     src/main.cc
     src/Native/Arena.cc
     src/Native/Camera.cc
-    src/Native/Entity.cc
+    src/Native/EntityFactory.cc
     src/Native/FieldGroups.cc
     src/Native/Manager.cc
     src/Physics/CollisionManager.cc)
 
-SET(CMAKE_CXX_FLAGS "-std=c++2a -g")
+set(CMAKE_CXX_FLAGS "-std=c++17 -g")
 set(THREADS_PREFER_PTHREAD_FLAG ON)
+set(CMAKE_CXX_COMPILER "/usr/bin/g++-8")
 
 find_package(Threads REQUIRED)
 
 include_directories(include)
+include_directories(ThirdParty/entt/src)
 
 add_executable(diep-local ${SRCS})
 

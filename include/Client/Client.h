@@ -8,7 +8,7 @@
 #include <websocketpp/server.hpp>
 
 #include <Client/Socket.h>
-#include <Native/Entity.h>
+#include <Native/EntityFactory.h>
 
 typedef websocketpp::server<websocketpp::config::asio> Server;
 
