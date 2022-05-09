@@ -5,11 +5,11 @@
 template <typename T>
 class ScoreboardTable
 {
-    uint8_t state[10];
+    uint8_t state[10]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     T values[10];
 
 public:
-    ScoreboardTable(T defaultValue, entityId arena);
+    ScoreboardTable(T defaultValue, entityId arena){};
 };
 class ArenaComponent
 {

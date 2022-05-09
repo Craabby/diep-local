@@ -24,6 +24,7 @@ Entity createCamera(entt::registry *registry);
 Entity createLivingObject(entt::registry *registry);
 Entity createObject(entt::registry *registry);
 Entity createTankBody(entt::registry *registry);
+Entity createBarrel(entt::registry *registry);
 
 // class Entity
 // {

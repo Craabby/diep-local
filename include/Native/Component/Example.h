@@ -2,7 +2,7 @@
 
 #include <Native/Component/types.h>
 
-class UnusedComponent
+class ExampleComponent
 {
     struct
     {
@@ -19,7 +19,7 @@ public:
     static constexpr FieldGroupId id = FieldGroupId::unused0;
     std::vector<std::string> fields{"unknown"};
 
-    UnusedComponent(entityId entity);
+    ExampleComponent(entityId entity);
 
     void wipe();
 
