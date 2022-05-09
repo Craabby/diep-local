@@ -17,29 +17,13 @@
 #include <Native/Component/Score.h>
 #include <Native/Component/Style.h>
 #include <Native/Component/Team.h>
+#include <Native/Entity.h>
 
-using entityId = int16_t;
-
-enum class EntityStateFlags
-{
-    needsUpdate = 1 << 0,
-    needsCreate = 1 << 1,
-    needsDelete = 1 << 2,
-};
-
-class Entity
-{
-public:
-    EntityStateFlags state = EntityStateFlags::needsCreate;
-    std::vector<FieldGroupId> fieldGroups{};
-    entt::registry *registry;
-    entt::entity entity;
-    int16_t id = -1;
-
-    Entity(entt::registry *registry);
-};
-
-Entity addObjectComponents(entt::registry *registry);
+Entity creatArena(entt::registry *registry);
+Entity createCamera(entt::registry *registry);
+Entity createLivingObject(entt::registry *registry);
+Entity createObject(entt::registry *registry);
+Entity createTankBody(entt::registry *registry);
 
 // class Entity
 // {

@@ -16,21 +16,48 @@
 #include <Native/Component/Score.h>
 #include <Native/Component/Style.h>
 #include <Native/Component/Team.h>
-Entity::Entity(entt::registry *registry)
-    : registry(registry)
-{
-}
 
-Entity *createObjectEntity(entt::registry *registry)
+Entity createObject(entt::registry *registry)
 {
-    Entity *entity = new Entity(registry);
+    Entity entity = Entity(registry);
     entt::entity enttEntity = registry->create();
-    entity->entity = enttEntity;
+    entity.entity = enttEntity;
 
-    registry->emplace<RelationsComponent>(enttEntity, entity->id);
-    registry->emplace<PhysicsComponent>(enttEntity, entity->id);
-    registry->emplace<PositionComponent>(enttEntity, entity->id);
-    registry->emplace<StyleComponent>(enttEntity, entity->id);
+    registry->emplace<RelationsComponent>(enttEntity, entity.id);
+    // registry->emplace<PhysicsComponent>(enttEntity, entity.id);
+    // registry->emplace<PositionComponent>(enttEntity, entity.id);
+    // registry->emplace<StyleComponent>(enttEntity, entity.id);
 
     return entity;
+}
+Entity createCamera(entt::registry *registry)
+{
+    Entity entity = Entity(registry);
+    entt::entity enttEntity = registry->create();
+    entity.entity = enttEntity;
+
+    // registry->emplace<CameraComponent>(enttEntity, entity.id);
+
+    return entity;
+}
+Entity createLivingObject(entt::registry *registry)
+{
+    Entity entity = createLivingObject(registry);
+
+    // registry->emplace<HealthComponent>(entity.entity, entity.id);
+
+    return entity;
+}
+Entity craeteTankBody(entt::registry *registry)
+{
+    Entity entity = createLivingObject(registry);
+
+    // registry->emplace<NameComponent>(entity.entity, entity.id);
+    // registry->emplace<ScoreComponent>(entity.entity, entity.id);
+
+    return entity;
+}
+Entity createBareel(entt::registry *registry)
+{
+    return createObject(registry);
 }

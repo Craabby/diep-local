@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <unordered_set>
+#include <thread>
 
 #include <websocketpp/config/asio_no_tls.hpp>
 #include <websocketpp/server.hpp>
@@ -19,6 +20,7 @@ GameServer::GameServer(Server *server, std::string gamemode, std::string endpoin
       arena(new SandboxArena(&entities.registry))
 {
     listen();
+
     runGameLoop();
 }
 
@@ -40,7 +42,9 @@ void GameServer::runGameLoop()
 
         time_point otherEnd = system_clock::now();
 
-        std::cout << std::endl << std::endl << "tick " << tickCount << " time:" << std::endl;
+        std::cout << std::endl
+                  << std::endl
+                  << "tick " << tickCount << " time:" << std::endl;
         std::cout << "tick took: " << (double)duration_cast<nanoseconds>(difference).count() / 1'000'000 << " ms" << std::endl;
         std::cout << "time elapsed: " << (double)duration_cast<nanoseconds>(duration<double>(otherEnd - start)).count() / 1'000'000 << " ms" << std::endl;
     }
