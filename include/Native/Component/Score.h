@@ -1,0 +1,28 @@
+#pragma once
+
+#include <Native/Component/types.h>
+
+class ScoreComponent
+{
+    struct
+    {
+        uint8_t score = 0;
+    } state;
+    struct
+    {
+        float score = 0;
+    } values;
+
+public:
+    entityId entity;
+
+    static constexpr FieldGroupId id = FieldGroupId::score;
+    std::vector<std::string> fields{"score"};
+
+    ScoreComponent(entityId entity);
+
+    void wipe();
+
+    float score();
+    void score(float score);
+};

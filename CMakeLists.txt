@@ -10,7 +10,6 @@ set(SRCS
     src/Native/Arena.cc
     src/Native/Camera.cc
     src/Native/EntityFactory.cc
-    src/Native/FieldGroups.cc
     src/Native/Manager.cc
     src/Physics/CollisionManager.cc)
 

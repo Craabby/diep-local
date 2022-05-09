@@ -1,7 +1,7 @@
 #pragma once
 
 #include <Native/EntityFactory.h>
-#include <Native/FieldGroups.h>
+#include <Native/Component/Camera.h>
 
 class CameraEntity : public Entity
 {
