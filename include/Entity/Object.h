@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Native/Entity.h>
+#include <Native/EntityFactory.h>
 
 class ObjectEntity : public Entity
 {

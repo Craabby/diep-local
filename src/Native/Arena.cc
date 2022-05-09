@@ -1,5 +1,8 @@
 #include <Native/Arena.h>
 
-ArenaEntity::ArenaEntity()
+#include <entt/entity/registry.hpp>
+
+ArenaEntity::ArenaEntity(entt::registry *registry)
+    : Entity(registry)
 {
 }

@@ -1,9 +1,11 @@
 #pragma once
 
-#include <Native/Entity.h>
+#include <entt/entity/registry.hpp>
+
+#include <Native/EntityFactory.h>
 
 class ArenaEntity : public Entity
 {
 public:
-    ArenaEntity();
+    ArenaEntity(entt::registry *registry);
 };

@@ -1,5 +1,8 @@
-#include <Gamemodes/Sandbox.h>
+#include <Gamemodes/SandboxArena.h>
 
-SandboxArena::SandboxArena()
+#include <entt/entity/registry.hpp>
+
+SandboxArena::SandboxArena(entt::registry *registry)
+    : ArenaEntity(registry)
 {
 }

@@ -2,15 +2,15 @@
 
 #include <vector>
 
+#include <entt/entt.hpp>
+
 #include <Physics/CollisionManager.h>
-#include <Native/Entity.h>
+#include <Native/EntityFactory.h>
 
 class EntityManager
 {
 public:
     using entityId = int16_t;
-
-    EntityManager();
 
     DiepSpatialHashing collisionManager;
     uint32_t zIndex = 0;
@@ -19,6 +19,9 @@ public:
     entityId *inner[16384];
     uint8_t hashTable[16384];
     entityId lastId = -1;
+    entt::registry registry;
+
+    EntityManager();
 
     void tick(uint32_t tick);
 };

@@ -1,9 +1,11 @@
 #pragma once
 
+#include <entt/entity/registry.hpp>
+
 #include <Native/Arena.h>
 
 class SandboxArena : public ArenaEntity
 {
 public:
-    SandboxArena();
+    SandboxArena(entt::registry *registry);
 };

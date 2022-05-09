@@ -1,9 +1,8 @@
 #pragma once
 
-#include <unordered_map>
-#include <vector>
+#include <entt/entity/registry.hpp>
 
-#include <Native/FieldGroups.h>
+#include <Native/Component/types.h>
 
 using entityId = int16_t;
 
@@ -18,22 +17,10 @@ class Entity
 {
 public:
     EntityStateFlags state = EntityStateFlags::needsCreate;
-    std::vector<FieldGroupId> fieldGroups;
+    std::vector<FieldGroupId> fieldGroups{};
+    entt::registry *registry;
+    entt::entity entity;
+    entityId id = -1;
 
-    RelationsGroup *relations = nullptr;    
-    BarrelGroup *barrel = nullptr;
-    PhysicsGroup *physics = nullptr;
-    HealthGroup *health = nullptr;
-    UnusedGroup *unused = nullptr;
-    ArenaGroup *arena = nullptr;
-    NameGroup *name = nullptr;
-    CameraGroup *camera = nullptr;
-    PositionGroup *position = nullptr;
-    StyleGroup *style = nullptr;
-    ScoreGroup *score = nullptr;
-    TeamGroup *team = nullptr;
-
-    Entity();
-
-    void wipeState();
+    Entity(entt::registry *registry);
 };
