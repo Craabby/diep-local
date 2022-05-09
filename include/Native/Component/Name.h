@@ -23,11 +23,11 @@ public:
 
     NameComponent(entityId entity);
 
-    void wipe();
+    void Wipe();
 
-    uint8_t nametag();
-    std::string name();
+    uint8_t Nametag();
+    std::string Name();
 
-    void nametag(uint8_t nametag);
-    void name(std::string name);
+    void Nametag(uint8_t nametag);
+    void Name(std::string name);
 };

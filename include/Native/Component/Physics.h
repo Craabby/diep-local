@@ -31,19 +31,19 @@ public:
 
     PhysicsComponent(entityId entity);
 
-    void wipe();
+    void Wipe();
 
-    uint32_t objectFlags();
-    uint32_t sides();
-    float size();
-    float width();
-    float absorbtionFactor();
-    float pushFactor();
+    uint32_t ObjectFlags();
+    uint32_t Sides();
+    float Size();
+    float Width();
+    float AbsorbtionFactor();
+    float PushFactor();
 
-    void objectFlags(uint32_t objectFlags);
-    void sides(uint32_t sides);
-    void size(float size);
-    void width(float width);
-    void absorbtionFactor(float absorbtionFactor);
-    void pushFactor(float pushFactor);
+    void ObjectFlags(uint32_t objectFlags);
+    void Sides(uint32_t sides);
+    void Size(float size);
+    void Width(float width);
+    void AbsorbtionFactor(float absorbtionFactor);
+    void PushFactor(float pushFactor);
 };

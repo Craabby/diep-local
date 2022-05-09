@@ -21,9 +21,9 @@ public:
 
     ExampleComponent(entityId entity);
 
-    void wipe();
+    void Wipe();
 
-    uint8_t unknown();
+    uint8_t Unknown();
 
-    void unknown(uint8_t unknown);
+    void Unknown(uint8_t unknown);
 };

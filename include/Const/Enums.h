@@ -1,6 +1,6 @@
 #pragma once
 
-enum class Color
+enum class ColorId
 {
     Border,
     Barrel,
@@ -22,7 +22,7 @@ enum class Color
     Fallen
 };
 
-enum class Tank
+enum class TankId
 {
     Basic = 0,
     Twin = 1,

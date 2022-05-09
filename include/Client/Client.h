@@ -31,8 +31,8 @@ public:
     bool terminated;
     Socket socket;
     Client(Server *server, websocketpp::connection_hdl connection, std::vector<Client *> clients);
-    void terminate();
-    size_t getId() const;
+    void Terminate();
+    size_t GetId() const;
 };
 
 namespace std
@@ -42,7 +42,7 @@ namespace std
     {
         size_t operator()(const Client &p) const
         {
-            return std::hash<uint32_t>()(p.getId());
+            return std::hash<uint32_t>()(p.GetId());
         }
     };
 }

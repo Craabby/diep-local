@@ -21,8 +21,8 @@ public:
 
     ScoreComponent(entityId entity);
 
-    void wipe();
+    void Wipe();
 
-    float score();
-    void score(float score);
+    float Score();
+    void Score(float score);
 };

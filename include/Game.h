@@ -19,9 +19,9 @@ private:
     Server *server;
     uint32_t tickCount;
 
-    void listen();
-    void runGameLoop();
-    void tick(uint32_t tick);
+    void Listen();
+    void RunGameLoop();
+    void Tick(uint32_t tick);
 
 public:
     static const uint32_t globalPlayerCount = 0;

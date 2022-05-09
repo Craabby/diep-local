@@ -19,9 +19,8 @@ GameServer::GameServer(Server *server, std::string gamemode, std::string endpoin
       endpoint(endpoint),
       arena(new SandboxArena(&entities.registry))
 {
-    listen();
-
-    runGameLoop();
+    Listen();
+    RunGameLoop();
 }
 
 GameServer::~GameServer()
@@ -29,13 +28,13 @@ GameServer::~GameServer()
     delete arena;
 }
 
-void GameServer::runGameLoop()
+void GameServer::RunGameLoop()
 {
     while (true)
     {
         using namespace std::chrono;
         time_point start = system_clock::now();
-        tick(tickCount);
+        Tick(tickCount);
         time_point end = system_clock::now();
         duration<double> difference = end - start;
         usleep(40'000 - (uint32_t)duration_cast<microseconds>(difference).count() - 160);
@@ -50,14 +49,14 @@ void GameServer::runGameLoop()
     }
 }
 
-void GameServer::tick(uint32_t tick)
+void GameServer::Tick(uint32_t tick)
 {
     tickCount++;
 
-    entities.tick(tick);
+    entities.Tick(tick);
 }
 
-void GameServer::listen()
+void GameServer::Listen()
 {
     namespace placeholders = websocketpp::lib::placeholders;
     server->set_max_message_size(1024);
@@ -75,7 +74,7 @@ void GameServer::listen()
             server->get_con_from_hdl(client->socket.connection);
             if (server->get_con_from_hdl(client->socket.connection) == server->get_con_from_hdl(connection))
             {
-                client->socket.events.emit<EventId::close>((void *)client);
+                client->socket.events.Emit<EventId::close>((void *)client);
                 clients.erase(clients.begin() + i);
                 delete client;
             }

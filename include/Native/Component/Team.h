@@ -13,7 +13,7 @@ class TeamComponent
     } state;
     struct
     {
-        Color teamColor;
+        ColorId teamColor;
         float mothershipX;
         float mothershipY;
         uint32_t mothership;
@@ -27,5 +27,5 @@ public:
 
     TeamComponent(entityId entity);
 
-    void wipe();
+    void Wipe();
 };

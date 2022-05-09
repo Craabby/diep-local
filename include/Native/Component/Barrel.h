@@ -29,11 +29,11 @@ public:
 
     void wipe();
 
-    uint32_t shooting();
-    float reloadTime();
-    float trapezoidalDir();
+    uint32_t Shooting();
+    float ReloadTime();
+    float TrapezoidalDir();
 
-    void shooting(uint32_t shooting);
-    void reloadTime(float reloadTime);
-    void trapezoidalDir(float trapezoidalDir);
+    void Shooting(uint32_t shooting);
+    void ReloadTime(float reloadTime);
+    void TrapezoidalDir(float trapezoidalDir);
 };

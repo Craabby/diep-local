@@ -25,13 +25,13 @@ public:
 
     HealthComponent(entityId entity);
 
-    void wipe();
+    void Wipe();
 
-    uint32_t healthbar();
-    float health();
-    float maxHealth();
+    uint32_t Healthbar();
+    float Health();
+    float MaxHealth();
 
-    void healthbar(uint32_t healthbar);
-    void health(float health);
-    void maxHealth(float maxHealth);
+    void Healthbar(uint32_t healthbar);
+    void Health(float health);
+    void MaxHealth(float maxHealth);
 };

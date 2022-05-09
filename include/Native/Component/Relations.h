@@ -28,11 +28,11 @@ public:
 
     void wipe();
 
-    entityId parent();
-    entityId owner();
-    entityId team();
+    entityId Parent();
+    entityId Owner();
+    entityId Team();
 
-    void parent(entityId parent);
-    void owner(entityId parent);
-    void team(entityId parent);
+    void Parent(entityId parent);
+    void Owner(entityId parent);
+    void Team(entityId parent);
 };

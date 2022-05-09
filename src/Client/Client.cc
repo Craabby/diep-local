@@ -11,6 +11,7 @@ enum class PacketId
 {
     build = 0,
     input = 1,
+    ping = 5,
 };
 
 Client::Client(Server *server, websocketpp::connection_hdl connection, std::vector<Client *> clients)
@@ -23,9 +24,9 @@ Client::Client(Server *server, websocketpp::connection_hdl connection, std::vect
     socket.server->get_con_from_hdl(socket.connection)->set_message_handler([this](websocketpp::connection_hdl connection, Server::message_ptr _message)
                                                                             {
         Message packet{(uint8_t *)_message->get_raw_payload().c_str(), _message->get_raw_payload().size(), connection};
-        socket.events.emit<EventId::packet>((void *)&packet); });
+        socket.events.Emit<EventId::packet>((void *)&packet); });
 
-    socket.events.on<EventId::packet>([](void *_packet)
+    socket.events.On<EventId::packet>([](void *_packet)
                                       {
         Message *packet = (Message *)_packet;
 
@@ -35,21 +36,25 @@ Client::Client(Server *server, websocketpp::connection_hdl connection, std::vect
 
         if (header == PacketId::build)
         {
-            
+
+        }
+        else if (header == PacketId::ping)
+        {
+
         } });
 
-    socket.events.on<EventId::close>([](void *_client)
+    socket.events.On<EventId::close>([](void *_client)
                                      {
         Client *client = (Client *)_client;
-        client->terminate(); });
+        client->Terminate(); });
 }
 
-void Client::terminate()
+void Client::Terminate()
 {
     terminated = true;
 }
 
-size_t Client::getId() const
+size_t Client::GetId() const
 {
     return 0;
 }

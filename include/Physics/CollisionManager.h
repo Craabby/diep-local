@@ -29,18 +29,18 @@ namespace
 
         int32_t queryId = 0;
 
-        static uint32_t getHash(int32_t x, int32_t y);
+        static uint32_t GetHash(int32_t x, int32_t y);
 
     public:
-        void insert(Box *box);
-        std::vector<int16_t> query(Box &box);
-        void clear();
+        void Insert(Box *box);
+        std::vector<int16_t> Query(Box &box);
+        void Clear();
     };
 };
 
 class DiepSpatialHashing : private SpatialHashing
 {
 public:
-    void insertEntity(ObjectEntity entity);
-    void reset();
+    void InsertEntity(ObjectEntity entity);
+    void Reset();
 };

@@ -11,7 +11,7 @@ Box::Box(int32_t x, int32_t y, int32_t w, int32_t h, int16_t id)
         {
         }
 
-uint32_t SpatialHashing::getHash(int32_t x, int32_t y)
+uint32_t SpatialHashing::GetHash(int32_t x, int32_t y)
 {
     uint32_t hash = 41'332'271;
     hash ^= x * 21'201'979;
@@ -20,7 +20,7 @@ uint32_t SpatialHashing::getHash(int32_t x, int32_t y)
     return hash % HASH_TABLE_SIZE;
 }
 
-void SpatialHashing::clear()
+void SpatialHashing::Clear()
 {
     for (size_t i = 0; i < HASH_TABLE_SIZE; i++)
     {
@@ -28,7 +28,7 @@ void SpatialHashing::clear()
     }
 }
 
-void SpatialHashing::insert(Box *box)
+void SpatialHashing::Insert(Box *box)
 {
     int32_t startX = (box->x - box->w) >> CELL_FACTOR;
     int32_t startY = (box->y - box->h) >> CELL_FACTOR;
@@ -39,14 +39,14 @@ void SpatialHashing::insert(Box *box)
     {
         for (int32_t y = startY; y <= endY; y++)
         {
-            int32_t key = getHash(x, y);
+            int32_t key = GetHash(x, y);
 
             cells[key].push_back(box);
         }
     }
 }
 
-std::vector<int16_t> SpatialHashing::query(Box &box)
+std::vector<int16_t> SpatialHashing::Query(Box &box)
 {
     std::vector<int16_t> found{};
 
@@ -61,7 +61,7 @@ std::vector<int16_t> SpatialHashing::query(Box &box)
     {
         for (int32_t y = startY; y <= endY; y++)
         {
-            uint32_t key = getHash(x, y);
+            uint32_t key = GetHash(x, y);
 
             std::vector<Box *> *cell = cells + key;
 
@@ -79,7 +79,7 @@ std::vector<int16_t> SpatialHashing::query(Box &box)
     return found;
 }
 
-void DiepSpatialHashing::reset()
+void DiepSpatialHashing::Reset()
 {
-    clear();
+    Clear();
 }

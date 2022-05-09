@@ -18,12 +18,12 @@ private:
 
 public:
     template <EventId id>
-    void on(void (*callback)(void *))
+    void On(void (*callback)(void *))
     {
         callbackList[id].push_back(callback);
     };
     template <EventId id>
-    void emit(void *argument = nullptr)
+    void Emit(void *argument = nullptr)
     {
         for (void (*callback)(void *) : callbackList[id])
         {

@@ -19,33 +19,9 @@
 #include <Native/Component/Team.h>
 #include <Native/Entity.h>
 
-Entity creatArena(entt::registry *registry);
-Entity createCamera(entt::registry *registry);
-Entity createLivingObject(entt::registry *registry);
-Entity createObject(entt::registry *registry);
-Entity createTankBody(entt::registry *registry);
-Entity createBarrel(entt::registry *registry);
-
-// class Entity
-// {
-// public:
-//     EntityStateFlags state = EntityStateFlags::needsCreate;
-//     std::vector<FieldGroupId> fieldGroups;
-
-//     RelationsGroup *relations = nullptr;    
-//     BarrelGroup *barrel = nullptr;
-//     PhysicsGroup *physics = nullptr;
-//     HealthGroup *health = nullptr;
-//     UnusedGroup *unused = nullptr;
-//     ArenaGroup *arena = nullptr;
-//     NameGroup *name = nullptr;
-//     CameraGroup *camera = nullptr;
-//     PositionGroup *position = nullptr;
-//     StyleGroup *style = nullptr;
-//     ScoreGroup *score = nullptr;
-//     TeamGroup *team = nullptr;
-
-//     Entity();
-
-//     void wipeState();
-// };
+Entity CreateArena(entt::registry *registry);
+Entity CreateCamera(entt::registry *registry);
+Entity CreateLivingObject(entt::registry *registry);
+Entity CreateObject(entt::registry *registry);
+Entity CreateTankBody(entt::registry *registry);
+Entity CreateBarrel(entt::registry *registry);

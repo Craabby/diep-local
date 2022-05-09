@@ -15,7 +15,7 @@ class StyleComponent
     struct
     {
         float styleFlags = 1;
-        Color color = Color::Border;
+        ColorId color = ColorId::Border;
         int32_t borderThickness = 480;
         float opacity = 1;
         uint32_t zIndex = 0;
@@ -29,17 +29,17 @@ public:
 
     StyleComponent(entityId entity);
 
-    void wipe();
+    void Wipe();
 
-    float styleFlags();
-    Color color();
-    int32_t borderThickness();
-    float opacity();
-    uint32_t zIndex();
+    float StyleFlags();
+    ColorId Color();
+    int32_t BorderThickness();
+    float Opacity();
+    uint32_t ZIndex();
 
-    void styleFlags(float styleFlags);
-    void color(Color color);
-    void borderThickness(int32_t borderThickness);
-    void opacity(float opacity);
-    void zIndex(uint32_t zIndex);
+    void StyleFlags(float styleFlags);
+    void Color(ColorId color);
+    void BorderThickness(int32_t borderThickness);
+    void Opacity(float opacity);
+    void ZIndex(uint32_t zIndex);
 };

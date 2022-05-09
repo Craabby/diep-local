@@ -17,7 +17,7 @@
 #include <Native/Component/Style.h>
 #include <Native/Component/Team.h>
 
-Entity createObject(entt::registry *registry)
+Entity CreateObject(entt::registry *registry)
 {
     Entity entity = Entity(registry);
     entt::entity enttEntity = registry->create();
@@ -30,7 +30,7 @@ Entity createObject(entt::registry *registry)
 
     return entity;
 }
-Entity createCamera(entt::registry *registry)
+Entity CreateCamera(entt::registry *registry)
 {
     Entity entity = Entity(registry);
     entt::entity enttEntity = registry->create();
@@ -40,24 +40,24 @@ Entity createCamera(entt::registry *registry)
 
     return entity;
 }
-Entity createLivingObject(entt::registry *registry)
+Entity CreateLivingObject(entt::registry *registry)
 {
-    Entity entity = createLivingObject(registry);
+    Entity entity = CreateObject(registry);
 
     registry->emplace<HealthComponent>(entity.entity, entity.id);
 
     return entity;
 }
-Entity craeteTankBody(entt::registry *registry)
+Entity CraeteTankBody(entt::registry *registry)
 {
-    Entity entity = createLivingObject(registry);
+    Entity entity = CreateLivingObject(registry);
 
     registry->emplace<NameComponent>(entity.entity, entity.id);
     registry->emplace<ScoreComponent>(entity.entity, entity.id);
 
     return entity;
 }
-Entity createBarrel(entt::registry *registry)
+Entity CreateBarrel(entt::registry *registry)
 {
-    return createObject(registry);
+    return CreateObject(registry);
 }

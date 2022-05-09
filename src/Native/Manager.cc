@@ -4,7 +4,7 @@ EntityManager::EntityManager()
 {
 }
 
-void EntityManager::tick(uint32_t tick)
+void EntityManager::Tick(uint32_t tick)
 {
-    collisionManager.reset();
+    collisionManager.Reset();
 }

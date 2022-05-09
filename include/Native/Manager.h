@@ -23,5 +23,5 @@ public:
 
     EntityManager();
 
-    void tick(uint32_t tick);
+    void Tick(uint32_t tick);
 };

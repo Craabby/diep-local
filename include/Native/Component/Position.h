@@ -27,15 +27,15 @@ public:
 
     PositionComponent(entityId entity);
 
-    void wipe();
+    void Wipe();
 
-    int32_t x();
-    int32_t y();
-    uint32_t angle();
-    uint32_t motion();
+    int32_t X();
+    int32_t Y();
+    uint32_t Angle();
+    uint32_t Motion();
 
-    void x(int32_t x);
-    void y(int32_t y);
-    void angle(uint32_t angle);
-    void motion(uint32_t motion);
+    void X(int32_t x);
+    void Y(int32_t y);
+    void Angle(uint32_t angle);
+    void Motion(uint32_t motion);
 };
