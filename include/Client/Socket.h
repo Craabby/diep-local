@@ -3,14 +3,17 @@
 #include <websocketpp/config/asio_no_tls.hpp>
 #include <websocketpp/server.hpp>
 
+#include <Coder/Reader.h>
 #include <EventEmitter.h>
 
 typedef websocketpp::server<websocketpp::config::asio> Server;
 
-struct Message
+class Message
 {
-    uint8_t *message;
-    size_t length;
+public:
+    Message(uint8_t *message, size_t length, websocketpp::connection_hdl connection);
+    
+    Reader reader;
     websocketpp::connection_hdl connection;
 };
 

@@ -4,6 +4,8 @@ project(diep-local)
 set(SRCS
     src/Client/Client.cc
     src/Client/Socket.cc
+    src/Coder/Reader.cc
+    src/Coder/Writer.cc
     src/Game.cc
     src/Gamemodes/SandboxArena.cc
     src/main.cc
