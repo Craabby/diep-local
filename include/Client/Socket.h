@@ -8,21 +8,24 @@
 
 typedef websocketpp::server<websocketpp::config::asio> Server;
 
-class Message
+namespace diep::server::socket
 {
-public:
-    Message(uint8_t *message, size_t length, websocketpp::connection_hdl connection);
-    
-    Reader reader;
-    websocketpp::connection_hdl connection;
-};
+    class Message
+    {
+    public:
+        Message(uint8_t *message, size_t length, websocketpp::connection_hdl connection);
 
-class Socket
-{
-public:
-    Server *server;
-    websocketpp::connection_hdl connection;
-    EventEmitter events;
+        diep::reader::Reader reader;
+        websocketpp::connection_hdl connection;
+    };
 
-    Socket(Server *server, websocketpp::connection_hdl connection);
-};
+    class Socket
+    {
+    public:
+        Server *server;
+        websocketpp::connection_hdl connection;
+        EventEmitter events;
+
+        Socket(Server *server, websocketpp::connection_hdl connection);
+    };
+}

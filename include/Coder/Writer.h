@@ -17,31 +17,34 @@ namespace
     int32_t SwapEndian(int32_t number);
 }
 
-struct WriterOutput
+namespace diep::writer
 {
-    uint32_t size;
-    uint8_t *output;
-};
+    struct WriterOutput
+    {
+        uint32_t size;
+        uint8_t *output;
+    };
 
-class Writer
-{
-    size_t at = 0;
+    class Writer
+    {
+        size_t at = 0;
 
-public:
-    Writer();
+    public:
+        Writer();
 
-    void U8(uint8_t value);
-    void U16(uint16_t value);
-    void U32(uint32_t value);
-    void Float(float value);
-    void Vf(float value);
-    void Vu(uint32_t value);
-    void Vi(int32_t value);
-    void Bytes(uint8_t *value, size_t size);
-    void Radians(float value);
-    void Degrees(float value);
-    void StringNT(uint8_t *value, size_t size);
-    void EntityId(int16_t id, int16_t hash = 0);
-    WriterOutput Write();
-    size_t Size();
-};
+        void U8(uint8_t value);
+        void U16(uint16_t value);
+        void U32(uint32_t value);
+        void Float(float value);
+        void Vf(float value);
+        void Vu(uint32_t value);
+        void Vi(int32_t value);
+        void Bytes(uint8_t *value, size_t size);
+        void Radians(float value);
+        void Degrees(float value);
+        void StringNT(uint8_t *value, size_t size);
+        void EntityId(int16_t id, int16_t hash = 0);
+        WriterOutput Write();
+        size_t Size();
+    };
+}

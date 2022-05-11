@@ -16,34 +16,34 @@ namespace
     }
 }
 
-Reader::Reader(uint8_t *buffer, size_t size)
+diep::reader::Reader::Reader(uint8_t *buffer, size_t size)
     : buffer(buffer),
       size(size)
 {
 }
 
-uint8_t Reader::U8()
+uint8_t diep::reader::Reader::U8()
 {
     uint8_t value = (*this)[at];
     at++;
     return value;
 }
 
-uint16_t Reader::U16()
+uint16_t diep::reader::Reader::U16()
 {
     uint16_t value = ((*this)[at] << 0) | ((*this)[at + 1] << 8);
     at += 2;
     return value;
 }
 
-uint32_t Reader::U32()
+uint32_t diep::reader::Reader::U32()
 {
     uint32_t value = (*this)[at] << ((*this)[at + 1] << 0) | ((*this)[at + 2] << 16) | ((*this)[at + 3] << 24);
     at += 4;
     return value;
 }
 
-uint32_t Reader::Vu()
+uint32_t diep::reader::Reader::Vu()
 {
     uint32_t out = 0;
     uint8_t i = 0;
@@ -58,19 +58,19 @@ uint32_t Reader::Vu()
     return out;
 }
 
-int32_t Reader::Vi()
+int32_t diep::reader::Reader::Vi()
 {
     uint32_t out = Vu();
     return (0 - (out & 1)) ^ (out >> 1);
 }
 
-float Reader::Vf()
+float diep::reader::Reader::Vf()
 {
     int32_t out = SwapEndian(Vi());
     return *(float *)&out;
 }
 
-std::string Reader::StringNT()
+std::string diep::reader::Reader::StringNT()
 {
     std::string string;
     while ((*this)[at++])
@@ -81,7 +81,7 @@ std::string Reader::StringNT()
     return string;
 }
 
-std::string Reader::String(uint32_t length = 0xdeadbeef)
+std::string diep::reader::Reader::String(uint32_t length = 0xdeadbeef)
 {
     if (length == 0xdeadbeef)
         length = Vu();
@@ -94,7 +94,7 @@ std::string Reader::String(uint32_t length = 0xdeadbeef)
     return string;
 }
 
-uint8_t Reader::operator[](size_t i)
+uint8_t diep::reader::Reader::operator[](size_t i)
 {
     if (i > size)
         return 0;

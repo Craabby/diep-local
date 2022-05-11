@@ -33,7 +33,7 @@ int main()
     //     .detach();
     std::thread([server]()
                 {
-        GameServer *gameServer = new GameServer(server, "sandbox", "*");
+        diep::server::GameServer *gameServer = new diep::server::GameServer(server, "sandbox", "*");
         delete gameServer; })
         .detach();
 

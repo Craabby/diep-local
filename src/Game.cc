@@ -13,7 +13,7 @@
 
 typedef websocketpp::server<websocketpp::config::asio> Server;
 
-GameServer::GameServer(Server *server, std::string gamemode, std::string endpoint)
+diep::server::GameServer::GameServer(Server *server, std::string gamemode, std::string endpoint)
     : server(server),
       gamemode(gamemode),
       endpoint(endpoint),
@@ -23,12 +23,12 @@ GameServer::GameServer(Server *server, std::string gamemode, std::string endpoin
     RunGameLoop();
 }
 
-GameServer::~GameServer()
+diep::server::GameServer::~GameServer()
 {
     delete arena;
 }
 
-void GameServer::RunGameLoop()
+void diep::server::GameServer::RunGameLoop()
 {
     while (true)
     {
@@ -49,28 +49,28 @@ void GameServer::RunGameLoop()
     }
 }
 
-void GameServer::Tick(uint32_t tick)
+void diep::server::GameServer::Tick(uint32_t tick)
 {
     tickCount++;
 
     entities.Tick(tick);
 }
 
-void GameServer::Listen()
+void diep::server::GameServer::Listen()
 {
     namespace placeholders = websocketpp::lib::placeholders;
     server->set_max_message_size(1024);
     server->set_open_handler([this](websocketpp::connection_hdl connection)
                              {
         std::cout << "client connected" << std::endl;
-        Client *client = new Client(server, connection, clients);
+        client::Client *client = new client::Client(server, connection, clients);
         clients.push_back(client); });
 
     server->set_close_handler([this](websocketpp::connection_hdl connection)
                               {
         for (size_t i = 0; i < clients.size(); i++)
         {
-            Client *client = clients.at(i);
+            client::Client *client = clients.at(i);
             server->get_con_from_hdl(client->socket.connection);
             if (server->get_con_from_hdl(client->socket.connection) == server->get_con_from_hdl(connection))
             {

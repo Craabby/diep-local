@@ -7,13 +7,13 @@
 
 typedef websocketpp::server<websocketpp::config::asio> Server;
 
-Message::Message(uint8_t *message, size_t length, websocketpp::connection_hdl connection)
-    : reader(Reader(message, length)),
+diep::server::socket::Message::Message(uint8_t *message, size_t length, websocketpp::connection_hdl connection)
+    : reader(diep::reader::Reader(message, length)),
       connection(connection)
 {
 }
 
-Socket::Socket(Server *server, websocketpp::connection_hdl connection)
+diep::server::socket::Socket::Socket(Server *server, websocketpp::connection_hdl connection)
     : server(server),
       connection(connection)
 {

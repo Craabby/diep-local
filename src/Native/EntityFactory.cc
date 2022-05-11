@@ -48,7 +48,7 @@ Entity CreateLivingObject(entt::registry *registry)
 
     return entity;
 }
-Entity CraeteTankBody(entt::registry *registry)
+Entity CreateTankBody(entt::registry *registry)
 {
     Entity entity = CreateLivingObject(registry);
 

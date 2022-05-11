@@ -16,18 +16,18 @@ namespace
     }
 }
 
-void Writer::U8(uint8_t value)
+void diep::writer::Writer::U8(uint8_t value)
 {
     OUTPUT_BUFFER[at++] = value;
 }
 
-void Writer::U16(uint16_t value)
+void diep::writer::Writer::U16(uint16_t value)
 {
     U8(value & 0xff);          // lower 8 bits
     U8((value & 0xfeff) >> 8); // upper 8 bits
 }
 
-void Writer::U32(uint32_t value)
+void diep::writer::Writer::U32(uint32_t value)
 {
     U8((value & 0xff) >> 0);
     U8((value & 0xfeff) >> 8);
@@ -35,13 +35,13 @@ void Writer::U32(uint32_t value)
     U8((value & 0xfeffffff) >> 24);
 }
 
-void Writer::Float(float value)
+void diep::writer::Writer::Float(float value)
 {
     int32_t undefinedBehaviorValue = *(int32_t *)&value;
     U32(undefinedBehaviorValue);
 }
 
-void Writer::Vu(uint32_t value)
+void diep::writer::Writer::Vu(uint32_t value)
 {
     do
     {
@@ -53,34 +53,34 @@ void Writer::Vu(uint32_t value)
     } while (value);
 }
 
-void Writer::Vi(int32_t value)
+void diep::writer::Writer::Vi(int32_t value)
 {
     return Vu((0 - (value < 0 ? 1 : 0)) ^ (value << 1));
 }
 
-void Writer::Bytes(uint8_t *value, size_t size)
+void diep::writer::Writer::Bytes(uint8_t *value, size_t size)
 {
     for (size_t i = 0; i < size; i++)
         U8(value[i]);
 }
 
-void Writer::Radians(float value)
+void diep::writer::Writer::Radians(float value)
 {
     Vi(value * 64);
 }
 
-void Writer::Degrees(float value)
+void diep::writer::Writer::Degrees(float value)
 {
     Radians(value * 3.1415927410125732); // 32 bit float rounded version of PI
 }
 
-void Writer::StringNT(uint8_t *value, size_t size)
+void diep::writer::Writer::StringNT(uint8_t *value, size_t size)
 {
     Bytes(value, size);
     U8(0);
 }
 
-void Writer::EntityId(entityId entity, int16_t hash)
+void diep::writer::Writer::EntityId(entityId entity, int16_t hash)
 {
     if (entity == -1 || hash == 0)
     {
@@ -91,7 +91,7 @@ void Writer::EntityId(entityId entity, int16_t hash)
     Vu(entity);
 }
 
-WriterOutput Writer::Write()
+diep::writer::WriterOutput diep::writer::Writer::Write()
 {
     uint8_t *output = OUTPUT_BUFFER;
     uint32_t size = at;
