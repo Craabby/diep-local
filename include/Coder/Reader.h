@@ -6,17 +6,10 @@
 
 namespace
 {
-    uint8_t convo[4];
-    uint8_t *u8 = convo;
-    uint16_t *u16 = (uint16_t *)convo;
-    int32_t *i32 = (int32_t *)convo;
-    uint32_t *u32 = (uint32_t *)convo;
-    float *f32 = (float *)convo;
-
     int32_t SwapEndian(int32_t number);
 }
 
-namespace diep::reader
+namespace diep::coder::reader
 {
     class Reader
     {

@@ -8,7 +8,7 @@
 typedef websocketpp::server<websocketpp::config::asio> Server;
 
 diep::server::socket::Message::Message(uint8_t *message, size_t length, websocketpp::connection_hdl connection)
-    : reader(diep::reader::Reader(message, length)),
+    : reader(diep::coder::reader::Reader(message, length)),
       connection(connection)
 {
 }

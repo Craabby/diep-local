@@ -8,6 +8,7 @@
 #include <websocketpp/server.hpp>
 
 #include <Client/Socket.h>
+#include <Coder/Writer.h>
 #include <Native/EntityFactory.h>
 
 typedef websocketpp::server<websocketpp::config::asio> Server;
@@ -41,6 +42,7 @@ namespace diep::server::client
         socket::Socket socket;
         Client(Server *server, websocketpp::connection_hdl connection, std::vector<Client *> clients);
         void Terminate();
+        void Send(coder::writer::Writer const &writer);
         size_t GetId() const;
     };
 }

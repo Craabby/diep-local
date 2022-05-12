@@ -15,7 +15,7 @@ namespace diep::server::socket
     public:
         Message(uint8_t *message, size_t length, websocketpp::connection_hdl connection);
 
-        diep::reader::Reader reader;
+        diep::coder::reader::Reader reader;
         websocketpp::connection_hdl connection;
     };
 

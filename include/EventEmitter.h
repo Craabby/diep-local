@@ -14,20 +14,17 @@ enum class EventId
 class EventEmitter
 {
 private:
-    std::unordered_map<EventId, std::vector<void (*)(void *)>> callbackList;
+    std::unordered_map<EventId, std::function<void(void *)>> callbackList;
 
 public:
     template <EventId id>
-    void On(void (*callback)(void *))
+    void On(std::function<void(void *)> callback)
     {
-        callbackList[id].push_back(callback);
+        callbackList[id] = callback;
     };
     template <EventId id>
     void Emit(void *argument = nullptr)
     {
-        for (void (*callback)(void *) : callbackList[id])
-        {
-            callback(argument);
-        }
+        callbackList.at(id)(argument);
     };
 };

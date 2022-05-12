@@ -32,8 +32,8 @@ namespace diep::server
         std::string endpoint;
         bool playersOnMap = false;
         std::vector<diep::server::client::Client *> clients;
-        ArenaEntity *arena;
         EntityManager entities;
+        ArenaEntity *arena;
 
         GameServer(Server *server, std::string gamemode, std::string endpoint);
         ~GameServer();

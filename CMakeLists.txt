@@ -30,7 +30,7 @@ set(SRCS
 
     set(CMAKE_CXX_FLAGS "-std=c++17 -g")
     set(THREADS_PREFER_PTHREAD_FLAG ON)
-set(CMAKE_CXX_COMPILER "/usr/bin/g++-8")
+set(CMAKE_CXX_COMPILER "/usr/bin/clang++")
 
 find_package(Threads REQUIRED)
 

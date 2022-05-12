@@ -6,18 +6,12 @@
 
 namespace
 {
-    uint8_t convo[4];
-    uint8_t *u8 = convo;
-    uint16_t *u16 = (uint16_t *)convo;
-    int32_t *i32 = (int32_t *)convo;
-    uint32_t *u32 = (uint32_t *)convo;
-    float *f32 = (float *)convo;
     uint8_t *OUTPUT_BUFFER = new uint8_t[1 << 20];
 
     int32_t SwapEndian(int32_t number);
 }
 
-namespace diep::writer
+namespace diep::coder::writer
 {
     struct WriterOutput
     {
@@ -30,8 +24,6 @@ namespace diep::writer
         size_t at = 0;
 
     public:
-        Writer();
-
         void U8(uint8_t value);
         void U16(uint16_t value);
         void U32(uint32_t value);
