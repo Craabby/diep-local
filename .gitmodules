@@ -1,0 +1,3 @@
+[submodule "ThirdParty/entt"]
+	path = ThirdParty/entt
+	url = https://github.com/Craabby/entt.git
