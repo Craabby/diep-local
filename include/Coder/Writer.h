@@ -24,18 +24,18 @@ namespace diep::coder::writer
         size_t at = 0;
 
     public:
-        void U8(uint8_t value);
-        void U16(uint16_t value);
-        void U32(uint32_t value);
-        void Float(float value);
-        void Vf(float value);
-        void Vu(uint32_t value);
-        void Vi(int32_t value);
-        void Bytes(uint8_t *value, size_t size);
-        void Radians(float value);
-        void Degrees(float value);
-        void StringNT(uint8_t *value, size_t size);
-        void EntityId(int16_t id, int16_t hash = 0);
+        Writer *U8(uint8_t value);
+        Writer *U16(uint16_t value);
+        Writer *U32(uint32_t value);
+        Writer *Float(float value);
+        Writer *Vf(float value);
+        Writer *Vu(uint32_t value);
+        Writer *Vi(int32_t value);
+        Writer *Bytes(uint8_t *value, size_t size);
+        Writer *Radians(float value);
+        Writer *Degrees(float value);
+        Writer *StringNT(std::string string);
+        Writer *EntityId(int16_t id, int16_t hash = 0);
         WriterOutput Write();
         size_t Size();
     };

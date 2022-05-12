@@ -16,32 +16,36 @@ namespace
     }
 }
 
-void diep::coder::writer::Writer::U8(uint8_t value)
+diep::coder::writer::Writer *diep::coder::writer::Writer::U8(uint8_t value)
 {
     OUTPUT_BUFFER[at++] = value;
+    return this;
 }
 
-void diep::coder::writer::Writer::U16(uint16_t value)
+diep::coder::writer::Writer *diep::coder::writer::Writer::U16(uint16_t value)
 {
     U8(value & 0xff);          // lower 8 bits
     U8((value & 0xfeff) >> 8); // upper 8 bits
+    return this;
 }
 
-void diep::coder::writer::Writer::U32(uint32_t value)
+diep::coder::writer::Writer *diep::coder::writer::Writer::U32(uint32_t value)
 {
     U8((value & 0xff) >> 0);
     U8((value & 0xfeff) >> 8);
     U8((value & 0xfeffff) >> 16);
     U8((value & 0xfeffffff) >> 24);
+    return this;
 }
 
-void diep::coder::writer::Writer::Float(float value)
+diep::coder::writer::Writer *diep::coder::writer::Writer::Float(float value)
 {
     int32_t undefinedBehaviorValue = *(int32_t *)&value;
     U32(undefinedBehaviorValue);
+    return this;
 }
 
-void diep::coder::writer::Writer::Vu(uint32_t value)
+diep::coder::writer::Writer *diep::coder::writer::Writer::Vu(uint32_t value)
 {
     do
     {
@@ -51,44 +55,58 @@ void diep::coder::writer::Writer::Vu(uint32_t value)
             part |= 0x80;
         U8(part);
     } while (value);
+
+    return this;
 }
 
-void diep::coder::writer::Writer::Vi(int32_t value)
+diep::coder::writer::Writer *diep::coder::writer::Writer::Vi(int32_t value)
 {
-    return Vu((0 - (value < 0 ? 1 : 0)) ^ (value << 1));
+    Vu((0 - (value < 0 ? 1 : 0)) ^ (value << 1));
+
+    return this;
 }
 
-void diep::coder::writer::Writer::Bytes(uint8_t *value, size_t size)
+diep::coder::writer::Writer *diep::coder::writer::Writer::Bytes(uint8_t *value, size_t size)
 {
     for (size_t i = 0; i < size; i++)
         U8(value[i]);
+
+    return this;
 }
 
-void diep::coder::writer::Writer::Radians(float value)
+diep::coder::writer::Writer *diep::coder::writer::Writer::Radians(float value)
 {
     Vi(value * 64);
+
+    return this;
 }
 
-void diep::coder::writer::Writer::Degrees(float value)
+diep::coder::writer::Writer *diep::coder::writer::Writer::Degrees(float value)
 {
     Radians(value * 3.1415927410125732); // 32 bit float rounded version of PI
+
+    return this;
 }
 
-void diep::coder::writer::Writer::StringNT(uint8_t *value, size_t size)
+diep::coder::writer::Writer *diep::coder::writer::Writer::StringNT(std::string string)
 {
-    Bytes(value, size);
+    Bytes((uint8_t *)string.c_str(), string.size());
     U8(0);
+
+    return this;
 }
 
-void diep::coder::writer::Writer::EntityId(entityId entity, int16_t hash)
+diep::coder::writer::Writer *diep::coder::writer::Writer::EntityId(entityId entity, int16_t hash)
 {
     if (entity == -1 || hash == 0)
     {
         U8(0);
-        return;
+        return this;
     }
     Vu(hash);
     Vu(entity);
+
+    return this;
 }
 
 diep::coder::writer::WriterOutput diep::coder::writer::Writer::Write()

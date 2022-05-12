@@ -63,7 +63,7 @@ void diep::server::GameServer::Listen()
     server->set_open_handler([this](websocketpp::connection_hdl connection)
                              {
         std::cout << "client connected" << std::endl;
-        client::Client *client = new client::Client(server, connection, clients);
+        client::Client *client = new client::Client(server, connection, this);
         clients.push_back(client); });
 
     server->set_close_handler([this](websocketpp::connection_hdl connection)
@@ -74,7 +74,7 @@ void diep::server::GameServer::Listen()
             server->get_con_from_hdl(client->socket.connection);
             if (server->get_con_from_hdl(client->socket.connection) == server->get_con_from_hdl(connection))
             {
-                client->socket.events.Emit<EventId::close>(     );
+                client->socket.events.Emit<EventId::close>();
                 clients.erase(clients.begin() + i);
                 delete client;
             }

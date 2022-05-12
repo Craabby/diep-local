@@ -9,9 +9,16 @@
 
 #include <Client/Socket.h>
 #include <Coder/Writer.h>
+#include <Native/Entity.h>
 #include <Native/EntityFactory.h>
+#include <Native/Manager.h>
 
 typedef websocketpp::server<websocketpp::config::asio> Server;
+
+namespace diep::server
+{
+    class GameServer;
+}
 
 namespace diep::server::client
 {
@@ -24,25 +31,20 @@ namespace diep::server::client
         FullAccess
     };
 
-    enum class PacketId
-    {
-        build = 0,
-        input = 1,
-        ping = 5,
-    };
-
     class Client
     {
-    private:
-        std::vector<Client *> clients;
-        uint32_t connectTick;
+        uint32_t connectTick = 0;
+        GameServer *gameServer;
 
     public:
-        bool terminated;
+        Entity *camera;
         socket::Socket socket;
-        Client(Server *server, websocketpp::connection_hdl connection, std::vector<Client *> clients);
+        bool terminated = false;
+
+        Client(Server *server, websocketpp::connection_hdl connection, GameServer *gameServer);
+
         void Terminate();
-        void Send(coder::writer::Writer const &writer);
+        void Send(coder::writer::Writer const &&writer);
         size_t GetId() const;
     };
 }

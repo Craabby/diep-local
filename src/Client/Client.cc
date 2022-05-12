@@ -7,12 +7,14 @@
 
 #include <Coder/Writer.h>
 #include <EventEmitter.h>
+#include <Game.h>
+#include <Native/Entity.h>
+#include <Native/EntityFactory.h>
+#include <Native/Manager.h>
 
-diep::server::client::Client::Client(Server *server, websocketpp::connection_hdl connection, std::vector<Client *> clients)
+diep::server::client::Client::Client(Server *server, websocketpp::connection_hdl connection, GameServer *gameServer)
     : socket(diep::server::socket::Socket(server, connection)),
-      terminated(false),
-      connectTick(0),
-      clients(clients)
+      gameServer(gameServer)
 {
     socket.server->get_con_from_hdl(socket.connection)->set_message_handler([this](websocketpp::connection_hdl connection, Server::message_ptr _message)
                                                                             {
@@ -25,22 +27,30 @@ diep::server::client::Client::Client(Server *server, websocketpp::connection_hdl
 
         if (packet->reader.size < 1) return;
 
-        PacketId header = (PacketId)packet->reader.U8();
+        uint8_t header = packet->reader.U8();
 
-        if (header == PacketId::build)
+        if (header == 0)
         {
+            if (camera)
+                return;
+            if (packet->reader.StringNT() != "6f59094d60f98fafc14371671d3ff31ef4d75d9e")
+                return;
 
+            Send(std::move(*coder::writer::Writer().U8(7)));
+            Send(std::move(*coder::writer::Writer().U8(4)->StringNT(this->gameServer->gamemode)->StringNT(this->gameServer->endpoint)));
+            Send(std::move(*coder::writer::Writer().U8(10)->Vu((uint32_t)this->gameServer->clients.size())));
+
+            return;
         }
-        else if (header == PacketId::ping)
+        if (header == 5)
         {
-            coder::writer::Writer writer;
-            writer.U8(5);
-            Send(writer);
+            Send(std::move(*coder::writer::Writer().U8(5)));
+
+            return;
         } });
 
     socket.events.On<EventId::close>([this](void *)
-                                     {
-        Terminate(); });
+                                     { Terminate(); });
 }
 
 void diep::server::client::Client::Terminate()
@@ -53,7 +63,6 @@ size_t diep::server::client::Client::GetId() const
     return 0;
 }
 
-void diep::server::client::Client::Send(coder::writer::Writer const &writer)
+void diep::server::client::Client::Send(coder::writer::Writer const &&writer)
 {
-
 }

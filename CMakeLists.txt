@@ -10,7 +10,6 @@ set(SRCS
     src/Gamemodes/SandboxArena.cc
     src/main.cc
     src/Native/Arena.cc
-    src/Native/Camera.cc
     src/Native/Component/Arena.cc
     src/Native/Component/Barrel.cc
     src/Native/Component/Camera.cc

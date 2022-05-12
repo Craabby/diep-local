@@ -5,7 +5,7 @@
 #include <entt/entt.hpp>
 
 #include <Physics/CollisionManager.h>
-#include <Native/EntityFactory.h>
+#include <Native/Entity.h>
 
 class EntityManager
 {
@@ -16,7 +16,7 @@ public:
     uint32_t zIndex = 0;
     std::vector<entityId> cameras;
     std::vector<entityId> otherEntities;
-    entityId *inner[16384];
+    Entity *inner[16384];
     uint8_t hashTable[16384];
     entityId lastId = -1;
     entt::registry registry;
