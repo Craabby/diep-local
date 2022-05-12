@@ -5,26 +5,28 @@
 #include <unordered_map>
 #include <vector>
 
-enum class EventId
+enum class EventId : size_t
 {
     packet,
     close,
+
+    maxEventId
 };
 
 class EventEmitter
 {
 private:
-    std::unordered_map<EventId, std::function<void(void *)>> callbackList;
+    std::array<std::function<void(void *)>, (size_t)EventId::maxEventId> callbackList;
 
 public:
     template <EventId id>
     void On(std::function<void(void *)> callback)
     {
-        callbackList[id] = callback;
+        callbackList[(size_t)id] = callback;
     };
     template <EventId id>
     void Emit(void *argument = nullptr)
     {
-        callbackList.at(id)(argument);
+        callbackList[(size_t)id](argument);
     };
 };

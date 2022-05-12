@@ -74,7 +74,7 @@ void diep::server::GameServer::Listen()
             server->get_con_from_hdl(client->socket.connection);
             if (server->get_con_from_hdl(client->socket.connection) == server->get_con_from_hdl(connection))
             {
-                client->socket.events.Emit<EventId::close>((void *)client);
+                client->socket.events.Emit<EventId::close>(     );
                 clients.erase(clients.begin() + i);
                 delete client;
             }

@@ -38,10 +38,9 @@ diep::server::client::Client::Client(Server *server, websocketpp::connection_hdl
             Send(writer);
         } });
 
-    socket.events.On<EventId::close>([](void *_client)
+    socket.events.On<EventId::close>([this](void *)
                                      {
-        Client *client = (Client *)_client;
-        client->Terminate(); });
+        Terminate(); });
 }
 
 void diep::server::client::Client::Terminate()
