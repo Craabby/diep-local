@@ -36,7 +36,7 @@ namespace diep::coder::writer
         Writer *Degrees(float value);
         Writer *StringNT(std::string string);
         Writer *EntityId(int16_t id, int16_t hash = 0);
-        WriterOutput Write();
+        WriterOutput Write() const;
         size_t Size();
     };
 }

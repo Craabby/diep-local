@@ -109,7 +109,7 @@ diep::coder::writer::Writer *diep::coder::writer::Writer::EntityId(entityId enti
     return this;
 }
 
-diep::coder::writer::WriterOutput diep::coder::writer::Writer::Write()
+diep::coder::writer::WriterOutput diep::coder::writer::Writer::Write() const
 {
     uint8_t *output = OUTPUT_BUFFER;
     uint32_t size = at;

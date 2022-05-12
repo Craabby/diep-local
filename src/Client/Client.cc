@@ -5,6 +5,8 @@
 #include <iostream>
 #include <vector>
 
+#include <websocketpp/frame.hpp>
+
 #include <Coder/Writer.h>
 #include <EventEmitter.h>
 #include <Game.h>
@@ -31,6 +33,7 @@ diep::server::client::Client::Client(Server *server, websocketpp::connection_hdl
 
         if (header == 0)
         {
+            std::cout << "recieved init packet" << std::endl;
             if (camera)
                 return;
             if (packet->reader.StringNT() != "6f59094d60f98fafc14371671d3ff31ef4d75d9e")
@@ -65,4 +68,5 @@ size_t diep::server::client::Client::GetId() const
 
 void diep::server::client::Client::Send(coder::writer::Writer const &&writer)
 {
+    socket.server->send(socket.connection, std::string((const char *)writer.Write().output, writer.Write().size), websocketpp::frame::opcode::value::binary);
 }
