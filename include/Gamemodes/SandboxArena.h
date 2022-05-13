@@ -4,8 +4,13 @@
 
 #include <Native/Arena.h>
 
+namespace diep::server
+{
+    class GameServer;
+}
+
 class SandboxArena : public ArenaEntity
 {
 public:
-    SandboxArena(entt::registry *registry);
+    SandboxArena(diep::server::GameServer *gameServer);
 };

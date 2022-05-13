@@ -3,6 +3,12 @@
 #include <entt/entity/registry.hpp>
 
 #include <Native/Component/types.h>
+#include <Native/Entity.h>
+
+namespace diep::server
+{
+    class GameServer;
+}
 
 using entityId = int16_t;
 
@@ -18,9 +24,11 @@ class Entity
 public:
     EntityStateFlags state = EntityStateFlags::needsCreate;
     std::vector<FieldGroupId> fieldGroups{};
-    entt::registry *registry;
+    diep::server::GameServer *gameServer;
     entt::entity entity;
     entityId id = -1;
+    uint8_t hash = 0;
+    uint8_t preservedHash = 0;
 
-    Entity(entt::registry *registry);
+    Entity(diep::server::GameServer *gameServer);
 };

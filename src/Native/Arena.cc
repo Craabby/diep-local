@@ -2,7 +2,9 @@
 
 #include <entt/entity/registry.hpp>
 
-ArenaEntity::ArenaEntity(entt::registry *registry)
-    : Entity(registry)
+#include <Game.h>
+
+ArenaEntity::ArenaEntity(diep::server::GameServer *gameServer)
+    : Entity(gameServer)
 {
 }

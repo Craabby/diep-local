@@ -2,7 +2,9 @@
 
 #include <entt/entity/registry.hpp>
 
-SandboxArena::SandboxArena(entt::registry *registry)
-    : ArenaEntity(registry)
+#include <Game.h>
+
+SandboxArena::SandboxArena(diep::server::GameServer *gameServer)
+    : ArenaEntity(gameServer)
 {
 }

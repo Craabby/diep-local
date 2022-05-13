@@ -37,7 +37,7 @@ namespace diep::server::client
         GameServer *gameServer;
 
     public:
-        Entity *camera;
+        Entity *camera = nullptr;
         socket::Socket socket;
         bool terminated = false;
 

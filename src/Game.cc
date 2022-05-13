@@ -17,7 +17,7 @@ diep::server::GameServer::GameServer(Server *server, std::string gamemode, std::
     : server(server),
       gamemode(gamemode),
       endpoint(endpoint),
-      arena(new SandboxArena(&entities.registry))
+      arena(new SandboxArena(this))
 {
     Listen();
     RunGameLoop();

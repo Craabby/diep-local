@@ -39,12 +39,19 @@ diep::server::client::Client::Client(Server *server, websocketpp::connection_hdl
             if (packet->reader.StringNT() != "6f59094d60f98fafc14371671d3ff31ef4d75d9e")
                 return;
 
+
             Send(std::move(*coder::writer::Writer().U8(7)));
             Send(std::move(*coder::writer::Writer().U8(4)->StringNT(this->gameServer->gamemode)->StringNT(this->gameServer->endpoint)));
             Send(std::move(*coder::writer::Writer().U8(10)->Vu((uint32_t)this->gameServer->clients.size())));
 
+            camera = CreateCamera(this->gameServer);
+
             return;
         }
+
+        if (!camera)
+            return;
+
         if (header == 5)
         {
             Send(std::move(*coder::writer::Writer().U8(5)));
@@ -59,11 +66,16 @@ diep::server::client::Client::Client(Server *server, websocketpp::connection_hdl
 void diep::server::client::Client::Terminate()
 {
     terminated = true;
+    if (camera != nullptr)
+    {
+        gameServer->entities.Remove(camera);
+        delete camera;
+    };
 }
 
 size_t diep::server::client::Client::GetId() const
 {
-    return 0;
+    return camera->id;
 }
 
 void diep::server::client::Client::Send(coder::writer::Writer const &&writer)

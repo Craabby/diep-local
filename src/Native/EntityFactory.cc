@@ -4,6 +4,7 @@
 
 #include <entt/entity/registry.hpp>
 
+#include <Game.h>
 #include <Native/Component/Arena.h>
 #include <Native/Component/Barrel.h>
 #include <Native/Component/Camera.h>
@@ -17,47 +18,43 @@
 #include <Native/Component/Style.h>
 #include <Native/Component/Team.h>
 
-Entity CreateObject(entt::registry *registry)
+Entity *CreateObject(diep::server::GameServer *gameServer)
 {
-    Entity entity = Entity(registry);
-    entt::entity enttEntity = registry->create();
-    entity.entity = enttEntity;
+    Entity *entity = new Entity(gameServer);
 
-    registry->emplace<RelationsComponent>(enttEntity, entity.id);
-    registry->emplace<PhysicsComponent>(enttEntity, entity.id);
-    registry->emplace<PositionComponent>(enttEntity, entity.id);
-    registry->emplace<StyleComponent>(enttEntity, entity.id);
+    entity->gameServer->entities.registry.emplace<RelationsComponent>(entity->entity, entity->id);
+    entity->gameServer->entities.registry.emplace<PhysicsComponent>(entity->entity, entity->id);
+    entity->gameServer->entities.registry.emplace<PositionComponent>(entity->entity, entity->id);
+    entity->gameServer->entities.registry.emplace<StyleComponent>(entity->entity, entity->id);
 
     return entity;
 }
-Entity CreateCamera(entt::registry *registry)
+Entity *CreateCamera(diep::server::GameServer *gameServer)
 {
-    Entity entity = Entity(registry);
-    entt::entity enttEntity = registry->create();
-    entity.entity = enttEntity;
+    Entity *entity = new Entity(gameServer);
 
-    registry->emplace<CameraComponent>(enttEntity, entity.id);
+    entity->gameServer->entities.registry.emplace<CameraComponent>(entity->entity, entity->id);
 
     return entity;
 }
-Entity CreateLivingObject(entt::registry *registry)
+Entity *CreateLivingObject(diep::server::GameServer *gameServer)
 {
-    Entity entity = CreateObject(registry);
+    Entity *entity = CreateObject(gameServer);
 
-    registry->emplace<HealthComponent>(entity.entity, entity.id);
+    entity->gameServer->entities.registry.emplace<HealthComponent>(entity->entity, entity->id);
 
     return entity;
 }
-Entity CreateTankBody(entt::registry *registry)
+Entity *CreateTankBody(diep::server::GameServer *gameServer)
 {
-    Entity entity = CreateLivingObject(registry);
+    Entity *entity = CreateLivingObject(gameServer);
 
-    registry->emplace<NameComponent>(entity.entity, entity.id);
-    registry->emplace<ScoreComponent>(entity.entity, entity.id);
+    entity->gameServer->entities.registry.emplace<NameComponent>(entity->entity, entity->id);
+    entity->gameServer->entities.registry.emplace<ScoreComponent>(entity->entity, entity->id);
 
     return entity;
 }
-Entity CreateBarrel(entt::registry *registry)
+Entity *CreateBarrel(diep::server::GameServer *gameServer)
 {
-    return CreateObject(registry);
+    return CreateObject(gameServer);
 }

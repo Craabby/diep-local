@@ -4,8 +4,13 @@
 
 #include <Native/EntityFactory.h>
 
+namespace diep::server
+{
+    class GameServer;
+}
+
 class ArenaEntity : public Entity
 {
 public:
-    ArenaEntity(entt::registry *registry);
+    ArenaEntity(diep::server::GameServer *gameServer);
 };

@@ -19,9 +19,14 @@
 #include <Native/Component/Team.h>
 #include <Native/Entity.h>
 
-Entity CreateArena(entt::registry *registry);
-Entity CreateCamera(entt::registry *registry);
-Entity CreateLivingObject(entt::registry *registry);
-Entity CreateObject(entt::registry *registry);
-Entity CreateTankBody(entt::registry *registry);
-Entity CreateBarrel(entt::registry *registry);
+namespace diep::server
+{
+    class GameServer;
+}
+
+Entity *CreateArena(diep::server::GameServer *gameServer);
+Entity *CreateCamera(diep::server::GameServer *gameServer);
+Entity *CreateLivingObject(diep::server::GameServer *gameServer);
+Entity *CreateObject(diep::server::GameServer *gameServer);
+Entity *CreateTankBody(diep::server::GameServer *gameServer);
+Entity *CreateBarrel(diep::server::GameServer *gameServer);

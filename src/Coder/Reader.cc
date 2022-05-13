@@ -73,9 +73,10 @@ float diep::coder::reader::Reader::Vf()
 std::string diep::coder::reader::Reader::StringNT()
 {
     std::string string;
-    while ((*this)[at++])
+    while ((*this)[at] != 0)
     {
         string += (*this)[at];
+        at++;
     };
 
     return string;
