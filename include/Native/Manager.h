@@ -7,12 +7,18 @@
 #include <Physics/CollisionManager.h>
 #include <Native/Entity.h>
 
+namespace diep::server
+{
+    class GameServer;
+};
+
 class EntityManager
 {
 public:
     using entityId = int16_t;
 
     DiepSpatialHashing collisionManager;
+    diep::server::GameServer *gameServer;
     uint32_t zIndex = 0;
     std::vector<entityId> cameras;
     std::vector<entityId> otherEntities;
@@ -21,10 +27,11 @@ public:
     entityId lastId = -1;
     entt::registry registry;
 
-    EntityManager();
+    EntityManager(diep::server::GameServer *gameServer);
 
     void Tick(uint32_t tick);
     bool Exists(entityId id);
     entityId Add(Entity *entity);
     void Remove(Entity *entity);
+    void Clear();
 };

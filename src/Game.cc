@@ -10,6 +10,7 @@
 
 #include <Client/Client.h>
 #include <Gamemodes/SandboxArena.h>
+#include <Native/EntityFactory.h>
 
 typedef websocketpp::server<websocketpp::config::asio> Server;
 
@@ -17,8 +18,12 @@ diep::server::GameServer::GameServer(Server *server, std::string gamemode, std::
     : server(server),
       gamemode(gamemode),
       endpoint(endpoint),
-      arena(new SandboxArena(this))
+      arena(CreateArena(this)),
+      entities(EntityManager(this))
 {
+    std::cout << "inserting arena" << std::endl;
+    arena->Insert();
+
     Listen();
     RunGameLoop();
 }

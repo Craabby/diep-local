@@ -5,6 +5,5 @@
 #include <Game.h>
 
 ArenaEntity::ArenaEntity(diep::server::GameServer *gameServer)
-    : Entity(gameServer)
 {
 }

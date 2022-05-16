@@ -8,7 +8,9 @@
 #include <websocketpp/server.hpp>
 
 #include <Client/Client.h>
+#include <Gamemodes/SandboxArena.h>
 #include <Native/Arena.h>
+#include <Native/Entity.h>
 #include <Native/Manager.h>
 
 typedef websocketpp::server<websocketpp::config::asio> Server;
@@ -33,9 +35,15 @@ namespace diep::server
         bool playersOnMap = false;
         std::vector<diep::server::client::Client *> clients;
         EntityManager entities;
-        ArenaEntity *arena;
+        Entity *arena;
 
         GameServer(Server *server, std::string gamemode, std::string endpoint);
         ~GameServer();
+
+        template <typename Component>
+        void AppendComponentToEntity(Entity *entity)
+        {
+            entities.registry.emplace<Component>(entity->entity, entity->id);
+        }
     };
 }

@@ -31,4 +31,6 @@ public:
     uint8_t preservedHash = 0;
 
     Entity(diep::server::GameServer *gameServer);
+
+    void Insert();
 };

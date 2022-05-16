@@ -22,10 +22,10 @@ Entity *CreateObject(diep::server::GameServer *gameServer)
 {
     Entity *entity = new Entity(gameServer);
 
-    entity->gameServer->entities.registry.emplace<RelationsComponent>(entity->entity, entity->id);
-    entity->gameServer->entities.registry.emplace<PhysicsComponent>(entity->entity, entity->id);
-    entity->gameServer->entities.registry.emplace<PositionComponent>(entity->entity, entity->id);
-    entity->gameServer->entities.registry.emplace<StyleComponent>(entity->entity, entity->id);
+    entity->gameServer->AppendComponentToEntity<RelationsComponent>(entity);
+    entity->gameServer->AppendComponentToEntity<PhysicsComponent>(entity);
+    entity->gameServer->AppendComponentToEntity<PositionComponent>(entity);
+    entity->gameServer->AppendComponentToEntity<StyleComponent>(entity);
 
     return entity;
 }
@@ -33,7 +33,7 @@ Entity *CreateCamera(diep::server::GameServer *gameServer)
 {
     Entity *entity = new Entity(gameServer);
 
-    entity->gameServer->entities.registry.emplace<CameraComponent>(entity->entity, entity->id);
+    entity->gameServer->AppendComponentToEntity<CameraComponent>(entity);
 
     return entity;
 }
@@ -41,7 +41,7 @@ Entity *CreateLivingObject(diep::server::GameServer *gameServer)
 {
     Entity *entity = CreateObject(gameServer);
 
-    entity->gameServer->entities.registry.emplace<HealthComponent>(entity->entity, entity->id);
+    entity->gameServer->AppendComponentToEntity<HealthComponent>(entity);
 
     return entity;
 }
@@ -49,12 +49,21 @@ Entity *CreateTankBody(diep::server::GameServer *gameServer)
 {
     Entity *entity = CreateLivingObject(gameServer);
 
-    entity->gameServer->entities.registry.emplace<NameComponent>(entity->entity, entity->id);
-    entity->gameServer->entities.registry.emplace<ScoreComponent>(entity->entity, entity->id);
+    entity->gameServer->AppendComponentToEntity<NameComponent>(entity);
+    entity->gameServer->AppendComponentToEntity<ScoreComponent>(entity);
 
     return entity;
 }
 Entity *CreateBarrel(diep::server::GameServer *gameServer)
 {
     return CreateObject(gameServer);
+}
+
+Entity *CreateArena(diep::server::GameServer *gameServer)
+{
+    Entity *entity = new Entity(gameServer);
+
+    entity->gameServer->AppendComponentToEntity<ArenaComponent>(entity);
+
+    return entity;
 }

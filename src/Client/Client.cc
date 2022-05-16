@@ -46,6 +46,8 @@ diep::server::client::Client::Client(Server *server, websocketpp::connection_hdl
 
             camera = CreateCamera(this->gameServer);
 
+            camera->Insert();
+
             return;
         }
 

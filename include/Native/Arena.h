@@ -9,7 +9,7 @@ namespace diep::server
     class GameServer;
 }
 
-class ArenaEntity : public Entity
+class ArenaEntity
 {
 public:
     ArenaEntity(diep::server::GameServer *gameServer);
