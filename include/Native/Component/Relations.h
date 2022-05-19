@@ -16,17 +16,18 @@ class RelationsComponent
         entityId parent = -1;
         entityId owner = -1;
         entityId team = -1;
-    } values;
+    } netProperties;
 
 public:
     entityId entity;
+    bool isChild = false;
 
     static constexpr FieldGroupId id = FieldGroupId::relations;
     std::vector<std::string> fields{"parent", "owner", "team"};
 
     RelationsComponent(entityId entity);
 
-    void wipe();
+    void Wipe();
 
     entityId Parent();
     entityId Owner();

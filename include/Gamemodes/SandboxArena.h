@@ -2,14 +2,14 @@
 
 #include <entt/entity/registry.hpp>
 
-#include <Native/Arena.h>
+#include <Native/Entity.h>
 
 namespace diep::server
 {
     class GameServer;
 }
 
-class SandboxArena : public ArenaEntity
+class SandboxArena : public Entity
 {
 public:
     SandboxArena(diep::server::GameServer *gameServer);

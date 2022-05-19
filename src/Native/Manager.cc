@@ -3,8 +3,9 @@
 #include <iostream>
 
 #include <Game.h>
-#include <Native/Component/Camera.h>
 #include <Native/Component/Arena.h>
+#include <Native/Component/Camera.h>
+#include <Native/Component/Relations.h>
 
 EntityManager::EntityManager(diep::server::GameServer *gameServer)
     : gameServer(gameServer)
@@ -13,13 +14,72 @@ EntityManager::EntityManager(diep::server::GameServer *gameServer)
 
 void EntityManager::Tick(uint32_t tick)
 {
-    auto view = registry.view<ArenaComponent>();
-
-    ArenaComponent &arenaComponent = view.get<ArenaComponent>(gameServer->arena->entity);
+    ArenaComponent &arenaComponent = registry.get<ArenaComponent>(gameServer->arena->entity);
 
     while (!inner[lastId] && lastId >= 0)
     {
         lastId--;
+    }
+
+    for (entityId id = 0; id <= lastId; id++)
+    {
+        if (!Exists(id))
+            continue;
+
+        Entity *entity = inner[id];
+
+        if (registry.all_of<PositionComponent, PhysicsComponent, RelationsComponent>(entity->entity) && (!registry.get<RelationsComponent>(entity->entity).isChild))
+        {
+            PositionComponent &positionComponent = registry.get<PositionComponent>(entity->entity);
+            PhysicsComponent &physicsComponent = registry.get<PhysicsComponent>(entity->entity);
+
+            [&]
+            {
+            for (size_t i = 0; i < cameras.size(); i++)
+            {
+                Entity *camera = inner[cameras.at(i)];
+                CameraComponent &cameraComponent = registry.get<CameraComponent>(camera->entity);
+                float deltaX = (cameraComponent.CameraX() - positionComponent.X());
+                float deltaY = (cameraComponent.CameraY() - positionComponent.Y());
+                float entityFov = 4500 + physicsComponent.Size() + physicsComponent.Width();
+                if ((deltaX * deltaX + deltaY * deltaY) < entityFov)
+                {
+                    collisionManager.InsertEntity(entity);
+                    entity->isViewed = true;
+                    return;
+                }
+
+                entity->isViewed = false;
+            } }();
+        }
+
+        for (entityId id = 0; id <= lastId; id++)
+        {
+            if (!Exists(id))
+                continue;
+            
+            Entity *entity = inner[id];
+
+            entity->WipeState();
+        }
+    }
+
+    for (entityId id = 0; id <= lastId; id++)
+    {
+        if (!Exists(id))
+            continue;
+
+        Entity *entity = inner[id];
+
+        if (!registry.all_of<PhysicsComponent>(entity->entity))
+            continue;
+
+        registry.get<PhysicsComponent>(entity->entity).ApplyPhysics();
+    }
+
+    for (size_t i = 0; i < cameras.size(); i++)
+    {
+        registry.get<CameraComponent>(inner[cameras.at(i)]->entity).Tick(tick);
     }
 }
 
@@ -48,7 +108,7 @@ entityId EntityManager::Add(Entity *entity)
         if (lastId < id)
             lastId = entity->id;
 
-        std::cout << "allocated new id " << id << std::endl;
+        std::cout << "allocated new id " << id << " to Entity " << entity << std::endl;
 
         return id;
     }

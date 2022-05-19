@@ -9,7 +9,6 @@
 
 #include <Client/Client.h>
 #include <Gamemodes/SandboxArena.h>
-#include <Native/Arena.h>
 #include <Native/Entity.h>
 #include <Native/Manager.h>
 
@@ -40,10 +39,12 @@ namespace diep::server
         GameServer(Server *server, std::string gamemode, std::string endpoint);
         ~GameServer();
 
-        template <typename Component>
+        template <class Component>
         void AppendComponentToEntity(Entity *entity)
         {
+            std::cout << "emplacing component #" << std::to_string((uint8_t)Component::id) << " to Entity " << entity << std::endl;
             entities.registry.emplace<Component>(entity->entity, entity->id);
+            entity->fieldGroups.push_back(Component::id);
         }
     };
 }

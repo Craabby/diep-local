@@ -16,27 +16,27 @@ class CameraComponent
 {
     struct
     {
-        uint8_t GUIunknown;
-        uint8_t camera;
-        uint8_t player;
-        uint8_t FOV;
-        uint8_t level;
-        uint8_t tank;
-        uint8_t levelbarProgress;
-        uint8_t levelbarMax;
-        uint8_t statsAvailable;
-        uint8_t statNames;
-        uint8_t statLevels;
-        uint8_t statLimits;
-        uint8_t cameraX;
-        uint8_t cameraY;
-        uint8_t scorebar;
-        uint8_t respawnLevel;
-        uint8_t killedBy;
-        uint8_t spawnTick;
-        uint8_t deathTick;
-        uint8_t tankOverride;
-        uint8_t movementSpeed;
+        uint8_t GUIunknown = 0;
+        uint8_t camera = 0;
+        uint8_t player = 0;
+        uint8_t FOV = 0;
+        uint8_t level = 0;
+        uint8_t tank = 0;
+        uint8_t levelbarProgress = 0;
+        uint8_t levelbarMax = 0;
+        uint8_t statsAvailable = 0;
+        uint8_t statNames = 0;
+        uint8_t statLevels = 0;
+        uint8_t statLimits = 0;
+        uint8_t cameraX = 0;
+        uint8_t cameraY = 0;
+        uint8_t scorebar = 0;
+        uint8_t respawnLevel = 0;
+        uint8_t killedBy = 0;
+        uint8_t spawnTick = 0;
+        uint8_t deathTick = 0;
+        uint8_t tankOverride = 0;
+        uint8_t movementSpeed = 0;
     } state;
     struct Values
     {
@@ -65,7 +65,7 @@ class CameraComponent
         float movementSpeed = 0;
 
         Values(CameraComponent *owner) : owner(owner) {}
-    } values{this};
+    } netProperties{this};
 
 public:
     entityId entity;
@@ -75,7 +75,8 @@ public:
 
     CameraComponent(entityId entity);
 
-    void wipe();
+    void Wipe();
+    void Tick(uint32_t tick);
 
     int16_t GuiUnknown();
     uint32_t Camera();

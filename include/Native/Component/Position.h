@@ -6,10 +6,10 @@ class PositionComponent
 {
     struct
     {
-        uint8_t x;
-        uint8_t y;
-        uint8_t angle;
-        uint8_t motion;
+        uint8_t x = 0;
+        uint8_t y = 0;
+        uint8_t angle = 0;
+        uint8_t motion = 0;
     } state;
     struct
     {
@@ -17,7 +17,7 @@ class PositionComponent
         int32_t y;
         uint32_t angle;
         uint32_t motion;
-    } values;
+    } netProperties;
 
 public:
     entityId entity;

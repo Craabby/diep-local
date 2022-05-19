@@ -2,14 +2,21 @@
 
 #include <cstdint>
 
+#include <entt/entity/registry.hpp>
+
+#include <Game.h>
+#include <Native/Entity.h>
+#include <Native/Component/Physics.h>
+#include <Native/Component/Position.h>
+
 Box::Box(int32_t x, int32_t y, int32_t w, int32_t h, int16_t id)
-            : x(x),
-              y(y),
-              w(w),
-              h(h),
-              id(id)
-        {
-        }
+    : x(x),
+      y(y),
+      w(w),
+      h(h),
+      id(id)
+{
+}
 
 uint32_t SpatialHashing::GetHash(int32_t x, int32_t y)
 {
@@ -28,12 +35,12 @@ void SpatialHashing::Clear()
     }
 }
 
-void SpatialHashing::Insert(Box *box)
+void SpatialHashing::Insert(Box &&box)
 {
-    int32_t startX = (box->x - box->w) >> CELL_FACTOR;
-    int32_t startY = (box->y - box->h) >> CELL_FACTOR;
-    int32_t endX = (box->x + box->w) >> CELL_FACTOR;
-    int32_t endY = (box->y + box->h) >> CELL_FACTOR;
+    int32_t startX = (box.x - box.w) >> CELL_FACTOR;
+    int32_t startY = (box.y - box.h) >> CELL_FACTOR;
+    int32_t endX = (box.x + box.w) >> CELL_FACTOR;
+    int32_t endY = (box.y + box.h) >> CELL_FACTOR;
 
     for (int32_t x = startX; x <= endX; x++)
     {
@@ -41,12 +48,12 @@ void SpatialHashing::Insert(Box *box)
         {
             int32_t key = GetHash(x, y);
 
-            cells[key].push_back(box);
+            cells[key].push_back(&box);
         }
     }
 }
 
-std::vector<int16_t> SpatialHashing::Query(Box &box)
+std::vector<int16_t> SpatialHashing::Query(Box &&box)
 {
     std::vector<int16_t> found{};
 
@@ -82,4 +89,16 @@ std::vector<int16_t> SpatialHashing::Query(Box &box)
 void DiepSpatialHashing::Reset()
 {
     Clear();
+}
+
+void DiepSpatialHashing::InsertEntity(Entity *entity)
+{
+    PhysicsComponent &physics = gameServer->entities.registry.get<PhysicsComponent>(entity->entity);
+    PositionComponent &position = gameServer->entities.registry.get<PositionComponent>(entity->entity);
+    Insert(Box{
+        (int32_t)(position.X()),
+        (int32_t)(position.Y()),
+        (int32_t)(physics.Sides() == 2 ? physics.Size() / 2 : physics.Size()),
+        (int32_t)(physics.Sides() == 2 ? physics.Width() / 2 : physics.Size()),
+        entity->id});
 }

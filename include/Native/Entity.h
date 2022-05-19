@@ -29,8 +29,10 @@ public:
     entityId id = -1;
     uint8_t hash = 0;
     uint8_t preservedHash = 0;
+    bool isViewed = false;
 
     Entity(diep::server::GameServer *gameServer);
 
     void Insert();
+    void WipeState();
 };

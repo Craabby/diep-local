@@ -6,10 +6,10 @@ class TeamComponent
 {
     struct
     {
-        uint8_t teamColor;
-        uint8_t mothershipX;
-        uint8_t mothershipY;
-        uint8_t mothership;
+        uint8_t teamColor = 0;
+        uint8_t mothershipX = 0;
+        uint8_t mothershipY = 0;
+        uint8_t mothership = 0;
     } state;
     struct
     {
@@ -17,7 +17,7 @@ class TeamComponent
         float mothershipX;
         float mothershipY;
         uint32_t mothership;
-    } values;
+    } netProperties;
 
 public:
     entityId entity;

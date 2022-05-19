@@ -13,7 +13,7 @@ class NameComponent
     {
         uint32_t nametag = 0;
         std::string name;
-    } values;
+    } netProperties;
 
 public:
     entityId entity;

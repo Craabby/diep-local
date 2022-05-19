@@ -52,7 +52,7 @@ class ArenaComponent
         uint32_t ticksUntilStart = 250;
 
         Values(ArenaComponent *owner) : owner(owner) {}
-    } values{this};
+    } netProperties{this};
 
 public:
     entityId entity;

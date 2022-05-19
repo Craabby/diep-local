@@ -6,11 +6,11 @@ class StyleComponent
 {
     struct
     {
-        uint8_t styleFlags;
-        uint8_t color;
-        uint8_t borderThickness;
-        uint8_t opacity;
-        uint8_t zIndex;
+        uint8_t styleFlags = 0;
+        uint8_t color = 0;
+        uint8_t borderThickness = 0;
+        uint8_t opacity = 0;
+        uint8_t zIndex = 0;
     } state;
     struct
     {
@@ -19,7 +19,7 @@ class StyleComponent
         int32_t borderThickness = 480;
         float opacity = 1;
         uint32_t zIndex = 0;
-    } values;
+    } netProperties;
 
 public:
     entityId entity;

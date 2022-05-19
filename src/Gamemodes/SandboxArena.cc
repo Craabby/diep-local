@@ -5,6 +5,6 @@
 #include <Game.h>
 
 SandboxArena::SandboxArena(diep::server::GameServer *gameServer)
-    : ArenaEntity(gameServer)
+    : Entity(gameServer)
 {
 }

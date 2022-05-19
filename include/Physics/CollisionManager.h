@@ -4,7 +4,12 @@
 #include <unordered_set>
 #include <vector>
 
-#include <Entity/Object.h>
+#include <Native/Entity.h>
+
+namespace diep::server
+{
+    class GameServer;
+}
 
 namespace
 {
@@ -32,8 +37,8 @@ namespace
         static uint32_t GetHash(int32_t x, int32_t y);
 
     public:
-        void Insert(Box *box);
-        std::vector<int16_t> Query(Box &box);
+        void Insert(Box &&box);
+        std::vector<int16_t> Query(Box &&box);
         void Clear();
     };
 };
@@ -41,6 +46,7 @@ namespace
 class DiepSpatialHashing : private SpatialHashing
 {
 public:
-    void InsertEntity(ObjectEntity entity);
+    diep::server::GameServer *gameServer;
+    void InsertEntity(Entity *entity);
     void Reset();
 };

@@ -15,7 +15,7 @@ class HealthComponent
         uint32_t healthbar = 0;
         float health = 1;
         float maxHealth = 1;
-    } values;
+    } netProperties;
 
 public:
     entityId entity;

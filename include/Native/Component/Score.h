@@ -11,7 +11,7 @@ class ScoreComponent
     struct
     {
         float score = 0;
-    } values;
+    } netProperties;
 
 public:
     entityId entity;

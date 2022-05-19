@@ -17,7 +17,7 @@ private:
         uint32_t shooting = 0;
         float reloadTime = 15;
         float trapezoidalDir = 0;
-    } values;
+    } netProperties;
 
 public:
     entityId entity;
@@ -27,7 +27,7 @@ public:
 
     BarrelComponent(entityId entity);
 
-    void wipe();
+    void Wipe();
 
     uint32_t Shooting();
     float ReloadTime();

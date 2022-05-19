@@ -21,7 +21,7 @@ class PhysicsComponent
         float width = 0;
         float absorbtionFactor = 1;
         float pushFactor = 8;
-    } values;
+    } netProperties;
 
 public:
     entityId entity;
@@ -30,6 +30,8 @@ public:
     std::vector<std::string> fields{"objectFlags", "sides", "size", "width", "absorbtionFactor", "pushFactor"};
 
     PhysicsComponent(entityId entity);
+
+    void ApplyPhysics();
 
     void Wipe();
 
