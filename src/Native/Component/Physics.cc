@@ -1,6 +1,8 @@
 #include <Native/Component/Physics.h>
 
-PhysicsComponent::PhysicsComponent(entityId entity)
+#include <Native/Entity.h>
+
+PhysicsComponent::PhysicsComponent(Entity *entity)
     : entity(entity)
 {
 }

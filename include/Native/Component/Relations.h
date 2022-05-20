@@ -2,6 +2,8 @@
 
 #include <Native/Component/types.h>
 
+class Entity;
+
 class RelationsComponent
 {
     struct
@@ -13,27 +15,27 @@ class RelationsComponent
 
     struct
     {
-        entityId parent = -1;
-        entityId owner = -1;
-        entityId team = -1;
+        Entity *parent = nullptr;
+        Entity *owner = nullptr;
+        Entity *team = nullptr;
     } netProperties;
 
 public:
-    entityId entity;
+    Entity *entity;
     bool isChild = false;
 
     static constexpr FieldGroupId id = FieldGroupId::relations;
     std::vector<std::string> fields{"parent", "owner", "team"};
 
-    RelationsComponent(entityId entity);
+    RelationsComponent(Entity *entity);
 
     void Wipe();
 
-    entityId Parent();
-    entityId Owner();
-    entityId Team();
+    Entity *Parent();
+    Entity *Owner();
+    Entity *Team();
 
-    void Parent(entityId parent);
-    void Owner(entityId parent);
-    void Team(entityId parent);
+    void Parent(Entity *parent);
+    void Owner(Entity *parent);
+    void Team(Entity *parent);
 };

@@ -2,6 +2,8 @@
 
 #include <Native/Component/types.h>
 
+class Entity;
+
 class PhysicsComponent
 {
     struct
@@ -24,12 +26,12 @@ class PhysicsComponent
     } netProperties;
 
 public:
-    entityId entity;
+    Entity *entity;
 
     static constexpr FieldGroupId id = FieldGroupId::physics;
     std::vector<std::string> fields{"objectFlags", "sides", "size", "width", "absorbtionFactor", "pushFactor"};
 
-    PhysicsComponent(entityId entity);
+    PhysicsComponent(Entity *entity);
 
     void ApplyPhysics();
 

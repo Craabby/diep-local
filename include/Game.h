@@ -43,7 +43,7 @@ namespace diep::server
         void AppendComponentToEntity(Entity *entity)
         {
             std::cout << "emplacing component #" << std::to_string((uint8_t)Component::id) << " to Entity " << entity << std::endl;
-            entities.registry.emplace<Component>(entity->entity, entity->id);
+            entities.registry.emplace<Component>(entity->entity, entity);
             entity->fieldGroups.push_back(Component::id);
         }
     };

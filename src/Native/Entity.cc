@@ -24,11 +24,6 @@ void Entity::Insert()
 
 void Entity::WipeState()
 {
-    // goal: do this with all of the components with minimal typing lol
-
-    // if (gameServer->entities.registry.all_of<RelationsComponent>(entity))
-    //     gameServer->entities.registry.get<RelationsComponent>(entity).Wipe();
-
     if (gameServer->entities.registry.all_of<ArenaComponent>(entity))
         gameServer->entities.registry.get<ArenaComponent>(entity).Wipe();
     if (gameServer->entities.registry.all_of<BarrelComponent>(entity))

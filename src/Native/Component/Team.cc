@@ -1,6 +1,8 @@
 #include <Native/Component/Team.h>
 
-TeamComponent::TeamComponent(entityId entity)
+#include <Native/Entity.h>
+
+TeamComponent::TeamComponent(Entity *entity)
     : entity(entity)
 {
 }

@@ -2,6 +2,8 @@
 
 #include <Native/Component/types.h>
 
+class Entity;
+
 class ExampleComponent
 {
     struct
@@ -14,12 +16,12 @@ class ExampleComponent
     } netProperties;
 
 public:
-    entityId entity;
+    Entity *entity;
 
     static constexpr FieldGroupId id = FieldGroupId::unused0;
     std::vector<std::string> fields{"unknown"};
 
-    ExampleComponent(entityId entity);
+    ExampleComponent(Entity *entity);
 
     void Wipe();
 

@@ -1,6 +1,8 @@
 #include <Native/Component/Example.h>
 
-ExampleComponent::ExampleComponent(entityId entity)
+#include <Native/Entity.h>
+
+ExampleComponent::ExampleComponent(Entity *entity)
     : entity(entity)
 {
 }

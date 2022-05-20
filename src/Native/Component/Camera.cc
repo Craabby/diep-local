@@ -1,6 +1,8 @@
 #include <Native/Component/Camera.h>
 
-CameraComponent::CameraComponent(entityId entity)
+#include <Native/Entity.h>
+
+CameraComponent::CameraComponent(Entity *entity)
     : entity(entity)
 {
 }
@@ -35,8 +37,8 @@ void CameraComponent::Wipe()
 }
 
 float CameraComponent::CameraX()
-    return netProperties.cameraX;
 {
+    return netProperties.cameraX;
 }
 
 float CameraComponent::CameraY()

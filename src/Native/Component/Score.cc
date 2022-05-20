@@ -1,6 +1,8 @@
 #include <Native/Component/Score.h>
 
-ScoreComponent::ScoreComponent(entityId entity)
+#include <Native/Entity.h>
+
+ScoreComponent::ScoreComponent(Entity *entity)
     : entity(entity)
 {
 }

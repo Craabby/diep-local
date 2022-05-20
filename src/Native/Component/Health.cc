@@ -1,6 +1,8 @@
 #include <Native/Component/Health.h>
 
-HealthComponent::HealthComponent(entityId entity)
+#include <Native/Entity.h>
+
+HealthComponent::HealthComponent(Entity *entity)
     : entity(entity)
 {
 }

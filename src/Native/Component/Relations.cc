@@ -1,7 +1,9 @@
 #include <Native/Component/Relations.h>
 
-RelationsComponent::RelationsComponent(entityId id)
-    : entity(id)
+#include <Native/Entity.h>
+
+RelationsComponent::RelationsComponent(Entity *entity)
+    : entity(entity)
 {
 }
 

@@ -2,6 +2,8 @@
 
 #include <Native/Component/types.h>
 
+class Entity;
+
 class PositionComponent
 {
     struct
@@ -20,12 +22,12 @@ class PositionComponent
     } netProperties;
 
 public:
-    entityId entity;
+    Entity *entity;
 
     static constexpr FieldGroupId id = FieldGroupId::position;
     std::vector<std::string> fields{"x", "y", "angle", "motion"};
 
-    PositionComponent(entityId entity);
+    PositionComponent(Entity *entity);
 
     void Wipe();
 

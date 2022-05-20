@@ -1,6 +1,8 @@
 #include <Native/Component/Style.h>
 
-StyleComponent::StyleComponent(entityId entity)
+#include <Native/Entity.h>
+
+StyleComponent::StyleComponent(Entity *entity)
     : entity(entity)
 {
 }

@@ -2,6 +2,8 @@
 
 #include <Native/Component/types.h>
 
+class Entity;
+
 template <typename T>
 class CameraTable
 {
@@ -9,7 +11,7 @@ class CameraTable
     T values[8];
 
 public:
-    CameraTable(T defaultValue, entityId owner){};
+    CameraTable(T defaultValue, Entity *owner){};
 };
 
 class CameraComponent
@@ -44,7 +46,7 @@ class CameraComponent
 
         int16_t GUIunknown = 2;
         uint32_t camera = 1;
-        entityId player = -1;
+        Entity *player = nullptr;
         float FOV = 0.35;
         int32_t level = 1;
         TankId tank = TankId::Basic;
@@ -68,19 +70,19 @@ class CameraComponent
     } netProperties{this};
 
 public:
-    entityId entity;
+    Entity *entity;
 
     static constexpr FieldGroupId id = FieldGroupId::camera;
     std::vector<std::string> fields{"GUIunknown", "camera", "player", "FOV", "level", "tank", "levelbarProgress", "levelbarMax", "statsAvailable", "statNames", "statLevels", "statLimits", "cameraX", "cameraY", "scorebar", "respawnLevel", "killedBy", "spawnTick", "deathTick", "tankOverride", "movementSpeed"};
 
-    CameraComponent(entityId entity);
+    CameraComponent(Entity *entity);
 
     void Wipe();
     void Tick(uint32_t tick);
 
     int16_t GuiUnknown();
     uint32_t Camera();
-    entityId Player();
+    Entity *Player();
     float Fov();
     int32_t Level();
     TankId Tank();
@@ -102,7 +104,7 @@ public:
 
     void GuiUnknown(int16_t guiUnknown);
     void Camera(uint32_t camera);
-    void Player(entityId player);
+    void Player(Entity *player);
     void Fov(float FOV);
     void Level(int32_t level);
     void Tank(TankId tank);

@@ -2,6 +2,8 @@
 
 #include <Native/Component/types.h>
 
+class Entity;
+
 class NameComponent
 {
     struct
@@ -16,12 +18,12 @@ class NameComponent
     } netProperties;
 
 public:
-    entityId entity;
+    Entity *entity;
 
     static constexpr FieldGroupId id = FieldGroupId::name;
     std::vector<std::string> fields{"nametag", "name"};
 
-    NameComponent(entityId entity);
+    NameComponent(Entity *entity);
 
     void Wipe();
 

@@ -1,6 +1,8 @@
 #include <Native/Component/Barrel.h>
 
-BarrelComponent::BarrelComponent(entityId entity)
+#include <Native/Entity.h>
+
+BarrelComponent::BarrelComponent(Entity *entity)
     : entity(entity)
 {
 }

@@ -2,6 +2,8 @@
 
 #include <Native/Component/types.h>
 
+class Entity;
+
 class BarrelComponent
 {
 private:
@@ -20,12 +22,12 @@ private:
     } netProperties;
 
 public:
-    entityId entity;
+    Entity *entity;
 
     static constexpr FieldGroupId id = FieldGroupId::barrel;
     std::vector<std::string> fields{"shooting", "reloadTime", "trapezoidalDir"};
 
-    BarrelComponent(entityId entity);
+    BarrelComponent(Entity *entity);
 
     void Wipe();
 

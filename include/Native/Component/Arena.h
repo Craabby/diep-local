@@ -2,6 +2,8 @@
 
 #include <Native/Component/types.h>
 
+class Entity;
+
 template <typename T>
 class ScoreboardTable
 {
@@ -9,7 +11,7 @@ class ScoreboardTable
     T values[10];
 
 public:
-    ScoreboardTable(T defaultValue, entityId arena){};
+    ScoreboardTable(T defaultValue, Entity *arena){};
 };
 class ArenaComponent
 {
@@ -55,12 +57,12 @@ class ArenaComponent
     } netProperties{this};
 
 public:
-    entityId entity;
+    Entity *entity;
 
     static constexpr FieldGroupId id = FieldGroupId::arena;
     std::vector<std::string> fields{"GUI", "leftX", "topY", "rightX", "bottomY", "scoreboardAmount", "scoreboardNames", "scoreboardScores", "scoreboardColors", "scoreboardSuffixes", "scoreboardTanks", "leaderX", "leaderY", "playersNeeded", "ticksUntilStart"};
 
-    ArenaComponent(entityId entity);
+    ArenaComponent(Entity *entity);
 
     void Wipe();
 

@@ -2,6 +2,8 @@
 
 #include <Native/Component/types.h>
 
+class Entity;
+
 class StyleComponent
 {
     struct
@@ -22,12 +24,12 @@ class StyleComponent
     } netProperties;
 
 public:
-    entityId entity;
+    Entity *entity;
 
     static constexpr FieldGroupId id = FieldGroupId::style;
     std::vector<std::string> fields{"styleFlags", "color", "borderThickness", "opacity", "zIndex"};
 
-    StyleComponent(entityId entity);
+    StyleComponent(Entity *entity);
 
     void Wipe();
 

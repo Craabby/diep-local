@@ -1,6 +1,8 @@
 #include <Native/Component/Arena.h>
 
-ArenaComponent::ArenaComponent(entityId entity)
+#include <Native/Entity.h>
+
+ArenaComponent::ArenaComponent(Entity *entity)
     : entity(entity)
 {
 }

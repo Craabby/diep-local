@@ -2,6 +2,8 @@
 
 #include <Native/Component/types.h>
 
+class Entity;
+
 class HealthComponent
 {
     struct
@@ -18,12 +20,12 @@ class HealthComponent
     } netProperties;
 
 public:
-    entityId entity;
+    Entity *entity;
 
     static constexpr FieldGroupId id = FieldGroupId::health;
     std::vector<std::string> fields{"healthbar", "health", "maxHealth"};
 
-    HealthComponent(entityId entity);
+    HealthComponent(Entity *entity);
 
     void Wipe();
 

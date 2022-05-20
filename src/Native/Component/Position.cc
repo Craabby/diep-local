@@ -1,6 +1,8 @@
 #include <Native/Component/Position.h>
 
-PositionComponent::PositionComponent(entityId entity)
+#include <Native/Entity.h>
+
+PositionComponent::PositionComponent(Entity *entity)
     : entity(entity)
 {
 }

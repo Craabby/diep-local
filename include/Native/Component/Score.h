@@ -2,6 +2,8 @@
 
 #include <Native/Component/types.h>
 
+class Entity;
+
 class ScoreComponent
 {
     struct
@@ -14,12 +16,12 @@ class ScoreComponent
     } netProperties;
 
 public:
-    entityId entity;
+    Entity *entity;
 
     static constexpr FieldGroupId id = FieldGroupId::score;
     std::vector<std::string> fields{"score"};
 
-    ScoreComponent(entityId entity);
+    ScoreComponent(Entity *entity);
 
     void Wipe();
 
