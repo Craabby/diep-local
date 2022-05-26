@@ -29,7 +29,6 @@ public:
     Entity *entity;
 
     static constexpr FieldGroupId id = FieldGroupId::physics;
-    std::vector<std::string> fields{"objectFlags", "sides", "size", "width", "absorbtionFactor", "pushFactor"};
 
     PhysicsComponent(Entity *entity);
 

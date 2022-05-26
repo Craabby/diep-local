@@ -23,7 +23,7 @@ public:
     Entity *entity;
 
     static constexpr FieldGroupId id = FieldGroupId::health;
-    std::vector<std::string> fields{"healthbar", "health", "maxHealth"};
+    std::{"healthbar", "health", "maxHealth"};
 
     HealthComponent(Entity *entity);
 

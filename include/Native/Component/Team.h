@@ -25,7 +25,6 @@ public:
     Entity *entity;
 
     static constexpr FieldGroupId id = FieldGroupId::team;
-    std::vector<std::string> fields{"teamColor", "mothershipX", "mothershipY", "mothership"};
 
     TeamComponent(Entity *entity);
 

@@ -23,9 +23,11 @@ class RelationsComponent
 public:
     Entity *entity;
     bool isChild = false;
+    
+    Entity *rootParent = entity;
+    std::vector<Entity *> children;
 
     static constexpr FieldGroupId id = FieldGroupId::relations;
-    std::vector<std::string> fields{"parent", "owner", "team"};
 
     RelationsComponent(Entity *entity);
 

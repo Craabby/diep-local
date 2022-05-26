@@ -21,7 +21,6 @@ public:
     Entity *entity;
 
     static constexpr FieldGroupId id = FieldGroupId::name;
-    std::vector<std::string> fields{"nametag", "name"};
 
     NameComponent(Entity *entity);
 

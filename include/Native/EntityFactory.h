@@ -5,6 +5,7 @@
 
 #include <entt/entity/registry.hpp>
 
+#include <Native/Camera.h>
 #include <Native/Component/Arena.h>
 #include <Native/Component/Barrel.h>
 #include <Native/Component/Camera.h>
@@ -25,8 +26,10 @@ namespace diep::server
 }
 
 Entity *CreateArena(diep::server::GameServer *gameServer);
-Entity *CreateCamera(diep::server::GameServer *gameServer);
 Entity *CreateLivingObject(diep::server::GameServer *gameServer);
 Entity *CreateObject(diep::server::GameServer *gameServer);
 Entity *CreateTankBody(diep::server::GameServer *gameServer);
 Entity *CreateBarrel(diep::server::GameServer *gameServer);
+
+CameraEntity *CreateCamera(diep::server::GameServer *gameServer);
+

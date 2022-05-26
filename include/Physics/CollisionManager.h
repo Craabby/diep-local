@@ -49,4 +49,5 @@ public:
     diep::server::GameServer *gameServer;
     void InsertEntity(Entity *entity);
     void Reset();
+    std::vector<Entity *> Retrieve(int32_t x, int32_t y, int32_t w, int32_t h);
 };

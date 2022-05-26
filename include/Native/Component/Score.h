@@ -19,7 +19,6 @@ public:
     Entity *entity;
 
     static constexpr FieldGroupId id = FieldGroupId::score;
-    std::vector<std::string> fields{"score"};
 
     ScoreComponent(Entity *entity);
 

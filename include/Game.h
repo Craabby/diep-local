@@ -1,5 +1,6 @@
 #pragma once
 
+#include <algorithm>
 #include <cstdint>
 #include <string>
 #include <vector>
@@ -45,6 +46,7 @@ namespace diep::server
             std::cout << "emplacing component #" << std::to_string((uint8_t)Component::id) << " to Entity " << entity << std::endl;
             entities.registry.emplace<Component>(entity->entity, entity);
             entity->fieldGroups.push_back(Component::id);
+            std::sort(entity->fieldGroups.begin(), entity->fieldGroups.end());
         }
     };
 }

@@ -29,9 +29,9 @@ Entity *CreateObject(diep::server::GameServer *gameServer)
 
     return entity;
 }
-Entity *CreateCamera(diep::server::GameServer *gameServer)
+CameraEntity *CreateCamera(diep::server::GameServer *gameServer)
 {
-    Entity *entity = new Entity(gameServer);
+    CameraEntity *entity = new CameraEntity(gameServer);
 
     entity->gameServer->AppendComponentToEntity<CameraComponent>(entity);
 

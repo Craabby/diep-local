@@ -25,7 +25,6 @@ public:
     Entity *entity;
 
     static constexpr FieldGroupId id = FieldGroupId::barrel;
-    std::vector<std::string> fields{"shooting", "reloadTime", "trapezoidalDir"};
 
     BarrelComponent(Entity *entity);
 

@@ -60,7 +60,6 @@ public:
     Entity *entity;
 
     static constexpr FieldGroupId id = FieldGroupId::arena;
-    std::vector<std::string> fields{"GUI", "leftX", "topY", "rightX", "bottomY", "scoreboardAmount", "scoreboardNames", "scoreboardScores", "scoreboardColors", "scoreboardSuffixes", "scoreboardTanks", "leaderX", "leaderY", "playersNeeded", "ticksUntilStart"};
 
     ArenaComponent(Entity *entity);
 

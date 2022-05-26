@@ -19,7 +19,6 @@ public:
     Entity *entity;
 
     static constexpr FieldGroupId id = FieldGroupId::unused0;
-    std::vector<std::string> fields{"unknown"};
 
     ExampleComponent(Entity *entity);
 

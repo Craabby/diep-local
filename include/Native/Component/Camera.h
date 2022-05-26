@@ -73,7 +73,6 @@ public:
     Entity *entity;
 
     static constexpr FieldGroupId id = FieldGroupId::camera;
-    std::vector<std::string> fields{"GUIunknown", "camera", "player", "FOV", "level", "tank", "levelbarProgress", "levelbarMax", "statsAvailable", "statNames", "statLevels", "statLimits", "cameraX", "cameraY", "scorebar", "respawnLevel", "killedBy", "spawnTick", "deathTick", "tankOverride", "movementSpeed"};
 
     CameraComponent(Entity *entity);
 

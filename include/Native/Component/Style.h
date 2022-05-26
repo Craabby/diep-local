@@ -27,7 +27,6 @@ public:
     Entity *entity;
 
     static constexpr FieldGroupId id = FieldGroupId::style;
-    std::vector<std::string> fields{"styleFlags", "color", "borderThickness", "opacity", "zIndex"};
 
     StyleComponent(Entity *entity);
 
