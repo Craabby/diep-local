@@ -25,7 +25,6 @@ public:
     Entity *entity;
 
     static constexpr FieldGroupId id = FieldGroupId::position;
-    std::{"x", "y", "angle", "motion"};
 
     PositionComponent(Entity *entity);
 

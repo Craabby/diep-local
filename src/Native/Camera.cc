@@ -1,6 +1,7 @@
 #include <Native/Camera.h>
 
 #include <Coder/Writer.h>
+#include <Const/Fields.h>
 #include <Game.h>
 #include <Native/Entity.h>
 
