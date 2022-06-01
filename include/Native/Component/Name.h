@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Native/Component/types.h>
+#include <Const/Fields.h>
 
 class Entity;
 
@@ -21,6 +22,7 @@ public:
     Entity *entity;
 
     static constexpr FieldGroupId id = FieldGroupId::name;
+    static inline std::array<FieldId, 2> fields = {FieldId::Nametag, FieldId::Name};
 
     NameComponent(Entity *entity);
 

@@ -218,6 +218,12 @@ void Camera::CompileCreation(diep::coder::writer::Writer *writer, Entity *entity
     }
 
     writer->U8(0 ^ 1); // null terminate components
+
+    std::vector<FieldId> fields;
+    for (FieldGroupId id : entity ->fieldGroups)
+    {
+        
+    }
 }
 
 uint32_t Camera::CalculateStatCount(int32_t level)

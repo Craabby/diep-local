@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Native/Component/types.h>
+#include <Const/Fields.h>
 
 class Entity;
 
@@ -27,6 +28,7 @@ public:
     Entity *entity;
 
     static constexpr FieldGroupId id = FieldGroupId::style;
+    static inline std::array<FieldId, 5> fields = {FieldId::StyleFlags, FieldId::Color, FieldId::BorderThickness, FieldId::Opacity, FieldId::Zindex};
 
     StyleComponent(Entity *entity);
 
@@ -36,11 +38,11 @@ public:
     ColorId Color();
     int32_t BorderThickness();
     float Opacity();
-    uint32_t ZIndex();
+    uint32_t Zindex();
 
     void StyleFlags(float styleFlags);
     void Color(ColorId color);
     void BorderThickness(int32_t borderThickness);
     void Opacity(float opacity);
-    void ZIndex(uint32_t zIndex);
+    void Zindex(uint32_t zIndex);
 };

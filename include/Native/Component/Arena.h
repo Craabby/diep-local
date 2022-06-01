@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Native/Component/types.h>
+#include <Const/Fields.h>
 
 class Entity;
 
@@ -60,8 +61,9 @@ public:
     Entity *entity;
 
     static constexpr FieldGroupId id = FieldGroupId::arena;
+    static inline std::array<FieldId, 15> fields = {FieldId::Gui, FieldId::LeftX, FieldId::TopY, FieldId::RightX, FieldId::BottomY, FieldId::ScoreboardAmount, FieldId::ScoreboardNames, FieldId::ScoreboardScores, FieldId::ScoreboardColors, FieldId::ScoreboardSuffixes, FieldId::ScoreboardTanks, FieldId::LeaderX, FieldId::LeaderY, FieldId::PlayersNeeded, FieldId::TicksUntilStart};
 
-    ArenaComponent(Entity *entity);
+    ArenaComponent(Entity * entity);
 
     void Wipe();
 

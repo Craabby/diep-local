@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Native/Component/types.h>
+#include <Const/Fields.h>
 
 class Entity;
 
@@ -73,6 +74,7 @@ public:
     Entity *entity;
 
     static constexpr FieldGroupId id = FieldGroupId::camera;
+    std::array<FieldId, 21> fields = {FieldId::GuiUnknown, FieldId::Camera, FieldId::Player, FieldId::Fov, FieldId::Level, FieldId::Tank, FieldId::LevelbarProgress, FieldId::LevelbarMax, FieldId::StatsAvailable, FieldId::StatNames, FieldId::StatLevels, FieldId::StatLimits, FieldId::CameraX, FieldId::CameraY, FieldId::Scorebar, FieldId::RespawnLevel, FieldId::KilledBy, FieldId::SpawnTick, FieldId::DeathTick, FieldId::TankOverride, FieldId::MovementSpeed};
 
     CameraComponent(Entity *entity);
 

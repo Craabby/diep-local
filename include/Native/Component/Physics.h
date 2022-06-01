@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Native/Component/types.h>
+#include <Const/Fields.h>
 
 class Entity;
 
@@ -29,6 +30,7 @@ public:
     Entity *entity;
 
     static constexpr FieldGroupId id = FieldGroupId::physics;
+    static inline std::array<FieldId, 6> fields = {FieldId::ObjectFlags, FieldId::Sides, FieldId::Size, FieldId::Width, FieldId::AbsorbtionFactor, FieldId::PushFactor};
 
     PhysicsComponent(Entity *entity);
 

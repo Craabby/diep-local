@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Native/Component/types.h>
+#include <Const/Fields.h>
 
 class Entity;
 
@@ -25,6 +26,7 @@ public:
     Entity *entity;
 
     static constexpr FieldGroupId id = FieldGroupId::barrel;
+    static inline std::array<FieldId, 3> fields = {FieldId::Shooting, FieldId::ReloadTime, FieldId::TrapezoidalDir};
 
     BarrelComponent(Entity *entity);
 

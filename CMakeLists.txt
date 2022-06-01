@@ -6,6 +6,7 @@ set(SRCS
     src/Client/Socket.cc
     src/Coder/Reader.cc
     src/Coder/Writer.cc
+    src/Const/Fields.cc
     src/Game.cc
     src/Gamemodes/SandboxArena.cc
     src/main.cc

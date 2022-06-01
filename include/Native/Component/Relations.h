@@ -1,5 +1,6 @@
 #pragma once
 
+#include <Const/Fields.h>
 #include <Native/Component/types.h>
 
 class Entity;
@@ -23,11 +24,12 @@ class RelationsComponent
 public:
     Entity *entity;
     bool isChild = false;
-    
+
     Entity *rootParent = entity;
     std::vector<Entity *> children;
 
     static constexpr FieldGroupId id = FieldGroupId::relations;
+    static inline std::array<FieldId, 3> fields = {FieldId::Parent, FieldId::Owner, FieldId::Team};
 
     RelationsComponent(Entity *entity);
 

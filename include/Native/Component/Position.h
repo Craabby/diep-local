@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Native/Component/types.h>
+#include <Const/Fields.h>
 
 class Entity;
 
@@ -25,6 +26,7 @@ public:
     Entity *entity;
 
     static constexpr FieldGroupId id = FieldGroupId::position;
+    static inline std::array<FieldId, 4> fields = {FieldId::X, FieldId::Y, FieldId::Angle, FieldId::Motion};
 
     PositionComponent(Entity *entity);
 
