@@ -11,3 +11,8 @@ void ScoreComponent::Wipe()
 {
     state.score = 0;
 }
+
+float ScoreComponent::Score()
+{
+    return netProperties.score;
+}

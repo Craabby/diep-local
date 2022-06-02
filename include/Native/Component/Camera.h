@@ -13,16 +13,21 @@ class CameraTable
 
 public:
     CameraTable(T defaultValue, Entity *owner){};
+
+    const T &At(uint8_t x) const
+    {
+        return values[x];
+    }
 };
 
 class CameraComponent
 {
     struct
     {
-        uint8_t GUIunknown = 0;
+        uint8_t guiUnknown = 0;
         uint8_t camera = 0;
         uint8_t player = 0;
-        uint8_t FOV = 0;
+        uint8_t fov = 0;
         uint8_t level = 0;
         uint8_t tank = 0;
         uint8_t levelbarProgress = 0;
@@ -45,10 +50,10 @@ class CameraComponent
     {
         CameraComponent *owner;
 
-        int16_t GUIunknown = 2;
+        int16_t guiUnknown = 2;
         uint32_t camera = 1;
         Entity *player = nullptr;
-        float FOV = 0.35;
+        float fov = 0.35;
         int32_t level = 1;
         TankId tank = TankId::Basic;
         float levelbarProgress = 0;
@@ -74,7 +79,7 @@ public:
     Entity *entity;
 
     static constexpr FieldGroupId id = FieldGroupId::camera;
-    std::array<FieldId, 21> fields = {FieldId::GuiUnknown, FieldId::Camera, FieldId::Player, FieldId::Fov, FieldId::Level, FieldId::Tank, FieldId::LevelbarProgress, FieldId::LevelbarMax, FieldId::StatsAvailable, FieldId::StatNames, FieldId::StatLevels, FieldId::StatLimits, FieldId::CameraX, FieldId::CameraY, FieldId::Scorebar, FieldId::RespawnLevel, FieldId::KilledBy, FieldId::SpawnTick, FieldId::DeathTick, FieldId::TankOverride, FieldId::MovementSpeed};
+    static inline std::array<FieldId, 21> fields = {FieldId::GuiUnknown, FieldId::Camera, FieldId::Player, FieldId::Fov, FieldId::Level, FieldId::Tank, FieldId::LevelbarProgress, FieldId::LevelbarMax, FieldId::StatsAvailable, FieldId::StatNames, FieldId::StatLevels, FieldId::StatLimits, FieldId::CameraX, FieldId::CameraY, FieldId::Scorebar, FieldId::RespawnLevel, FieldId::KilledBy, FieldId::SpawnTick, FieldId::DeathTick, FieldId::TankOverride, FieldId::MovementSpeed};
 
     CameraComponent(Entity *entity);
 
@@ -90,9 +95,6 @@ public:
     float LevelbarProgress();
     float LevelbarMax();
     int32_t StatsAvailable();
-    CameraTable<std::string> *StatNames();
-    CameraTable<uint32_t> *StatLevels();
-    CameraTable<uint32_t> *StatLimits();
     float CameraX();
     float CameraY();
     float Scorebar();
@@ -102,6 +104,9 @@ public:
     uint32_t DeathTick();
     std::string TankOverride();
     float MovementSpeed();
+    CameraTable<std::string> *StatNames();
+    CameraTable<uint32_t> *StatLevels();
+    CameraTable<uint32_t> *StatLimits();
 
     void GuiUnknown(int16_t guiUnknown);
     void Camera(uint32_t camera);

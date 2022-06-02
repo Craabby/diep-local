@@ -15,3 +15,24 @@ void StyleComponent::Wipe()
     state.opacity = 0;
     state.zIndex = 0;
 }
+
+float StyleComponent::StyleFlags()
+{
+    return netProperties.styleFlags;
+}
+ColorId StyleComponent::Color()
+{
+    return netProperties.color;
+}
+int32_t StyleComponent::BorderThickness()
+{
+    return netProperties.borderThickness;
+}
+float StyleComponent::Opacity()
+{
+    return netProperties.opacity;
+}
+uint32_t StyleComponent::Zindex()
+{
+    return netProperties.zIndex;
+}

@@ -22,9 +22,14 @@ void PhysicsComponent::Wipe()
     state.pushFactor = 0;
 }
 
-float PhysicsComponent::Width()
+uint32_t PhysicsComponent::ObjectFlags()
 {
-    return netProperties.width;
+    return netProperties.objectFlags;
+}
+
+uint32_t PhysicsComponent::Sides()
+{
+    return netProperties.sides;
 }
 
 float PhysicsComponent::Size()
@@ -32,7 +37,17 @@ float PhysicsComponent::Size()
     return netProperties.size;
 }
 
-uint32_t PhysicsComponent::Sides()
+float PhysicsComponent::Width()
 {
-    return netProperties.sides;
+    return netProperties.width;
+}
+
+float PhysicsComponent::AbsorbtionFactor()
+{
+    return netProperties.absorbtionFactor;
+}
+
+float PhysicsComponent::PushFactor()
+{
+    return netProperties.pushFactor;
 }

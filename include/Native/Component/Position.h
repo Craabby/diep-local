@@ -18,7 +18,7 @@ class PositionComponent
     {
         int32_t x;
         int32_t y;
-        uint32_t angle;
+        float angle;
         uint32_t motion;
     } netProperties;
 
@@ -34,11 +34,11 @@ public:
 
     int32_t X();
     int32_t Y();
-    uint32_t Angle();
+    float Angle();
     uint32_t Motion();
 
     void X(int32_t x);
     void Y(int32_t y);
-    void Angle(uint32_t angle);
+    void Angle(float angle);
     void Motion(uint32_t motion);
 };

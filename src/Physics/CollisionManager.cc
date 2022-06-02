@@ -102,3 +102,20 @@ void DiepSpatialHashing::InsertEntity(Entity *entity)
         (int32_t)(physics.Sides() == 2 ? physics.Width() / 2 : physics.Size()),
         entity->id});
 }
+
+std::vector<Entity *> DiepSpatialHashing::Retrieve(int32_t x, int32_t y, int32_t w, int32_t h)
+{
+    std::vector<entityId> ids = Query(Box{x, y, w, h, -1});
+
+    std::vector<Entity *> entities;
+
+    for (entityId id : ids)
+    {
+        Entity *entity = gameServer->entities.inner[id];
+
+        if (entity != nullptr && entity->hash != 0 && gameServer->entities.registry.all_of<PhysicsComponent>(entity->entity))
+            entities.push_back(entity);
+    }
+
+    return entities;
+}

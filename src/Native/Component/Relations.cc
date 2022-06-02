@@ -13,3 +13,18 @@ void RelationsComponent::Wipe()
     state.owner = 0;
     state.team = 0;
 }
+
+Entity *RelationsComponent::Parent()
+{
+    return netProperties.parent;
+}
+
+Entity *RelationsComponent::Owner()
+{
+    return netProperties.owner;
+}
+
+Entity *RelationsComponent::Team()
+{
+    return netProperties.team;
+}

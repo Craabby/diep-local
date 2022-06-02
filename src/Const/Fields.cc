@@ -46,7 +46,7 @@ std::array<FieldDefinition, (size_t)FieldId::kMaxFieldId> fieldList = {
     FieldDefinition{.component = FieldGroupId::style    , .id = 2 , .encodingType = EncodingType::Vi      , .index = 42}, // borderThickness;
     FieldDefinition{.component = FieldGroupId::camera   , .id = 18, .encodingType = EncodingType::Vi      , .index = 43}, // deathTick;
     FieldDefinition{.component = FieldGroupId::physics  , .id = 3 , .encodingType = EncodingType::Float   , .index = 44}, // width;
-    FieldDefinition{.component = FieldGroupId::camera   , .id = 8 , .encodingType = EncodingType::Vi      , .index = 45, .amount = 8}, // statsAvailable;
+    FieldDefinition{.component = FieldGroupId::camera   , .id = 8 , .encodingType = EncodingType::Vi      , .index = 45}, // statsAvailable;
     FieldDefinition{.component = FieldGroupId::barrel   , .id = 0 , .encodingType = EncodingType::Vu      , .index = 46}, // shooting;
     FieldDefinition{.component = FieldGroupId::camera   , .id = 7 , .encodingType = EncodingType::Float   , .index = 47}, // levelbarMax;
     FieldDefinition{.component = FieldGroupId::name     , .id = 1 , .encodingType = EncodingType::StringNT, .index = 48}, // name;

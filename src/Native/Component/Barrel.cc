@@ -14,3 +14,17 @@ void BarrelComponent::Wipe()
     state.trapezoidalDir = 0;
 }
 
+uint32_t BarrelComponent::Shooting()
+{
+    return netProperties.shooting;
+}
+
+float BarrelComponent::ReloadTime()
+{
+    return netProperties.reloadTime;
+}
+
+float BarrelComponent::TrapezoidalDir()
+{
+    return netProperties.trapezoidalDir;
+}

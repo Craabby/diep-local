@@ -3,6 +3,8 @@
 #include <cstdint>
 #include <cstddef>
 
+#include <Native/Entity.h>
+
 using entityId = int16_t;
 
 namespace
@@ -59,9 +61,23 @@ diep::coder::writer::Writer *diep::coder::writer::Writer::Vu(uint32_t value)
     return this;
 }
 
+diep::coder::writer::Writer *diep::coder::writer::Writer::Vu(ColorId value)
+{
+    Vu((uint32_t)value);
+
+    return this;
+}
+
 diep::coder::writer::Writer *diep::coder::writer::Writer::Vi(int32_t value)
 {
     Vu((0 - (value < 0 ? 1 : 0)) ^ (value << 1));
+
+    return this;
+}
+
+diep::coder::writer::Writer *diep::coder::writer::Writer::Vi(TankId value)
+{
+    Vi((int32_t)value);
 
     return this;
 }
@@ -105,6 +121,13 @@ diep::coder::writer::Writer *diep::coder::writer::Writer::EntityId(entityId enti
     }
     Vu(hash);
     Vu(entity);
+
+    return this;
+}
+
+diep::coder::writer::Writer *diep::coder::writer::Writer::EntityId(Entity *entity)
+{
+    EntityId(entity->id, entity->hash);
 
     return this;
 }

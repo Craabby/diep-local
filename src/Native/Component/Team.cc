@@ -14,3 +14,20 @@ void TeamComponent::Wipe()
     state.mothershipY = 0;
     state.mothership = 0;
 }
+
+uint32_t TeamComponent::Mothership()
+{
+    return netProperties.mothership;
+}
+float TeamComponent::MothershipX()
+{
+    return netProperties.mothershipX;
+}
+float TeamComponent::MothershipY()
+{
+    return netProperties.mothershipY;
+}
+ColorId TeamComponent::TeamColor()
+{
+    return netProperties.teamColor;
+}

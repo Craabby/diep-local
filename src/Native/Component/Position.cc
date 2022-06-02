@@ -24,3 +24,13 @@ int32_t PositionComponent::Y()
 {
     return netProperties.y;
 }
+
+float PositionComponent::Angle()
+{
+    return netProperties.angle;
+}
+
+uint32_t PositionComponent::Motion()
+{
+    return netProperties.motion;
+}

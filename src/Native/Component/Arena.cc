@@ -9,7 +9,7 @@ ArenaComponent::ArenaComponent(Entity *entity)
 
 void ArenaComponent::Wipe()
 {
-    state.GUI = 0;
+    state.gui = 0;
     state.leftX = 0;
     state.topY = 0;
     state.rightX = 0;
@@ -24,4 +24,76 @@ void ArenaComponent::Wipe()
     state.leaderY = 0;
     state.playersNedded = 0;
     state.ticksUntilStart = 0;
+}
+
+
+uint32_t ArenaComponent::Gui()
+{
+    return netProperties.gui;
+}
+
+float ArenaComponent::LeftX()
+{
+    return netProperties.leftX;
+}
+
+float ArenaComponent::TopY()
+{
+    return netProperties.topY;
+}
+
+float ArenaComponent::RightX()
+{
+    return netProperties.rightX;
+}
+
+float ArenaComponent::BottomY()
+{
+    return netProperties.bottomY;
+}
+
+uint8_t ArenaComponent::ScoreboardAmount()
+{
+    return netProperties.scoreboardAmount;
+}
+
+float ArenaComponent::LeaderX()
+{
+    return netProperties.leaderX;
+}
+
+float ArenaComponent::LeaderY()
+{
+    return netProperties.leaderY;
+}
+
+uint32_t ArenaComponent::PlayersNeeded()
+{
+    return netProperties.playersNeeded;
+}
+
+uint32_t ArenaComponent::TicksUntilStart()
+{
+    return netProperties.ticksUntilStart;
+}
+
+ScoreboardTable<std::string> *ArenaComponent::ScoreboardNames()
+{
+    return &netProperties.scoreboardNames;
+}
+ScoreboardTable<uint32_t> *ArenaComponent::ScoreboardScores()
+{
+    return &netProperties.scoreboardScores;
+}
+ScoreboardTable<ColorId> *ArenaComponent::ScoreboardColors()
+{
+    return &netProperties.scoreboardColors;
+}
+ScoreboardTable<std::string> *ArenaComponent::ScoreboardSuffixes()
+{
+    return &netProperties.scoreboardSuffixes;
+}
+ScoreboardTable<TankId> *ArenaComponent::ScoreboardTanks()
+{
+    return &netProperties.scoreboardTanks;
 }

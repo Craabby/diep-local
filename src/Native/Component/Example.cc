@@ -11,3 +11,8 @@ void ExampleComponent::Wipe()
 {
     state.unknown = 0;
 }
+
+uint8_t ExampleComponent::Unknown()
+{
+    return netProperties.unknown;
+}

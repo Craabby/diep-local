@@ -13,3 +13,19 @@ void HealthComponent::Wipe()
     state.health = 0;
     state.maxHealth = 0;
 }
+
+uint32_t HealthComponent::Healthbar()
+{
+    return netProperties.healthbar;
+}
+
+float HealthComponent::Health()
+{
+    return netProperties.health;
+}
+
+float HealthComponent::MaxHealth()
+{
+    return netProperties.maxHealth;
+}
+

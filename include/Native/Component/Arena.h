@@ -13,12 +13,17 @@ class ScoreboardTable
 
 public:
     ScoreboardTable(T defaultValue, Entity *arena){};
+
+    const T &At(uint8_t x) const
+    {
+        return values[x];
+    }
 };
 class ArenaComponent
 {
     struct
     {
-        uint8_t GUI = 0;
+        uint8_t gui = 0;
         uint8_t leftX = 0;
         uint8_t topY = 0;
         uint8_t rightX = 0;
@@ -38,7 +43,7 @@ class ArenaComponent
     {
         ArenaComponent *owner;
 
-        uint32_t GUI = 2;
+        uint32_t gui = 2;
         float leftX = 0;
         float topY = 0;
         float rightX = 0;
@@ -73,15 +78,15 @@ public:
     float RightX();
     float BottomY();
     uint8_t ScoreboardAmount();
+    float LeaderX();
+    float LeaderY();
+    uint32_t PlayersNeeded();
+    uint32_t TicksUntilStart();
     ScoreboardTable<std::string> *ScoreboardNames();
     ScoreboardTable<uint32_t> *ScoreboardScores();
     ScoreboardTable<ColorId> *ScoreboardColors();
     ScoreboardTable<std::string> *ScoreboardSuffixes();
     ScoreboardTable<TankId> *ScoreboardTanks();
-    float LeaderX();
-    float LeaderY();
-    uint32_t PlayersNeeded();
-    uint32_t TicksUntilStart();
 
     void Gui(uint32_t GUI);
     void LeftX(float leftX);

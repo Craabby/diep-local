@@ -31,4 +31,9 @@ public:
     TeamComponent(Entity *entity);
 
     void Wipe();
+
+    uint32_t Mothership();
+    float MothershipX();
+    float MothershipY();
+    ColorId TeamColor();
 };
