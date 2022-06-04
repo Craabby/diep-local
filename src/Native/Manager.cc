@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include <Game.h>
+#include <Native/Camera.h>
 #include <Native/Component/Arena.h>
 #include <Native/Component/Camera.h>
 #include <Native/Component/Relations.h>
@@ -37,19 +38,19 @@ void EntityManager::Tick(uint32_t tick)
             {
             for (size_t i = 0; i < cameras.size(); i++)
             {
-                Entity *camera = inner[cameras.at(i)];
-                CameraComponent &cameraComponent = registry.get<CameraComponent>(camera->entity);
-                float deltaX = (cameraComponent.CameraX() - positionComponent.X());
-                float deltaY = (cameraComponent.CameraY() - positionComponent.Y());
-                float entityFov = 4500 + physicsComponent.Size() + physicsComponent.Width();
-                if ((deltaX * deltaX + deltaY * deltaY) < entityFov)
-                {
+                // Entity *camera = inner[cameras.at(i)];
+                // CameraComponent &cameraComponent = registry.get<CameraComponent>(camera->entity);
+                // float deltaX = (cameraComponent.CameraX() - positionComponent.X());
+                // float deltaY = (cameraComponent.CameraY() - positionComponent.Y());
+                // float entityFov = 4500 + physicsComponent.Size() + physicsComponent.Width();
+                // if ((deltaX * deltaX + deltaY * deltaY) < entityFov)
+                // {
                     collisionManager.InsertEntity(entity);
                     entity->isViewed = true;
-                    return;
-                }
+                //     return;
+                // }
 
-                entity->isViewed = false;
+                // entity->isViewed = false;
             } }();
         }
 
@@ -57,7 +58,7 @@ void EntityManager::Tick(uint32_t tick)
         {
             if (!Exists(id))
                 continue;
-            
+
             Entity *entity = inner[id];
 
             entity->WipeState();
@@ -80,6 +81,19 @@ void EntityManager::Tick(uint32_t tick)
     for (size_t i = 0; i < cameras.size(); i++)
     {
         registry.get<CameraComponent>(inner[cameras.at(i)]->entity).Tick(tick);
+    }
+
+    for (entityId cameraId : cameras)
+    {
+        ((CameraEntity *)(inner[cameraId]))->Tick(tick);
+    }
+
+    for (entityId id = 0; id < lastId; id++)
+    {
+        if (!Exists(id))
+            continue;
+        
+        inner[id]->WipeState();
     }
 }
 

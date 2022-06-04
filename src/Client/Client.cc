@@ -84,3 +84,8 @@ void diep::server::client::Client::Send(coder::writer::Writer const &&writer)
 {
     socket.server->send(socket.connection, std::string((const char *)writer.Write().output, writer.Write().size), websocketpp::frame::opcode::value::binary);
 }
+
+void diep::server::client::Client::Tick(uint32_t tick)
+{
+    
+}

@@ -46,6 +46,7 @@ namespace diep::server::client
         void Terminate();
         void Send(coder::writer::Writer const &&writer);
         size_t GetId() const;
+        void Tick(uint32_t tick);
     };
 }
 
