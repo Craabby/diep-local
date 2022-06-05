@@ -85,7 +85,7 @@ void EntityManager::Tick(uint32_t tick)
 
     for (entityId cameraId : cameras)
     {
-        ((CameraEntity *)(inner[cameraId]))->Tick(tick);
+        (static_cast<CameraEntity *>(inner[cameraId]))->Tick(tick);
     }
 
     for (entityId id = 0; id < lastId; id++)

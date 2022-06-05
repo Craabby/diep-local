@@ -21,11 +21,11 @@ diep::server::client::Client::Client(Server *server, websocketpp::connection_hdl
     socket.server->get_con_from_hdl(socket.connection)->set_message_handler([this](websocketpp::connection_hdl connection, Server::message_ptr _message)
                                                                             {
         diep::server::socket::Message packet((uint8_t *)_message->get_raw_payload().c_str(), _message->get_raw_payload().size(), connection);
-        socket.events.Emit<EventId::packet>((void *)&packet); });
+        socket.events.Emit<EventId::packet>(static_cast<void *>(&packet)); });
 
     socket.events.On<EventId::packet>([this](void *_packet)
                                       {
-        diep::server::socket::Message *packet = (diep::server::socket::Message *)_packet;
+        diep::server::socket::Message *packet = static_cast<diep::server::socket::Message *>(_packet);
 
         if (packet->reader.size < 1) return;
 
