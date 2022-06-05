@@ -95,4 +95,4 @@ struct FieldDefinition
     int32_t amount;
 };
 
-std::array<FieldDefinition, (size_t)FieldId::kMaxFieldId> &GetFieldList();
+std::array<FieldDefinition, static_cast<size_t>(FieldId::kMaxFieldId)> &GetFieldList();

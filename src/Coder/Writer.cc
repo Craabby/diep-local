@@ -63,7 +63,7 @@ diep::coder::writer::Writer *diep::coder::writer::Writer::Vu(uint32_t value)
 
 diep::coder::writer::Writer *diep::coder::writer::Writer::Vu(ColorId value)
 {
-    Vu((uint32_t)value);
+    Vu(static_cast<uint32_t>(value));
 
     return this;
 }

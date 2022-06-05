@@ -1,6 +1,6 @@
 #include <Const/Fields.h>
 
-std::array<FieldDefinition, (size_t)FieldId::kMaxFieldId> fieldList = {
+std::array<FieldDefinition, static_cast<size_t>(FieldId::kMaxFieldId)> fieldList = {
     FieldDefinition{.component = FieldGroupId::position , .id = 1 , .encodingType = EncodingType::Vi      , .index = 0}, // y;
     FieldDefinition{.component = FieldGroupId::position , .id = 0 , .encodingType = EncodingType::Vi      , .index = 1}, // x;
     FieldDefinition{.component = FieldGroupId::position , .id = 2 , .encodingType = EncodingType::Radians , .index = 2}, // angle;
@@ -71,7 +71,7 @@ std::array<FieldDefinition, (size_t)FieldId::kMaxFieldId> fieldList = {
     FieldDefinition{.component = FieldGroupId::score    , .id = 0 , .encodingType = EncodingType::Float   , .index = 67} // score;
 };
 
-std::array<FieldDefinition, (size_t)FieldId::kMaxFieldId> &GetFieldList()
+std::array<FieldDefinition, static_cast<size_t>(FieldId::kMaxFieldId)> &GetFieldList()
 {
     return fieldList;
 }

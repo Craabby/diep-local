@@ -295,14 +295,14 @@ void Camera::CompileCreation(diep::coder::writer::Writer *writer, Entity *entity
         SEND_FIELD(Player, CameraComponent, EntityId)
         SEND_FIELD(Gui, ArenaComponent, Vu)
         SEND_FIELD(Color, StyleComponent, Vu)
-        else if (id == FieldId::ScoreboardColors) for (uint8_t i = 0; i < GetFieldList()[(size_t)FieldId::ScoreboardColors].amount; i++)
+        else if (id == FieldId::ScoreboardColors) for (uint8_t i = 0; i < GetFieldList()[static_cast<size_t>(FieldId::ScoreboardColors)].amount; i++)
             writer->Vu(gameServer->entities.registry.get<ArenaComponent>(gameServer->entities.inner[0]->entity).ScoreboardColors()->At(i));
         SEND_FIELD(KilledBy, CameraComponent, StringNT)
         SEND_FIELD(PlayersNeeded, ArenaComponent, Vi)
         SEND_FIELD(Sides, PhysicsComponent, Vu)
         SEND_FIELD(Mothership, TeamComponent, Vu)
         SEND_FIELD(Healthbar, HealthComponent, Vu)
-        else if (id == FieldId::ScoreboardTanks) for (uint8_t i = 0; i < GetFieldList()[(size_t)FieldId::ScoreboardTanks].amount; i++)
+        else if (id == FieldId::ScoreboardTanks) for (uint8_t i = 0; i < GetFieldList()[static_cast<size_t>(FieldId::ScoreboardTanks)].amount; i++)
             writer->Vi(gameServer->entities.registry.get<ArenaComponent>(gameServer->entities.inner[0]->entity).ScoreboardTanks()->At(i));
         SEND_FIELD(RespawnLevel, CameraComponent, Vi)
         SEND_FIELD(LevelbarProgress, CameraComponent, Float)
@@ -313,11 +313,11 @@ void Camera::CompileCreation(diep::coder::writer::Writer *writer, Entity *entity
         SEND_FIELD(StyleFlags, StyleComponent, Vu)
         SEND_FIELD(TrapezoidalDir, BarrelComponent, Float)
         SEND_FIELD(Motion, PositionComponent, Vu)
-        else if (id == FieldId::ScoreboardNames) for (uint8_t i = 0; i < GetFieldList()[(size_t)FieldId::ScoreboardNames].amount; i++)
+        else if (id == FieldId::ScoreboardNames) for (uint8_t i = 0; i < GetFieldList()[static_cast<size_t>(FieldId::ScoreboardNames)].amount; i++)
             writer->StringNT(gameServer->entities.registry.get<ArenaComponent>(gameServer->entities.inner[0]->entity).ScoreboardNames()->At(i));
         SEND_FIELD(Scorebar, CameraComponent, Float)
         SEND_FIELD(MothershipY, TeamComponent, Float)
-        else if (id == FieldId::ScoreboardSuffixes) for (uint8_t i = 0; i < GetFieldList()[(size_t)FieldId::ScoreboardSuffixes].amount; i++)
+        else if (id == FieldId::ScoreboardSuffixes) for (uint8_t i = 0; i < GetFieldList()[static_cast<size_t>(FieldId::ScoreboardSuffixes)].amount; i++)
             writer->StringNT(gameServer->entities.registry.get<ArenaComponent>(gameServer->entities.inner[0]->entity).ScoreboardSuffixes()->At(i));
         SEND_FIELD(Nametag, NameComponent, Vu)
         SEND_FIELD(MovementSpeed, CameraComponent, Float)
@@ -327,12 +327,12 @@ void Camera::CompileCreation(diep::coder::writer::Writer *writer, Entity *entity
         SEND_FIELD(Level, CameraComponent, Vi)
         SEND_FIELD(TeamColor, TeamComponent, Vu)
         SEND_FIELD(Fov, CameraComponent, Float)
-        else if (id == FieldId::StatLimits) for (uint8_t i = 0; i < GetFieldList()[(size_t)FieldId::StatLimits].amount; i++)
+        else if (id == FieldId::StatLimits) for (uint8_t i = 0; i < GetFieldList()[static_cast<size_t>(FieldId::StatLimits)].amount; i++)
             writer->Vi(gameServer->entities.registry.get<CameraComponent>(gameServer->entities.inner[0]->entity).StatLimits()->At(i));
         SEND_FIELD(LeftX, ArenaComponent, Float)
-        else if (id == FieldId::ScoreboardScores) for (uint8_t i = 0; i < GetFieldList()[(size_t)FieldId::ScoreboardScores].amount; i++)
+        else if (id == FieldId::ScoreboardScores) for (uint8_t i = 0; i < GetFieldList()[static_cast<size_t>(FieldId::ScoreboardScores)].amount; i++)
             writer->Float(gameServer->entities.registry.get<ArenaComponent>(gameServer->entities.inner[0]->entity).ScoreboardScores()->At(i));
-        else if (id == FieldId::StatLevels) for (uint8_t i = 0; i < GetFieldList()[(size_t)FieldId::StatLevels].amount; i++)
+        else if (id == FieldId::StatLevels) for (uint8_t i = 0; i < GetFieldList()[static_cast<size_t>(FieldId::StatLevels)].amount; i++)
             writer->Vi(gameServer->entities.registry.get<CameraComponent>(gameServer->entities.inner[0]->entity).StatLevels()->At(i));
         SEND_FIELD(TankOverride, CameraComponent, StringNT)
         SEND_FIELD(Tank, CameraComponent, Vi)

@@ -22,11 +22,11 @@ public:
     template <EventId id>
     void On(std::function<void(void *)> callback)
     {
-        callbackList[(size_t)id] = callback;
+        callbackList[static_cast<size_t>(id)] = callback;
     };
     template <EventId id>
     void Emit(void *argument = nullptr)
     {
-        callbackList[(size_t)id](argument);
+        callbackList[static_cast<size_t>(id)](argument);
     };
 };
