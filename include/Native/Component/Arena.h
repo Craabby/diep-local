@@ -36,7 +36,7 @@ class ArenaComponent
         uint8_t scoreboardTanks = 0;
         uint8_t leaderX = 0;
         uint8_t leaderY = 0;
-        uint8_t playersNedded = 0;
+        uint8_t playersNeeded = 0;
         uint8_t ticksUntilStart = 0;
     } state;
     struct Values

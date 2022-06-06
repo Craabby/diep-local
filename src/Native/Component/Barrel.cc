@@ -17,6 +17,14 @@ void BarrelComponent::Wipe()
 std::vector<FieldId> BarrelComponent::FindUpdates()
 {
     std::vector<FieldId> found;
+
+    if (state.shooting != 0)
+        found.push_back(FieldId::Shooting);
+    if (state.reloadTime != 0)
+        found.push_back(FieldId::ReloadTime);
+    if (state.trapezoidalDir != 0)
+        found.push_back(FieldId::TrapezoidalDir);
+        
     return found;
 }
 

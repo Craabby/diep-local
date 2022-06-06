@@ -19,6 +19,13 @@ void StyleComponent::Wipe()
 std::vector<FieldId> StyleComponent::FindUpdates()
 {
     std::vector<FieldId> found;
+
+    if (state.styleFlags != 0) found.push_back(FieldId::StyleFlags);
+    if (state.color != 0) found.push_back(FieldId::Color);
+    if (state.borderThickness != 0) found.push_back(FieldId::BorderThickness);
+    if (state.opacity != 0) found.push_back(FieldId::Opacity);
+    if (state.zIndex != 0) found.push_back(FieldId::Zindex);
+
     return found;
 }
 

@@ -22,13 +22,45 @@ void ArenaComponent::Wipe()
     state.scoreboardTanks = 0;
     state.leaderX = 0;
     state.leaderY = 0;
-    state.playersNedded = 0;
+    state.playersNeeded = 0;
     state.ticksUntilStart = 0;
 }
 
 std::vector<FieldId> ArenaComponent::FindUpdates()
 {
     std::vector<FieldId> found;
+
+    if (state.gui != 0)
+        found.push_back(FieldId::Gui);
+    if (state.leftX != 0)
+        found.push_back(FieldId::LeftX);
+    if (state.topY != 0)
+        found.push_back(FieldId::TopY);
+    if (state.rightX != 0)
+        found.push_back(FieldId::RightX);
+    if (state.bottomY != 0)
+        found.push_back(FieldId::BottomY);
+    if (state.scoreboardAmount != 0)
+        found.push_back(FieldId::ScoreboardAmount);
+    if (state.scoreboardNames != 0)
+        found.push_back(FieldId::ScoreboardNames);
+    if (state.scoreboardScores != 0)
+        found.push_back(FieldId::ScoreboardScores);
+    if (state.scoreboardColors != 0)
+        found.push_back(FieldId::ScoreboardColors);
+    if (state.scoreboardSuffixes != 0)
+        found.push_back(FieldId::ScoreboardSuffixes);
+    if (state.scoreboardTanks != 0)
+        found.push_back(FieldId::ScoreboardTanks);
+    if (state.leaderX != 0)
+        found.push_back(FieldId::LeaderX);
+    if (state.leaderY != 0)
+        found.push_back(FieldId::LeaderY);
+    if (state.playersNeeded != 0)
+        found.push_back(FieldId::PlayersNeeded);
+    if (state.ticksUntilStart != 0)
+        found.push_back(FieldId::TicksUntilStart);
+
     return found;
 }
 

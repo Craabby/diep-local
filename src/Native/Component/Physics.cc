@@ -9,7 +9,6 @@ PhysicsComponent::PhysicsComponent(Entity *entity)
 
 void PhysicsComponent::ApplyPhysics()
 {
-
 }
 
 void PhysicsComponent::Wipe()
@@ -25,6 +24,20 @@ void PhysicsComponent::Wipe()
 std::vector<FieldId> PhysicsComponent::FindUpdates()
 {
     std::vector<FieldId> found;
+
+    if (state.objectFlags != 0)
+        found.push_back(FieldId::ObjectFlags);
+    if (state.sides != 0)
+        found.push_back(FieldId::Sides);
+    if (state.size != 0)
+        found.push_back(FieldId::Size);
+    if (state.width != 0)
+        found.push_back(FieldId::Width);
+    if (state.absorbtionFactor != 0)
+        found.push_back(FieldId::AbsorbtionFactor);
+    if (state.pushFactor != 0)
+        found.push_back(FieldId::PushFactor);
+
     return found;
 }
 

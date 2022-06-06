@@ -17,6 +17,14 @@ void HealthComponent::Wipe()
 std::vector<FieldId> HealthComponent::FindUpdates()
 {
     std::vector<FieldId> found;
+
+    if (state.healthbar != 0)
+        found.push_back(FieldId::Healthbar);
+    if (state.health != 0)
+        found.push_back(FieldId::Health);
+    if (state.maxHealth != 0)
+        found.push_back(FieldId::MaxHealth);
+
     return found;
 }
 
@@ -34,4 +42,3 @@ float HealthComponent::MaxHealth()
 {
     return netProperties.maxHealth;
 }
-

@@ -18,6 +18,16 @@ void PositionComponent::Wipe()
 std::vector<FieldId> PositionComponent::FindUpdates()
 {
     std::vector<FieldId> found;
+
+    if (state.x != 0)
+        found.push_back(FieldId::X);
+    if (state.y != 0)
+        found.push_back(FieldId::Y);
+    if (state.angle != 0)
+        found.push_back(FieldId::Angle);
+    if (state.motion != 0)
+        found.push_back(FieldId::Motion);
+
     return found;
 }
 

@@ -39,6 +39,50 @@ void CameraComponent::Wipe()
 std::vector<FieldId> CameraComponent::FindUpdates()
 {
     std::vector<FieldId> found;
+
+    if (state.guiUnknown != 0)
+        found.push_back(FieldId::GuiUnknown);
+    if (state.camera != 0)
+        found.push_back(FieldId::Camera);
+    if (state.player != 0)
+        found.push_back(FieldId::Player);
+    if (state.fov != 0)
+        found.push_back(FieldId::Fov);
+    if (state.level != 0)
+        found.push_back(FieldId::Level);
+    if (state.tank != 0)
+        found.push_back(FieldId::Tank);
+    if (state.levelbarProgress != 0)
+        found.push_back(FieldId::LevelbarProgress);
+    if (state.levelbarMax != 0)
+        found.push_back(FieldId::LevelbarMax);
+    if (state.statsAvailable != 0)
+        found.push_back(FieldId::StatsAvailable);
+    if (state.statNames != 0)
+        found.push_back(FieldId::StatNames);
+    if (state.statLevels != 0)
+        found.push_back(FieldId::StatLevels);
+    if (state.statLimits != 0)
+        found.push_back(FieldId::StatLimits);
+    if (state.cameraX != 0)
+        found.push_back(FieldId::CameraX);
+    if (state.cameraY != 0)
+        found.push_back(FieldId::CameraY);
+    if (state.scorebar != 0)
+        found.push_back(FieldId::Scorebar);
+    if (state.respawnLevel != 0)
+        found.push_back(FieldId::RespawnLevel);
+    if (state.killedBy != 0)
+        found.push_back(FieldId::KilledBy);
+    if (state.spawnTick != 0)
+        found.push_back(FieldId::SpawnTick);
+    if (state.deathTick != 0)
+        found.push_back(FieldId::DeathTick);
+    if (state.tankOverride != 0)
+        found.push_back(FieldId::TankOverride);
+    if (state.movementSpeed != 0)
+        found.push_back(FieldId::MovementSpeed);
+
     return found;
 }
 

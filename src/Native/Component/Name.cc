@@ -16,6 +16,12 @@ void NameComponent::Wipe()
 std::vector<FieldId> NameComponent::FindUpdates()
 {
     std::vector<FieldId> found;
+
+    if (state.name != 0)
+        found.push_back(FieldId::Name);
+    if (state.nametag != 0)
+        found.push_back(FieldId::Nametag);
+
     return found;
 }
 

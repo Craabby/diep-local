@@ -15,6 +15,10 @@ void ScoreComponent::Wipe()
 std::vector<FieldId> ScoreComponent::FindUpdates()
 {
     std::vector<FieldId> found;
+
+    if (state.score != 0)
+        found.push_back(FieldId::Score);
+
     return found;
 }
 

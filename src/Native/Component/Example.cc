@@ -15,6 +15,10 @@ void ExampleComponent::Wipe()
 std::vector<FieldId> ExampleComponent::FindUpdates()
 {
     std::vector<FieldId> found;
+
+    if (state.unknown != 0)
+        found.push_back(FieldId::Unknown);
+
     return found;
 }
 
