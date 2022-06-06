@@ -14,6 +14,12 @@ void HealthComponent::Wipe()
     state.maxHealth = 0;
 }
 
+std::vector<FieldId> HealthComponent::FindUpdates()
+{
+    std::vector<FieldId> found;
+    return found;
+}
+
 uint32_t HealthComponent::Healthbar()
 {
     return netProperties.healthbar;

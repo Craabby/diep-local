@@ -13,6 +13,12 @@ void NameComponent::Wipe()
     state.nametag = 0;
 }
 
+std::vector<FieldId> NameComponent::FindUpdates()
+{
+    std::vector<FieldId> found;
+    return found;
+}
+
 uint8_t NameComponent::Nametag()
 {
     return netProperties.nametag;

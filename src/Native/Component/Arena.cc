@@ -26,6 +26,11 @@ void ArenaComponent::Wipe()
     state.ticksUntilStart = 0;
 }
 
+std::vector<FieldId> ArenaComponent::FindUpdates()
+{
+    std::vector<FieldId> found;
+    return found;
+}
 
 uint32_t ArenaComponent::Gui()
 {

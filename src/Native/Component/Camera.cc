@@ -36,6 +36,12 @@ void CameraComponent::Wipe()
     state.movementSpeed = 0;
 }
 
+std::vector<FieldId> CameraComponent::FindUpdates()
+{
+    std::vector<FieldId> found;
+    return found;
+}
+
 int16_t CameraComponent::GuiUnknown()
 {
     return netProperties.guiUnknown;

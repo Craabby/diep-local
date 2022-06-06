@@ -15,6 +15,12 @@ void PositionComponent::Wipe()
     state.motion = 0;
 }
 
+std::vector<FieldId> PositionComponent::FindUpdates()
+{
+    std::vector<FieldId> found;
+    return found;
+}
+
 int32_t PositionComponent::X()
 {
     return netProperties.x;

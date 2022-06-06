@@ -12,6 +12,12 @@ void ExampleComponent::Wipe()
     state.unknown = 0;
 }
 
+std::vector<FieldId> ExampleComponent::FindUpdates()
+{
+    std::vector<FieldId> found;
+    return found;
+}
+
 uint8_t ExampleComponent::Unknown()
 {
     return netProperties.unknown;

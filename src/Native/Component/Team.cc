@@ -15,18 +15,27 @@ void TeamComponent::Wipe()
     state.mothership = 0;
 }
 
+std::vector<FieldId> TeamComponent::FindUpdates()
+{
+    std::vector<FieldId> found;
+    return found;
+}
+
 uint32_t TeamComponent::Mothership()
 {
     return netProperties.mothership;
 }
+
 float TeamComponent::MothershipX()
 {
     return netProperties.mothershipX;
 }
+
 float TeamComponent::MothershipY()
 {
     return netProperties.mothershipY;
 }
+
 ColorId TeamComponent::TeamColor()
 {
     return netProperties.teamColor;

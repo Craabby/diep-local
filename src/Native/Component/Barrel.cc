@@ -14,6 +14,12 @@ void BarrelComponent::Wipe()
     state.trapezoidalDir = 0;
 }
 
+std::vector<FieldId> BarrelComponent::FindUpdates()
+{
+    std::vector<FieldId> found;
+    return found;
+}
+
 uint32_t BarrelComponent::Shooting()
 {
     return netProperties.shooting;

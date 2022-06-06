@@ -22,6 +22,12 @@ void PhysicsComponent::Wipe()
     state.pushFactor = 0;
 }
 
+std::vector<FieldId> PhysicsComponent::FindUpdates()
+{
+    std::vector<FieldId> found;
+    return found;
+}
+
 uint32_t PhysicsComponent::ObjectFlags()
 {
     return netProperties.objectFlags;

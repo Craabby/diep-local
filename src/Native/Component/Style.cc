@@ -16,22 +16,32 @@ void StyleComponent::Wipe()
     state.zIndex = 0;
 }
 
+std::vector<FieldId> StyleComponent::FindUpdates()
+{
+    std::vector<FieldId> found;
+    return found;
+}
+
 float StyleComponent::StyleFlags()
 {
     return netProperties.styleFlags;
 }
+
 ColorId StyleComponent::Color()
 {
     return netProperties.color;
 }
+
 int32_t StyleComponent::BorderThickness()
 {
     return netProperties.borderThickness;
 }
+
 float StyleComponent::Opacity()
 {
     return netProperties.opacity;
 }
+
 uint32_t StyleComponent::Zindex()
 {
     return netProperties.zIndex;
