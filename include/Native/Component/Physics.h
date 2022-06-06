@@ -37,6 +37,7 @@ public:
     void ApplyPhysics();
 
     void Wipe();
+    std::vector<FieldId> FindUpdates();
 
     uint32_t ObjectFlags();
     uint32_t Sides();

@@ -29,6 +29,7 @@ public:
     HealthComponent(Entity *entity);
 
     void Wipe();
+    std::vector<FieldId> FindUpdates();
 
     uint32_t Healthbar();
     float Health();

@@ -25,6 +25,7 @@ public:
     ScoreComponent(Entity *entity);
 
     void Wipe();
+    std::vector<FieldId> FindUpdates();
 
     float Score();
     void Score(float score);

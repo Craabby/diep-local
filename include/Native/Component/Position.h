@@ -31,6 +31,7 @@ public:
     PositionComponent(Entity *entity);
 
     void Wipe();
+    std::vector<FieldId> FindUpdates();
 
     int32_t X();
     int32_t Y();

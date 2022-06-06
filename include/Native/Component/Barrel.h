@@ -31,6 +31,7 @@ public:
     BarrelComponent(Entity *entity);
 
     void Wipe();
+    std::vector<FieldId> FindUpdates();
 
     uint32_t Shooting();
     float ReloadTime();

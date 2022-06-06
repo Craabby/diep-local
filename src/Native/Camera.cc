@@ -384,17 +384,17 @@ void Camera::CompileUpdate(diep::coder::writer::Writer *writer, Entity *entity)
             updatedFields.push_back(updatedField);                                                                         \
     }
 
-        // ADD_UPDATED_FIELDS_FROM_COMPONENT(relations, RelationsComponent)
-        // ADD_UPDATED_FIELDS_FROM_COMPONENT(barrel, BarrelComponent)
-        // ADD_UPDATED_FIELDS_FROM_COMPONENT(physics, PhysicsComponent)
-        // ADD_UPDATED_FIELDS_FROM_COMPONENT(health, HealthComponent)
-        // ADD_UPDATED_FIELDS_FROM_COMPONENT(arena, ArenaComponent)
-        // ADD_UPDATED_FIELDS_FROM_COMPONENT(name, NameComponent)
-        // ADD_UPDATED_FIELDS_FROM_COMPONENT(camera, CameraComponent)
-        // ADD_UPDATED_FIELDS_FROM_COMPONENT(position, PositionComponent)
-        // ADD_UPDATED_FIELDS_FROM_COMPONENT(style, StyleComponent)
-        // ADD_UPDATED_FIELDS_FROM_COMPONENT(score, ScoreComponent)
-        // ADD_UPDATED_FIELDS_FROM_COMPONENT(team, TeamComponent)
+        ADD_UPDATED_FIELDS_FROM_COMPONENT(relations, RelationsComponent)
+        ADD_UPDATED_FIELDS_FROM_COMPONENT(barrel, BarrelComponent)
+        ADD_UPDATED_FIELDS_FROM_COMPONENT(physics, PhysicsComponent)
+        ADD_UPDATED_FIELDS_FROM_COMPONENT(health, HealthComponent)
+        ADD_UPDATED_FIELDS_FROM_COMPONENT(arena, ArenaComponent)
+        ADD_UPDATED_FIELDS_FROM_COMPONENT(name, NameComponent)
+        ADD_UPDATED_FIELDS_FROM_COMPONENT(camera, CameraComponent)
+        ADD_UPDATED_FIELDS_FROM_COMPONENT(position, PositionComponent)
+        ADD_UPDATED_FIELDS_FROM_COMPONENT(style, StyleComponent)
+        ADD_UPDATED_FIELDS_FROM_COMPONENT(score, ScoreComponent)
+        ADD_UPDATED_FIELDS_FROM_COMPONENT(team, TeamComponent)
 
 #undef ADD_UPDATED_FIELDS_FROM_COMPONENT
     }

@@ -34,6 +34,7 @@ public:
     RelationsComponent(Entity *entity);
 
     void Wipe();
+    std::vector<FieldId> FindUpdates();
 
     Entity *Parent();
     Entity *Owner();

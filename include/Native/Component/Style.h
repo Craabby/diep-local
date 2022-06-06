@@ -33,6 +33,7 @@ public:
     StyleComponent(Entity *entity);
 
     void Wipe();
+    std::vector<FieldId> FindUpdates();
 
     float StyleFlags();
     ColorId Color();

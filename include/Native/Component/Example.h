@@ -25,6 +25,7 @@ public:
     ExampleComponent(Entity *entity);
 
     void Wipe();
+    std::vector<FieldId> FindUpdates();
 
     uint8_t Unknown();
 

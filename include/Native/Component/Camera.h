@@ -84,6 +84,7 @@ public:
     CameraComponent(Entity *entity);
 
     void Wipe();
+    std::vector<FieldId> FindUpdates();
     void Tick(uint32_t tick);
 
     int16_t GuiUnknown();

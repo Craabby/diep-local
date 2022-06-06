@@ -71,6 +71,7 @@ public:
     ArenaComponent(Entity *entity);
 
     void Wipe();
+    std::vector<FieldId> FindUpdates();
 
     uint32_t Gui();
     float LeftX();
