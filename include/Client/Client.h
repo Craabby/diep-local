@@ -41,7 +41,7 @@ namespace diep::server::client
         socket::Socket socket;
         bool terminated = false;
 
-        Client(Server *server, Connection connection, GameServer *gameServer);
+        Client(Server *server, websocketpp::connection_hdl connection, GameServer *gameServer);
 
         void Terminate();
         void Send(coder::writer::Writer const &writer);

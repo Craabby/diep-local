@@ -14,11 +14,11 @@
 #include <Native/EntityFactory.h>
 #include <Native/Manager.h>
 
-diep::server::client::Client::Client(Server *server, Connection connection, GameServer *gameServer)
+diep::server::client::Client::Client(Server *server, websocketpp::connection_hdl connection, GameServer *gameServer)
     : socket(diep::server::socket::Socket(server, connection)),
       gameServer(gameServer)
 {
-    socket.connection->set_message_handler([this, connection](websocketpp::connection_hdl _, Server::message_ptr _message)
+    socket.server->get_con_from_hdl(socket.connection)->set_message_handler([this](websocketpp::connection_hdl connection, Server::message_ptr _message)
                                                                             {
         diep::server::socket::Message packet((uint8_t *)_message->get_raw_payload().c_str(), _message->get_raw_payload().size(), connection);
         socket.events.Emit<EventId::packet>(static_cast<void *>(&packet)); });
@@ -60,10 +60,14 @@ diep::server::client::Client::Client(Server *server, Connection connection, Game
 
             return;
         } });
+
+    socket.events.On<EventId::close>([this](void *)
+                                     { Terminate(); });
 }
 
 void diep::server::client::Client::Terminate()
 {
+    std::cout << "removed client" << std::endl;
     terminated = true;
     if (camera != nullptr)
     {
@@ -79,7 +83,7 @@ size_t diep::server::client::Client::GetId() const
 
 void diep::server::client::Client::Send(coder::writer::Writer const &writer)
 {
-    socket.connection->send((void *)writer.Write().output, writer.Write().size, websocketpp::frame::opcode::value::binary);
+    socket.server->send(socket.connection, (void *)writer.Write().output, writer.Write().size, websocketpp::frame::opcode::value::binary);
 }
 
 void diep::server::client::Client::Tick(uint32_t tick)

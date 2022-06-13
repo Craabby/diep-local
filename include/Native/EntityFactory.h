@@ -38,4 +38,3 @@ Entity *CreateBarrel(diep::server::GameServer *gameServer);
 
 CameraEntity *CreateCameraEntity(diep::server::GameServer *gameServer);
 Camera *CreateCamera(diep::server::client::Client *client);
-

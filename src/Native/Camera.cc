@@ -15,10 +15,7 @@ void AddComponentFieldsToEntity(std::vector<FieldId> &vector)
 CameraEntity::CameraEntity(diep::server::GameServer *gameServer)
     : Entity(gameServer)
 {
-}
-
-void CameraEntity::Tick(uint32_t tick)
-{
+    std::cout << "CameraEntity::Tick()" << std::endl;
 }
 
 Camera::Camera(diep::server::client::Client *client)
@@ -26,6 +23,11 @@ Camera::Camera(diep::server::client::Client *client)
       client(client)
 {
     isClientCamera = true;
+    std::cout << "Camera::Camera()" << std::endl;
+}
+
+void CameraEntity::Tick(uint32_t tick)
+{
 }
 
 void Camera::AddToView(Entity *entity)

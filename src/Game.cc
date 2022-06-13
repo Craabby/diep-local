@@ -48,9 +48,9 @@ void diep::server::GameServer::RunGameLoop()
         // time_point otherEnd = system_clock::now();
         // std::cout << std::endl
         //           << std::endl
-        //           << "tick " << tickCount << " time:" << std::endl
+        //           << "tick " << tickCount << " time:" << std::endl;
         //           << "tick took: " << (double)duration_cast<nanoseconds>(difference).count() / 1'000'000 << " ms" << std::endl
-        //           << "time elapsed: " << (double)duration_cast<nanoseconds>(duration<double>(otherEnd - start)).count() / 1'000'000 << " ms" << std::endl;
+        //           << "time elapsed: " << (double)duration_cast<nanoseconds>(duration<double>(otherEnd - start)).count() / 1'000'000 << " ms" << std::endl
     }
 }
 
@@ -68,14 +68,20 @@ void diep::server::GameServer::Listen()
     server->set_open_handler([this](websocketpp::connection_hdl connection)
                              {
         std::cout << "client connected" << std::endl;
-        client::Client *client = new client::Client(server, server->get_con_from_hdl(connection), this);
-        
-        client->socket.connection->set_close_handler([this, client](websocketpp::connection_hdl)
-        {
-            clients.erase(std::find(clients.begin(), clients.end(), client));
-            client->Terminate();
-            delete client;
-        });
-
+        client::Client *client = new client::Client(server, connection, this);
         clients.push_back(client); });
+
+    server->set_close_handler([this](websocketpp::connection_hdl connection)
+                              {
+        for (size_t i = 0; i < clients.size(); i++)
+        {
+            client::Client *client = clients.at(i);
+            server->get_con_from_hdl(client->socket.connection);
+            if (server->get_con_from_hdl(client->socket.connection) == server->get_con_from_hdl(connection))
+            {
+                client->socket.events.Emit<EventId::close>();
+                clients.erase(clients.begin() + i);
+                delete client;
+            }
+        } });
 }
