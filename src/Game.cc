@@ -42,15 +42,15 @@ void diep::server::GameServer::RunGameLoop()
         Tick(tickCount);
         time_point end = system_clock::now();
         duration<double> difference = end - start;
-        usleep(40'000 - (uint32_t)duration_cast<microseconds>(difference).count() - 160);
+        int64_t deltaTime = (int64_t)duration_cast<microseconds>(difference).count();
+        usleep(40'000 - (deltaTime < 40'00 ? deltaTime : 39'999));
 
-        time_point otherEnd = system_clock::now();
-
+        // time_point otherEnd = system_clock::now();
         // std::cout << std::endl
         //           << std::endl
-        //           << "tick " << tickCount << " time:" << std::endl;
-        // std::cout << "tick took: " << (double)duration_cast<nanoseconds>(difference).count() / 1'000'000 << " ms" << std::endl;
-        // std::cout << "time elapsed: " << (double)duration_cast<nanoseconds>(duration<double>(otherEnd - start)).count() / 1'000'000 << " ms" << std::endl;
+        //           << "tick " << tickCount << " time:" << std::endl
+        //           << "tick took: " << (double)duration_cast<nanoseconds>(difference).count() / 1'000'000 << " ms" << std::endl
+        //           << "time elapsed: " << (double)duration_cast<nanoseconds>(duration<double>(otherEnd - start)).count() / 1'000'000 << " ms" << std::endl;
     }
 }
 
@@ -68,20 +68,14 @@ void diep::server::GameServer::Listen()
     server->set_open_handler([this](websocketpp::connection_hdl connection)
                              {
         std::cout << "client connected" << std::endl;
-        client::Client *client = new client::Client(server, connection, this);
-        clients.push_back(client); });
-
-    server->set_close_handler([this](websocketpp::connection_hdl connection)
-                              {
-        for (size_t i = 0; i < clients.size(); i++)
+        client::Client *client = new client::Client(server, server->get_con_from_hdl(connection), this);
+        
+        client->socket.connection->set_close_handler([this, client](websocketpp::connection_hdl)
         {
-            client::Client *client = clients.at(i);
-            server->get_con_from_hdl(client->socket.connection);
-            if (server->get_con_from_hdl(client->socket.connection) == server->get_con_from_hdl(connection))
-            {
-                client->socket.events.Emit<EventId::close>();
-                clients.erase(clients.begin() + i);
-                delete client;
-            }
-        } });
+            clients.erase(std::find(clients.begin(), clients.end(), client));
+            client->Terminate();
+            delete client;
+        });
+
+        clients.push_back(client); });
 }

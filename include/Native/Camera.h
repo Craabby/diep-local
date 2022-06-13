@@ -30,7 +30,6 @@ public:
     int32_t sizeFactor = 1;
     bool isClientCamera = false;
 
-    diep::server::client::Client *client;
     std::vector<Entity *> view;
 
     CameraEntity(diep::server::GameServer *gameServer);
