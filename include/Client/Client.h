@@ -34,17 +34,17 @@ namespace diep::server::client
     class Client
     {
         uint32_t connectTick = 0;
-        GameServer *gameServer;
 
     public:
-        Entity *camera = nullptr;
+        GameServer *gameServer;
+        Camera *camera = nullptr;
         socket::Socket socket;
         bool terminated = false;
 
         Client(Server *server, websocketpp::connection_hdl connection, GameServer *gameServer);
 
         void Terminate();
-        void Send(coder::writer::Writer const &&writer);
+        void Send(coder::writer::Writer const &writer);
         size_t GetId() const;
         void Tick(uint32_t tick);
     };

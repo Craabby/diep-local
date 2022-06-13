@@ -40,11 +40,11 @@ diep::server::client::Client::Client(Server *server, websocketpp::connection_hdl
                 return;
 
 
-            Send(std::move(*coder::writer::Writer().U8(7)));
-            Send(std::move(*coder::writer::Writer().U8(4)->StringNT(this->gameServer->gamemode)->StringNT(this->gameServer->endpoint)));
-            Send(std::move(*coder::writer::Writer().U8(10)->Vu((uint32_t)this->gameServer->clients.size())));
+            Send(*coder::writer::Writer().U8(7));
+            Send(*coder::writer::Writer().U8(4)->StringNT(this->gameServer->gamemode)->StringNT(this->gameServer->endpoint));
+            Send(*coder::writer::Writer().U8(10)->Vu((uint32_t)this->gameServer->clients.size()));
 
-            camera = CreateCamera(this->gameServer);
+            camera = CreateCamera(this);
 
             camera->Insert();
 
@@ -56,7 +56,7 @@ diep::server::client::Client::Client(Server *server, websocketpp::connection_hdl
 
         if (header == 5)
         {
-            Send(std::move(*coder::writer::Writer().U8(5)));
+            Send(*coder::writer::Writer().U8(5));
 
             return;
         } });
@@ -80,9 +80,9 @@ size_t diep::server::client::Client::GetId() const
     return camera->id;
 }
 
-void diep::server::client::Client::Send(coder::writer::Writer const &&writer)
+void diep::server::client::Client::Send(coder::writer::Writer const &writer)
 {
-    socket.server->send(socket.connection, std::string((const char *)writer.Write().output, writer.Write().size), websocketpp::frame::opcode::value::binary);
+    socket.server->send(socket.connection, (void *)writer.Write().output, writer.Write().size, websocketpp::frame::opcode::value::binary);
 }
 
 void diep::server::client::Client::Tick(uint32_t tick)

@@ -4,6 +4,7 @@
 
 #include <entt/entity/registry.hpp>
 
+#include <Client/Socket.h>
 #include <Game.h>
 #include <Native/Component/Arena.h>
 #include <Native/Component/Barrel.h>
@@ -29,7 +30,7 @@ Entity *CreateObject(diep::server::GameServer *gameServer)
 
     return entity;
 }
-CameraEntity *CreateCamera(diep::server::GameServer *gameServer)
+CameraEntity *CreateCameraEntity(diep::server::GameServer *gameServer)
 {
     CameraEntity *entity = new CameraEntity(gameServer);
 
@@ -64,6 +65,15 @@ Entity *CreateArena(diep::server::GameServer *gameServer)
     Entity *entity = new Entity(gameServer);
 
     entity->gameServer->AppendComponentToEntity<ArenaComponent>(entity);
+
+    return entity;
+}
+
+Camera *CreateCamera(diep::server::client::Client *client)
+{
+    Camera *entity = new Camera(client);
+
+    entity->gameServer->AppendComponentToEntity<CameraComponent>(entity);
 
     return entity;
 }

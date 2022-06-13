@@ -49,3 +49,9 @@ void Entity::WipeState()
     if (gameServer->entities.registry.all_of<TeamComponent>(entity))
         gameServer->entities.registry.get<TeamComponent>(entity).Wipe();
 }
+
+void Entity::Delete()
+{
+    WipeState();
+    gameServer->entities.Remove(this);
+}

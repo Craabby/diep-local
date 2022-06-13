@@ -28,6 +28,7 @@ class CameraEntity : public Entity
 {
 public: 
     int32_t sizeFactor = 1;
+    bool isClientCamera = false;
 
     diep::server::client::Client *client;
     std::vector<Entity *> view;
@@ -53,7 +54,7 @@ public:
 
     Entity *spectatee = nullptr;
 
-    Camera(diep::server::GameServer *gameServer, diep::server::client::Client *client);
+    Camera(diep::server::client::Client *client);
 
     static uint32_t CalculateStatCount(int32_t level);
 

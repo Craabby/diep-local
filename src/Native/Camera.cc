@@ -15,11 +15,19 @@ void AddComponentFieldsToEntity(std::vector<FieldId> &vector)
 CameraEntity::CameraEntity(diep::server::GameServer *gameServer)
     : Entity(gameServer)
 {
+    std::cout << "CameraEntity::CameraEntity()" << std::endl;
 }
 
 void CameraEntity::Tick(uint32_t tick)
 {
+    std::cout << "CameraEntity::Tick()" << std::endl;
+}
 
+Camera::Camera(diep::server::client::Client *client)
+    : CameraEntity(client->gameServer)
+{
+    isClientCamera = true;
+    std::cout << "Camera::Camera()" << std::endl;
 }
 
 void Camera::AddToView(Entity *entity)
@@ -237,7 +245,7 @@ void Camera::UpdateView(uint32_t tick)
     for (size_t i = 0; i < creations.size(); i++)
         CompileCreation(writer, creations.at(i));
 
-    client->Send(std::move(*writer));
+    client->Send(*writer);
 }
 
 void Camera::CompileCreation(diep::coder::writer::Writer *writer, Entity *entity)
@@ -408,4 +416,13 @@ uint32_t Camera::CalculateStatCount(int32_t level)
         return level - 1;
 
     return level / 3 + 18;
+}
+
+void Camera::Tick(uint32_t tick)
+{
+    CameraEntity::Tick(tick);
+
+    std::cout << "Camera::Tick()" << std::endl;
+
+    UpdateView(tick);
 }

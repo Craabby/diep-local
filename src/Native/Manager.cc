@@ -85,14 +85,18 @@ void EntityManager::Tick(uint32_t tick)
 
     for (entityId cameraId : cameras)
     {
-        (static_cast<CameraEntity *>(inner[cameraId]))->Tick(tick);
+        CameraEntity *cameraEntity = static_cast<CameraEntity *>(inner[cameraId]);
+        if (cameraEntity->isClientCamera)
+            static_cast<Camera *>(cameraEntity)->Tick(tick);
+        else
+            cameraEntity->Tick(tick);
     }
 
     for (entityId id = 0; id < lastId; id++)
     {
         if (!Exists(id))
             continue;
-        
+
         inner[id]->WipeState();
     }
 }

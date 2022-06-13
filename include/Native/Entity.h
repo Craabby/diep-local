@@ -28,4 +28,5 @@ public:
 
     void Insert();
     void WipeState();
+    void Delete();
 };
