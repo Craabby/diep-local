@@ -20,7 +20,6 @@ namespace diep::server
     class GameServer
     {
     private:
-        Server *server;
         uint32_t tickCount;
 
         void Listen();
@@ -29,6 +28,7 @@ namespace diep::server
 
     public:
         static const uint32_t globalPlayerCount = 0;
+        Server *server;
         bool running = true;
         std::string gamemode;
         std::string endpoint;

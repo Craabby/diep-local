@@ -7,6 +7,7 @@
 #include <EventEmitter.h>
 
 typedef websocketpp::server<websocketpp::config::asio> Server;
+using Connection = std::shared_ptr<websocketpp::connection<websocketpp::config::asio>>;
 
 namespace diep::server::socket
 {

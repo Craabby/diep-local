@@ -30,8 +30,6 @@ public:
     int32_t sizeFactor = 1;
     bool isClientCamera = false;
 
-    std::vector<Entity *> view;
-
     CameraEntity(diep::server::GameServer *gameServer);
 
     void SetLevel(uint32_t level);
