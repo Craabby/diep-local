@@ -43,7 +43,7 @@ void diep::server::GameServer::RunGameLoop()
         time_point end = system_clock::now();
         duration<double> difference = end - start;
         int64_t deltaTime = (int64_t)duration_cast<microseconds>(difference).count();
-        usleep(40'000 - (deltaTime < 40'00 ? deltaTime : 39'999));
+        usleep(40'000 - (deltaTime < 40'000 ? deltaTime : 39'999));
 
         // time_point otherEnd = system_clock::now();
         // std::cout << std::endl
