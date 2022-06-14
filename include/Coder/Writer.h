@@ -44,6 +44,7 @@ namespace diep::coder::writer
         Writer *EntityId(int16_t id, int16_t hash = 0);
         Writer *EntityId(Entity *entity);
         WriterOutput Write() const;
-        size_t Size();
+        size_t Size() const;
+        size_t At() const;
     };
 }

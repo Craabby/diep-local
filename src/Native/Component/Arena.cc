@@ -64,6 +64,66 @@ std::vector<FieldId> ArenaComponent::FindUpdates()
     return found;
 }
 
+void ArenaComponent::LeftX(float x)
+{
+    if (LeftX() == x)
+        return;
+    
+    state.leftX |= 1;
+    entity->state |= 1;
+    netProperties.leftX = x;
+}
+
+void ArenaComponent::TopY(float x)
+{
+    if (TopY() == x)
+        return;
+    
+    state.topY |= 1;
+    entity->state |= 1;
+    netProperties.topY = x;
+}
+
+void ArenaComponent::RightX(float x)
+{
+    if (RightX() == x)
+        return;
+    
+    state.rightX |= 1;
+    entity->state |= 1;
+    netProperties.rightX = x;
+}
+
+void ArenaComponent::BottomY(float x)
+{
+    if (BottomY() == x)
+        return;
+    
+    state.bottomY |= 1;
+    entity->state |= 1;
+    netProperties.bottomY = x;
+}
+
+void ArenaComponent::LeaderX(float x)
+{
+    if (LeaderX() == x)
+        return;
+    
+    state.leaderX |= 1;
+    entity->state |= 1;
+    netProperties.leaderX = x;
+}
+
+void ArenaComponent::Gui(uint32_t x)
+{
+    if (Gui() == x)
+        return;
+    
+    state.gui |= 1;
+    entity->state |= 1;
+    netProperties.gui = x;
+}
+
 uint32_t ArenaComponent::Gui()
 {
     return netProperties.gui;

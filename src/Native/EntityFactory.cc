@@ -45,13 +45,6 @@ Entity *CreateBarrel(diep::server::GameServer *gameServer)
 {
     return CreateObject(gameServer);
 }
-
-Entity *CreateArena(diep::server::GameServer *gameServer)
-{
-    Entity *entity = new Entity(gameServer);
-    entity->gameServer->AppendComponentToEntity<ArenaComponent>(entity);
-    return entity;
-}
 CameraEntity *CreateCameraEntity(diep::server::GameServer *gameServer)
 {
     CameraEntity *entity = new CameraEntity(gameServer);

@@ -16,10 +16,10 @@ class TeamComponent
     } state;
     struct
     {
-        ColorId teamColor;
-        float mothershipX;
-        float mothershipY;
-        uint32_t mothership;
+        ColorId teamColor = ColorId::EnemyTank;
+        float mothershipX = 0;
+        float mothershipY = 0;
+        uint32_t mothership = 0;
     } netProperties;
 
 public:

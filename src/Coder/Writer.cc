@@ -19,6 +19,11 @@ namespace
     }
 }
 
+size_t diep::coder::writer::Writer::At() const
+{
+    return at;
+}
+
 diep::coder::writer::Writer *diep::coder::writer::Writer::U8(uint8_t value)
 {
     if (at > (1 << 20))

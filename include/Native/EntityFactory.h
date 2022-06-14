@@ -30,7 +30,6 @@ namespace diep::server
     }
 }
 
-Entity *CreateArena(diep::server::GameServer *gameServer);
 Entity *CreateLivingObject(diep::server::GameServer *gameServer);
 Entity *CreateObject(diep::server::GameServer *gameServer);
 Entity *CreateTankBody(diep::server::GameServer *gameServer);

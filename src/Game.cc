@@ -18,7 +18,7 @@ diep::server::GameServer::GameServer(Server *server, std::string gamemode, std::
     : server(server),
       gamemode(gamemode),
       endpoint(endpoint),
-      arena(CreateArena(this)),
+      arena(new SandboxArena(this)),
       entities(EntityManager(this))
 {
     std::cout << "inserting arena" << std::endl;

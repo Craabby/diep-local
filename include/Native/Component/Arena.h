@@ -12,7 +12,11 @@ class ScoreboardTable
     T values[10];
 
 public:
-    ScoreboardTable(T defaultValue, Entity *arena){};
+    ScoreboardTable(T defaultValue, Entity *arena)
+    {
+        for (size_t i = 0; i < 10; i++)
+            values[i] = defaultValue;
+    }
 
     const T &At(uint8_t x) const
     {
@@ -50,7 +54,7 @@ class ArenaComponent
         float bottomY = 0;
         uint8_t scoreboardAmount = 0;
         ScoreboardTable<std::string> scoreboardNames = ScoreboardTable<std::string>("", owner->entity);
-        ScoreboardTable<uint32_t> scoreboardScores = ScoreboardTable<uint32_t>(0, owner->entity);
+        ScoreboardTable<uint32_t> scoreboardScores = ScoreboardTable<uint32_t>(123, owner->entity);
         ScoreboardTable<ColorId> scoreboardColors = ScoreboardTable<ColorId>(ColorId::ScoreboardBar, owner->entity);
         ScoreboardTable<std::string> scoreboardSuffixes = ScoreboardTable<std::string>("", owner->entity);
         ScoreboardTable<TankId> scoreboardTanks = ScoreboardTable<TankId>(TankId::Basic, owner->entity);
@@ -67,7 +71,6 @@ public:
 
     static constexpr FieldGroupId id = FieldGroupId::arena;
     static inline std::array<FieldId, 15> fields = {FieldId::Gui, FieldId::LeftX, FieldId::TopY, FieldId::RightX, FieldId::BottomY, FieldId::ScoreboardAmount, FieldId::ScoreboardNames, FieldId::ScoreboardScores, FieldId::ScoreboardColors, FieldId::ScoreboardSuffixes, FieldId::ScoreboardTanks, FieldId::LeaderX, FieldId::LeaderY, FieldId::PlayersNeeded, FieldId::TicksUntilStart};
-
     ArenaComponent(Entity *entity);
 
     void Wipe();
