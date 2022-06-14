@@ -53,13 +53,13 @@ void Camera::UpdateView(uint32_t tick)
     std::vector<Entity *> updates = {};
     std::vector<Entity *> creations = {};
 
-    if (view.size() == 0)
-    {
-        creations.push_back(gameServer->entities.inner[0]);
-        creations.push_back(this);
-        view.push_back(gameServer->entities.inner[0]);
-        view.push_back(this);
-    }
+    // if (view.size() == 0)
+    // {
+    //     creations.push_back(gameServer->entities.inner[0]);
+    //     creations.push_back(this);
+    //     view.push_back(gameServer->entities.inner[0]);
+    //     view.push_back(this);
+    // }
 
     // CameraComponent &camera = gameServer->entities.registry.get<CameraComponent>(entity);
     // float fov = camera.Fov();
@@ -159,7 +159,7 @@ void Camera::UpdateView(uint32_t tick)
         }
     }
 
-    for (Entity *entity : view)
+    for (Entity *entity : entitiesInView)
     {
         bool isCreation = std::find(view.begin(), view.end(), entity) == view.end();
 
@@ -344,30 +344,6 @@ void Camera::CompileCreation(diep::coder::writer::Writer *writer, Entity *entity
         SEND_FIELD(DeathTick, CameraComponent, Vi)
         SEND_FIELD(Width, PhysicsComponent, Float)
         SEND_FIELD(StatsAvailable, CameraComponent, Vi)
-        SEND_FIELD(Shooting, BarrelComponent, Vu)
-        SEND_FIELD(LevelbarMax, CameraComponent, Float)
-        SEND_FIELD(Name, NameComponent, StringNT)
-        SEND_FIELD(Owner, RelationsComponent, EntityId)
-        SEND_FIELD(Health, HealthComponent, Float)
-        SEND_FIELD(CameraY, CameraComponent, Float)
-        SEND_FIELD(Opacity, StyleComponent, Float)
-        SEND_FIELD(ReloadTime, BarrelComponent, Float)
-        SEND_FIELD(CameraX, CameraComponent, Float)
-        SEND_FIELD(MothershipX, TeamComponent, Float)
-        SEND_FIELD(GuiUnknown, CameraComponent, Vu)
-        SEND_FIELD(Parent, RelationsComponent, EntityId)
-        SEND_FIELD(Zindex, StyleComponent, Vu)
-        SEND_FIELD(Camera, CameraComponent, Vu)
-        SEND_FIELD(RightX, ArenaComponent, Float)
-        SEND_FIELD(PushFactor, PhysicsComponent, Float)
-        SEND_FIELD(ObjectFlags, PhysicsComponent, Vu)
-        SEND_FIELD(ScoreboardAmount, ArenaComponent, Vu)
-        SEND_FIELD(TicksUntilStart, ArenaComponent, Float)
-        SEND_FIELD(TopY, ArenaComponent, Float)
-        SEND_FIELD(Score, ScoreComponent, Float)
-
-        else if (id == FieldId::ScoreboardColors) for (uint8_t i = 0; i < GetFieldList()[static_cast<size_t>(FieldId::ScoreboardColors)].amount; i++)
-            writer->Vu(gameServer->entities.registry.get<ArenaComponent>(gameServer->entities.inner[0]->entity).ScoreboardColors()->At(i));
         else if (id == FieldId::StatNames) for (uint8_t i = 0; i < GetFieldList()[(size_t)FieldId::StatNames].amount; i++)
             writer->StringNT(gameServer->entities.registry.get<CameraComponent>(entity->entity).StatNames()->At(i));
         else if (id == FieldId::ScoreboardTanks) for (uint8_t i = 0; i < GetFieldList()[static_cast<size_t>(FieldId::ScoreboardTanks)].amount; i++)
