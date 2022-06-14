@@ -2,6 +2,7 @@
 
 #include <cstdint>
 #include <cstddef>
+#include <stdexcept>
 
 #include <Native/Entity.h>
 
@@ -20,6 +21,8 @@ namespace
 
 diep::coder::writer::Writer *diep::coder::writer::Writer::U8(uint8_t value)
 {
+    if (at > (1 << 20))
+        throw std::runtime_error("Writer::OOB");
     OUTPUT_BUFFER[at++] = value;
     return this;
 }
@@ -27,16 +30,16 @@ diep::coder::writer::Writer *diep::coder::writer::Writer::U8(uint8_t value)
 diep::coder::writer::Writer *diep::coder::writer::Writer::U16(uint16_t value)
 {
     U8(value & 0xff);          // lower 8 bits
-    U8((value & 0xfeff) >> 8); // upper 8 bits
+    U8((value & 0xffff) >> 8); // upper 8 bits
     return this;
 }
 
 diep::coder::writer::Writer *diep::coder::writer::Writer::U32(uint32_t value)
 {
     U8((value & 0xff) >> 0);
-    U8((value & 0xfeff) >> 8);
-    U8((value & 0xfeffff) >> 16);
-    U8((value & 0xfeffffff) >> 24);
+    U8((value & 0xffff) >> 8);
+    U8((value & 0xffffff) >> 16);
+    U8((value & 0xffffffff) >> 24);
     return this;
 }
 
@@ -127,7 +130,10 @@ diep::coder::writer::Writer *diep::coder::writer::Writer::EntityId(entityId enti
 
 diep::coder::writer::Writer *diep::coder::writer::Writer::EntityId(Entity *entity)
 {
-    EntityId(entity->id, entity->hash);
+    if (entity != nullptr)
+        EntityId(entity->id, entity->hash);
+    else
+        U8(0);
 
     return this;
 }

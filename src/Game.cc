@@ -64,7 +64,6 @@ void diep::server::GameServer::Tick(uint32_t tick)
 void diep::server::GameServer::Listen()
 {
     namespace placeholders = websocketpp::lib::placeholders;
-    server->set_max_message_size(1024);
     server->set_open_handler([this](websocketpp::connection_hdl connection)
                              {
         std::cout << "client connected" << std::endl;

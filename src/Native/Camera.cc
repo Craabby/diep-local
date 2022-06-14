@@ -15,7 +15,6 @@ void AddComponentFieldsToEntity(std::vector<FieldId> &vector)
 CameraEntity::CameraEntity(diep::server::GameServer *gameServer)
     : Entity(gameServer)
 {
-    std::cout << "CameraEntity::Tick()" << std::endl;
 }
 
 Camera::Camera(diep::server::client::Client *client)
@@ -37,8 +36,12 @@ void Camera::AddToView(Entity *entity)
 
 void Camera::RemoveFromView(entityId id)
 {
-    view.vector::erase(std::find_if(view.begin(), view.end(), [id](Entity *entity)
-                                    { return entity->id == id; }));
+    auto entityIterator = std::find_if(view.begin(), view.end(), [id](Entity *entity)
+                                       { return entity->id == id; });
+    if (entityIterator != view.end())
+        view.erase(entityIterator);
+    else
+        std::cout << "removed nonexistant entity id " << std::to_string(id) << " from view" << std::endl;
 }
 
 void Camera::UpdateView(uint32_t tick)
@@ -49,13 +52,13 @@ void Camera::UpdateView(uint32_t tick)
     std::vector<Entity *> updates = {};
     std::vector<Entity *> creations = {};
 
-    // if (view.size() == 0)
-    // {
-    //     creations.push_back(gameServer->entities.inner[0]);
-    //     view.push_back(gameServer->entities.inner[0]);
-    //     creations.push_back(this);
-    //     view.push_back(this);
-    // }
+    if (view.size() == 0)
+    {
+        creations.push_back(gameServer->entities.inner[0]);
+        creations.push_back(this);
+        view.push_back(gameServer->entities.inner[0]);
+        view.push_back(this);
+    }
 
     // CameraComponent &camera = gameServer->entities.registry.get<CameraComponent>(entity);
     // float fov = camera.Fov();
@@ -141,6 +144,10 @@ void Camera::UpdateView(uint32_t tick)
     // }
 
     std::vector<Entity *> entitiesInView;
+
+    for (size_t i = 0; i < 16384; i++)
+        if (gameServer->entities.inner[i] != nullptr)
+            entitiesInView.push_back(gameServer->entities.inner[i]);
 
     for (Entity *entity : view)
     {
@@ -239,9 +246,9 @@ void Camera::UpdateView(uint32_t tick)
     //     }
     // }
 
-    writer->Vu((uint32_t)(creations.size() + updates.size()));
-    for (size_t i = 0; i < updates.size(); i++)
-        CompileUpdate(writer, updates.at(i));
+    writer->Vu((uint32_t)(creations.size()/* + updates.size()*/));
+    // for (size_t i = 0; i < updates.size(); i++)
+    //     CompileUpdate(writer, updates.at(i));
     for (size_t i = 0; i < creations.size(); i++)
         CompileCreation(writer, creations.at(i));
 
@@ -250,7 +257,9 @@ void Camera::UpdateView(uint32_t tick)
 
 void Camera::CompileCreation(diep::coder::writer::Writer *writer, Entity *entity)
 {
+    std::cout << "encoding creation " << entity->id << "#" << entity->hash << std::endl;
     writer->EntityId(entity->id, entity->hash);
+    writer->U8(1);
 
     int8_t at = -1;
     for (FieldGroupId id : entity->fieldGroups)
@@ -336,12 +345,12 @@ void Camera::CompileCreation(diep::coder::writer::Writer *writer, Entity *entity
         SEND_FIELD(TeamColor, TeamComponent, Vu)
         SEND_FIELD(Fov, CameraComponent, Float)
         else if (id == FieldId::StatLimits) for (uint8_t i = 0; i < GetFieldList()[static_cast<size_t>(FieldId::StatLimits)].amount; i++)
-            writer->Vi(gameServer->entities.registry.get<CameraComponent>(gameServer->entities.inner[0]->entity).StatLimits()->At(i));
+            writer->Vi(gameServer->entities.registry.get<CameraComponent>(entity->entity).StatLimits()->At(i));
         SEND_FIELD(LeftX, ArenaComponent, Float)
         else if (id == FieldId::ScoreboardScores) for (uint8_t i = 0; i < GetFieldList()[static_cast<size_t>(FieldId::ScoreboardScores)].amount; i++)
-            writer->Float(gameServer->entities.registry.get<ArenaComponent>(gameServer->entities.inner[0]->entity).ScoreboardScores()->At(i));
+            writer->Float(gameServer->entities.registry.get<ArenaComponent>(entity->entity).ScoreboardScores()->At(i));
         else if (id == FieldId::StatLevels) for (uint8_t i = 0; i < GetFieldList()[static_cast<size_t>(FieldId::StatLevels)].amount; i++)
-            writer->Vi(gameServer->entities.registry.get<CameraComponent>(gameServer->entities.inner[0]->entity).StatLevels()->At(i));
+            writer->Vi(gameServer->entities.registry.get<CameraComponent>(entity->entity).StatLevels()->At(i));
         SEND_FIELD(TankOverride, CameraComponent, StringNT)
         SEND_FIELD(Tank, CameraComponent, Vi)
         SEND_FIELD(BorderThickness, StyleComponent, Vi)
@@ -357,7 +366,7 @@ void Camera::CompileCreation(diep::coder::writer::Writer *writer, Entity *entity
         SEND_FIELD(Opacity, StyleComponent, Float)
         SEND_FIELD(ReloadTime, BarrelComponent, Float)
         else if (id == FieldId::StatNames) for (uint8_t i = 0; i < GetFieldList()[(size_t)FieldId::StatNames].amount; i++)
-            writer->StringNT(gameServer->entities.registry.get<CameraComponent>(gameServer->entities.inner[0]->entity).StatNames()->At(i));
+            writer->StringNT(gameServer->entities.registry.get<CameraComponent>(entity->entity).StatNames()->At(i));
         SEND_FIELD(CameraX, CameraComponent, Float)
         SEND_FIELD(MothershipX, TeamComponent, Float)
         SEND_FIELD(GuiUnknown, CameraComponent, Vu)
@@ -378,7 +387,11 @@ void Camera::CompileCreation(diep::coder::writer::Writer *writer, Entity *entity
 
 void Camera::CompileUpdate(diep::coder::writer::Writer *writer, Entity *entity)
 {
-    writer->EntityId(entity)->U8(0)->U8(1);
+    std::cout << "encoding update " << entity->id << "#" << entity->hash << std::endl;
+
+    writer->EntityId(entity);
+    writer->U8(0);
+    writer->U8(1);
 
     std::vector<FieldId> updatedFields;
 

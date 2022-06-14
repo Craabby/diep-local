@@ -54,12 +54,7 @@ diep::server::client::Client::Client(websocketpp::connection_hdl connection, Gam
         if (!camera)
             return;
 
-        // if (header == 2)
-        // {
-        //     Send(*coder::writer::Writer().StringNT(packet->reader.StringNT()));
-        // }
-
-        if (header == 5)
+        else if (header == 5)
         {
             Send(*coder::writer::Writer().U8(5));
 
