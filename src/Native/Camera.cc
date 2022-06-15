@@ -17,6 +17,17 @@ CameraEntity::CameraEntity(diep::server::GameServer *gameServer)
 {
 }
 
+CameraEntity::~CameraEntity()
+{
+    std::cout << "CameraEntity::~CameraEntity()" << std::endl;
+    CameraComponent &camera = gameServer->entities.registry.get<CameraComponent>(entity);
+
+    if (camera.Player() != nullptr)
+        delete camera.Player();
+        
+    gameServer->entities.Remove(this);
+}
+
 Camera::Camera(diep::server::client::Client *client)
     : CameraEntity(client->gameServer),
       client(client)

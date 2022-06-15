@@ -11,6 +11,12 @@ Entity::Entity(diep::server::GameServer *gameServer)
     std::cout << "constructing Entity at " << this << std::endl;
 }
 
+Entity::~Entity()
+{
+    WipeState();
+    gameServer->entities.Remove(this);
+}
+
 void Entity::Insert()
 {
     std::cout << "inserting Entity " << this << " with components ";
@@ -48,10 +54,4 @@ void Entity::WipeState()
         gameServer->entities.registry.get<StyleComponent>(entity).Wipe();
     if (gameServer->entities.registry.all_of<TeamComponent>(entity))
         gameServer->entities.registry.get<TeamComponent>(entity).Wipe();
-}
-
-void Entity::Delete()
-{
-    WipeState();
-    gameServer->entities.Remove(this);
 }
