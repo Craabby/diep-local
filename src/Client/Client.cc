@@ -76,6 +76,8 @@ diep::server::client::Client::Client(websocketpp::connection_hdl connection, Gam
             relations.Owner(tank);
             relations.Parent(tank);
 
+            tank->Insert();
+
             this->camera->spectatee = nullptr;
         }
         else if (header == 5)

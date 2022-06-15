@@ -34,6 +34,8 @@ namespace diep::server::client
     class Client
     {
         uint32_t connectTick = 0;
+        bool spawning = false;
+        bool sendPing = false;
 
     public:
         GameServer *gameServer;

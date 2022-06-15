@@ -400,30 +400,27 @@ void Camera::CompileUpdate(diep::coder::writer::Writer *writer, Entity *entity)
 
     std::vector<FieldId> updatedFields;
 
-    for (FieldGroupId group : entity->fieldGroups)
-    {
-#define ADD_UPDATED_FIELDS_FROM_COMPONENT(ComponentEnumValue, Component)                                                   \
-    if (group == FieldGroupId::ComponentEnumValue)                                                                         \
-    {                                                                                                                      \
-        std::vector<FieldId> updated = entity->gameServer->entities.registry.get<Component>(entity->entity).FindUpdates(); \
-        for (FieldId updatedField : updated)                                                                               \
-            updatedFields.push_back(updatedField);                                                                         \
+#define ADD_UPDATED_FIELDS_FROM_COMPONENT(ComponentEnumValue, Component)                                                                       \
+    if (entity->gameServer->entities.registry.all_of<Component>(entity->entity))                                                               \
+    {                                                                                                                                          \
+        std::vector<FieldId> updated##ComponentEnumValue = entity->gameServer->entities.registry.get<Component>(entity->entity).FindUpdates(); \
+        for (FieldId updatedField : updated##ComponentEnumValue)                                                                               \
+            updatedFields.push_back(updatedField);                                                                                             \
     }
 
-        ADD_UPDATED_FIELDS_FROM_COMPONENT(relations, RelationsComponent)
-        ADD_UPDATED_FIELDS_FROM_COMPONENT(barrel, BarrelComponent)
-        ADD_UPDATED_FIELDS_FROM_COMPONENT(physics, PhysicsComponent)
-        ADD_UPDATED_FIELDS_FROM_COMPONENT(health, HealthComponent)
-        ADD_UPDATED_FIELDS_FROM_COMPONENT(arena, ArenaComponent)
-        ADD_UPDATED_FIELDS_FROM_COMPONENT(name, NameComponent)
-        ADD_UPDATED_FIELDS_FROM_COMPONENT(camera, CameraComponent)
-        ADD_UPDATED_FIELDS_FROM_COMPONENT(position, PositionComponent)
-        ADD_UPDATED_FIELDS_FROM_COMPONENT(style, StyleComponent)
-        ADD_UPDATED_FIELDS_FROM_COMPONENT(score, ScoreComponent)
-        ADD_UPDATED_FIELDS_FROM_COMPONENT(team, TeamComponent)
+    ADD_UPDATED_FIELDS_FROM_COMPONENT(relations, RelationsComponent);
+    ADD_UPDATED_FIELDS_FROM_COMPONENT(barrel, BarrelComponent);
+    ADD_UPDATED_FIELDS_FROM_COMPONENT(physics, PhysicsComponent);
+    ADD_UPDATED_FIELDS_FROM_COMPONENT(health, HealthComponent);
+    ADD_UPDATED_FIELDS_FROM_COMPONENT(arena, ArenaComponent);
+    ADD_UPDATED_FIELDS_FROM_COMPONENT(name, NameComponent);
+    ADD_UPDATED_FIELDS_FROM_COMPONENT(camera, CameraComponent);
+    ADD_UPDATED_FIELDS_FROM_COMPONENT(position, PositionComponent);
+    ADD_UPDATED_FIELDS_FROM_COMPONENT(style, StyleComponent);
+    ADD_UPDATED_FIELDS_FROM_COMPONENT(score, ScoreComponent);
+    ADD_UPDATED_FIELDS_FROM_COMPONENT(team, TeamComponent);
 
 #undef ADD_UPDATED_FIELDS_FROM_COMPONENT
-    }
 
     std::sort(updatedFields.begin(), updatedFields.end());
 

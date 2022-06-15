@@ -1,5 +1,7 @@
 #include <Native/Component/Camera.h>
 
+#include <iostream>
+
 #include <Native/Entity.h>
 
 CameraComponent::CameraComponent(Entity *entity)
@@ -90,7 +92,7 @@ void CameraComponent::Player(Entity *x)
 {
     if (Player() == x)
         return;
-    
+
     state.player |= 1;
     entity->state |= 1;
     netProperties.player = x;

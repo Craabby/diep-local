@@ -9,7 +9,8 @@
 #include <Native/Component/Relations.h>
 
 EntityManager::EntityManager(diep::server::GameServer *gameServer)
-    : gameServer(gameServer)
+    : gameServer(gameServer),
+      collisionManager(DiepSpatialHashing(gameServer))
 {
 }
 
@@ -52,16 +53,6 @@ void EntityManager::Tick(uint32_t tick)
 
                 // entity->isViewed = false;
             } }();
-        }
-
-        for (entityId id = 0; id <= lastId; id++)
-        {
-            if (!Exists(id))
-                continue;
-
-            Entity *entity = inner[id];
-
-            entity->WipeState();
         }
     }
 
