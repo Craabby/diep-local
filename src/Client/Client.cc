@@ -68,12 +68,14 @@ diep::server::client::Client::Client(websocketpp::connection_hdl connection, Gam
             for (uint8_t i = 0; i < 8; i++)
                 camera.StatLevels()->Set(i, 0);
             
-            TankBody *tank = new TankBody(this->gameServer);
+            Entity *tank = new Entity(this->gameServer);
+            this->gameServer->AppendComponentToEntity<RelationsComponent>(tank);
+            this->gameServer->AppendComponentToEntity<PositionComponent>(tank);
+            this->gameServer->AppendComponentToEntity<PhysicsComponent>(tank);
             camera.Player(tank);
             relations.Owner(tank);
             relations.Parent(tank);
 
-            tank->SetTank(TankId::Basic);
             this->camera->spectatee = nullptr;
         }
         else if (header == 5)
