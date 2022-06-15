@@ -147,8 +147,10 @@ void Camera::UpdateView(uint32_t tick)
 
     for (size_t i = 0; i < 16384; i++)
         if (gameServer->entities.inner[i] != nullptr)
-            entitiesInView.push_back(gameServer->entities.inner[i]);
-
+        {
+            if (!gameServer->entities.registry.all_of<CameraComponent>(gameServer->entities.inner[i]->entity) || gameServer->entities.inner[i] == this)
+                entitiesInView.push_back(gameServer->entities.inner[i]);
+        }
     for (Entity *entity : view)
     {
         if (std::find(entitiesInView.begin(), entitiesInView.end(), entity) == entitiesInView.end())
@@ -251,13 +253,6 @@ void Camera::UpdateView(uint32_t tick)
         CompileUpdate(writer, updates.at(i));
     for (size_t i = 0; i < creations.size(); i++)
         CompileCreation(writer, creations.at(i));
-
-    for (size_t i = 0; i < writer->Size(); i++)
-    {
-        std::cout << std::to_string(writer->Write().output[i]) << ", ";
-    }
-
-    std::cout << std::endl;
 
     client->Send(*writer);
 }
