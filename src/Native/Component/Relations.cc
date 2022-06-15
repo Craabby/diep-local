@@ -37,6 +37,16 @@ void RelationsComponent::Owner(Entity *x)
     netProperties.owner = x;
 }
 
+void RelationsComponent::Team(Entity *x)
+{
+    if (Team() == x)
+        return;
+    
+    state.team |= 1;
+    entity->state |= 1;
+    netProperties.team = x;
+}
+
 void RelationsComponent::Parent(Entity *x)
 {
     if (Parent() == x)

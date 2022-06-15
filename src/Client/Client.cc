@@ -68,14 +68,7 @@ diep::server::client::Client::Client(websocketpp::connection_hdl connection, Gam
             for (uint8_t i = 0; i < 8; i++)
                 camera.StatLevels()->Set(i, 0);
             
-            Entity *tank = new Entity(this->gameServer);
-            this->gameServer->AppendComponentToEntity<RelationsComponent>(tank);
-            this->gameServer->AppendComponentToEntity<PositionComponent>(tank);
-            this->gameServer->AppendComponentToEntity<PhysicsComponent>(tank);
-            camera.Player(tank);
-            relations.Owner(tank);
-            relations.Parent(tank);
-
+            Entity *tank = new TankBody(this->camera);
             tank->Insert();
 
             this->camera->spectatee = nullptr;

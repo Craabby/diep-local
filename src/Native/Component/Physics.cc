@@ -21,6 +21,26 @@ void PhysicsComponent::Wipe()
     state.pushFactor = 0;
 }
 
+void PhysicsComponent::Size(float x)
+{
+    if (Size() == x)
+        return;
+    
+    state.size |= 1;
+    entity->state |= 1;
+    netProperties.size = x;
+}
+
+void PhysicsComponent::Sides(uint32_t x)
+{
+    if (Sides() == x)
+        return;
+    
+    state.sides |= 1;
+    entity->state |= 1;
+    netProperties.sides = x;
+}
+
 std::vector<FieldId> PhysicsComponent::FindUpdates()
 {
     std::vector<FieldId> found;

@@ -98,6 +98,16 @@ void CameraComponent::Player(Entity *x)
     netProperties.player = x;
 }
 
+void CameraComponent::SpawnTick(uint32_t x)
+{
+    if (SpawnTick() == x)
+        return;
+
+    state.spawnTick |= 1;
+    entity->state |= 1;
+    netProperties.spawnTick = x;
+}
+
 void CameraComponent::Level(int32_t x)
 {
     if (Level() == x)

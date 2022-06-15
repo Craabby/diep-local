@@ -3,15 +3,13 @@
 #include <Const/Enums.h>
 #include <Native/Entity.h>
 
-namespace diep::server
-{
-    class GameServer;
-}
+class CameraEntity;
 
 class TankBody : public Entity
 {
+    CameraEntity *camera;
 public:
-    TankBody(diep::server::GameServer *gameServer);
+    TankBody(CameraEntity *camera);
 
     void SetTank(TankId tank);
 };
