@@ -24,6 +24,11 @@ size_t diep::coder::writer::Writer::At() const
     return at;
 }
 
+size_t diep::coder::writer::Writer::Size() const
+{
+    return Write().size;
+}
+
 diep::coder::writer::Writer *diep::coder::writer::Writer::U8(uint8_t value)
 {
     if (at > (1 << 20))

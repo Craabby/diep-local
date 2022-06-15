@@ -18,6 +18,15 @@ public:
             values[i] = defaultValue;
     }
 
+    std::vector<uint8_t> FindUpdates()
+    {
+        std::vector<uint8_t> updated;
+        for (uint8_t i = 0; i < 10; i++)
+            if (state[i] != 0) updated.push_back(i);
+
+        return updated;
+    }
+
     const T &At(uint8_t x) const
     {
         return values[x];
