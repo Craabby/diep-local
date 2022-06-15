@@ -27,6 +27,36 @@ std::vector<FieldId> RelationsComponent::FindUpdates()
     return found;
 }
 
+void RelationsComponent::Owner(Entity *x)
+{
+    if (Owner() == x)
+        return;
+    
+    state.owner |= 1;
+    entity->state |= 1;
+    netProperties.owner = x;
+}
+
+void RelationsComponent::Team(Entity *x)
+{
+    if (Team() == x)
+        return;
+    
+    state.team |= 1;
+    entity->state |= 1;
+    netProperties.team = x;
+}
+
+void RelationsComponent::Parent(Entity *x)
+{
+    if (Parent() == x)
+        return;
+    
+    state.parent |= 1;
+    entity->state |= 1;
+    netProperties.parent = x;
+}
+
 Entity *RelationsComponent::Parent()
 {
     return netProperties.parent;

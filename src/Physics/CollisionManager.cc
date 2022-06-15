@@ -86,6 +86,11 @@ std::vector<int16_t> SpatialHashing::Query(Box &&box)
     return found;
 }
 
+DiepSpatialHashing::DiepSpatialHashing(diep::server::GameServer *gameServer)
+    : gameServer(gameServer)
+{
+}
+
 void DiepSpatialHashing::Reset()
 {
     Clear();

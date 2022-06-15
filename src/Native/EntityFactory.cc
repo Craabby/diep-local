@@ -34,13 +34,6 @@ Entity *CreateLivingObject(diep::server::GameServer *gameServer)
     entity->gameServer->AppendComponentToEntity<HealthComponent>(entity);
     return entity;
 }
-Entity *CreateTankBody(diep::server::GameServer *gameServer)
-{
-    Entity *entity = CreateLivingObject(gameServer);
-    entity->gameServer->AppendComponentToEntity<NameComponent>(entity);
-    entity->gameServer->AppendComponentToEntity<ScoreComponent>(entity);
-    return entity;
-}
 Entity *CreateBarrel(diep::server::GameServer *gameServer)
 {
     return CreateObject(gameServer);
@@ -54,6 +47,7 @@ CameraEntity *CreateCameraEntity(diep::server::GameServer *gameServer)
 Camera *CreateCamera(diep::server::client::Client *client)
 {
     Camera *entity = new Camera(client);
+    entity->gameServer->AppendComponentToEntity<RelationsComponent>(entity);
     entity->gameServer->AppendComponentToEntity<CameraComponent>(entity);
     return entity;
 }

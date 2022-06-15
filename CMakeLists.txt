@@ -7,6 +7,7 @@ set(SRCS
     src/Coder/Reader.cc
     src/Coder/Writer.cc
     src/Const/Fields.cc
+    src/Entity/Tank/TankBody.cc
     src/Game.cc
     src/Gamemodes/SandboxArena.cc
     src/main.cc

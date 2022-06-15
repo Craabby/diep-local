@@ -48,9 +48,9 @@ void diep::server::GameServer::RunGameLoop()
         // time_point otherEnd = system_clock::now();
         // std::cout << std::endl
         //           << std::endl
-        //           << "tick " << tickCount << " time:" << std::endl;
+        //           << "tick " << tickCount << " time:" << std::endl
         //           << "tick took: " << (double)duration_cast<nanoseconds>(difference).count() / 1'000'000 << " ms" << std::endl
-        //           << "time elapsed: " << (double)duration_cast<nanoseconds>(duration<double>(otherEnd - start)).count() / 1'000'000 << " ms" << std::endl
+        //           << "time elapsed: " << (double)duration_cast<nanoseconds>(duration<double>(otherEnd - start)).count() / 1'000'000 << " ms" << std::endl;
     }
 }
 

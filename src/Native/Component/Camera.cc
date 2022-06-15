@@ -1,5 +1,7 @@
 #include <Native/Component/Camera.h>
 
+#include <iostream>
+
 #include <Native/Entity.h>
 
 CameraComponent::CameraComponent(Entity *entity)
@@ -84,6 +86,46 @@ std::vector<FieldId> CameraComponent::FindUpdates()
         found.push_back(FieldId::MovementSpeed);
 
     return found;
+}
+
+void CameraComponent::Player(Entity *x)
+{
+    if (Player() == x)
+        return;
+
+    state.player |= 1;
+    entity->state |= 1;
+    netProperties.player = x;
+}
+
+void CameraComponent::SpawnTick(uint32_t x)
+{
+    if (SpawnTick() == x)
+        return;
+
+    state.spawnTick |= 1;
+    entity->state |= 1;
+    netProperties.spawnTick = x;
+}
+
+void CameraComponent::Level(int32_t x)
+{
+    if (Level() == x)
+        return;
+    
+    state.level |= 1;
+    entity->state |= 1;
+    netProperties.level = x;
+}
+
+void CameraComponent::StatsAvailable(int32_t x)
+{
+    if (StatsAvailable() == x)
+        return;
+    
+    state.statsAvailable |= 1;
+    entity->state |= 1;
+    netProperties.statsAvailable = x;
 }
 
 int16_t CameraComponent::GuiUnknown()
