@@ -80,7 +80,10 @@ public:
 
     static constexpr FieldGroupId id = FieldGroupId::arena;
     static inline std::array<FieldId, 15> fields = {FieldId::Gui, FieldId::LeftX, FieldId::TopY, FieldId::RightX, FieldId::BottomY, FieldId::ScoreboardAmount, FieldId::ScoreboardNames, FieldId::ScoreboardScores, FieldId::ScoreboardColors, FieldId::ScoreboardSuffixes, FieldId::ScoreboardTanks, FieldId::LeaderX, FieldId::LeaderY, FieldId::PlayersNeeded, FieldId::TicksUntilStart};
+
     ArenaComponent(Entity *entity);
+
+    uint8_t arenaState = 0;
 
     void Wipe();
     std::vector<FieldId> FindUpdates();

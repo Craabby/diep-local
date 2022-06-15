@@ -174,3 +174,11 @@ bool EntityManager::Exists(entityId id)
         return false;
     return inner[id] != nullptr;
 }
+
+bool EntityManager::Exists(Entity *entity)
+{
+    if (entity != nullptr)
+        return Exists(entity->id);
+
+    return false;
+}

@@ -33,6 +33,7 @@ public:
 
     void Tick(uint32_t tick);
     bool Exists(entityId id);
+    bool Exists(Entity *entity);
     entityId Add(Entity *entity);
     void Remove(Entity *entity);
     void Clear();

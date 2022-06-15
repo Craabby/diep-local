@@ -27,6 +27,13 @@ public:
     {
         return values[x];
     }
+
+    void Set(uint8_t i, T x)
+    {
+        values[i] = x;
+
+        state[i] |= 1;
+    }
 };
 
 class CameraComponent

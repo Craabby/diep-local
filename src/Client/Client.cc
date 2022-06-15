@@ -8,6 +8,7 @@
 #include <websocketpp/frame.hpp>
 
 #include <Coder/Writer.h>
+#include <Entity/Tank/TankBody.h>
 #include <EventEmitter.h>
 #include <Game.h>
 #include <Native/Entity.h>
@@ -42,7 +43,7 @@ diep::server::client::Client::Client(websocketpp::connection_hdl connection, Gam
 
             Send(*coder::writer::Writer().U8(7));
             Send(*coder::writer::Writer().U8(4)->StringNT(this->gameServer->gamemode)->StringNT(this->gameServer->endpoint));
-            Send(*coder::writer::Writer().U8(10)->Vu((uint32_t)this->gameServer->clients.size()));
+            Send(*coder::writer::Writer().U8(10)->Vu(static_cast<uint32_t>(this->gameServer->clients.size())));
 
             camera = CreateCamera(this);
 
@@ -54,7 +55,28 @@ diep::server::client::Client::Client(websocketpp::connection_hdl connection, Gam
         if (!camera)
             return;
 
-        if (header == 5)
+        if (header == 2)
+        {
+            CameraComponent &camera = this->gameServer->entities.registry.get<CameraComponent>(this->camera->entity);
+            RelationsComponent &relations = this->gameServer->entities.registry.get<RelationsComponent>(this->camera->entity);
+            if (this->gameServer->entities.Exists(camera.Player())) return;
+            if (this->gameServer->entities.registry.get<ArenaComponent>(this->gameServer->arena->entity).arenaState != 0) return;
+        
+            camera.StatsAvailable(0);
+            camera.Level(1);
+
+            for (uint8_t i = 0; i < 8; i++)
+                camera.StatLevels()->Set(i, 0);
+            
+            TankBody *tank = new TankBody(this->gameServer);
+            camera.Player(tank);
+            relations.Owner(tank);
+            relations.Parent(tank);
+
+            tank->SetTank(TankId::Basic);
+            this->camera->spectatee = nullptr;
+        }
+        else if (header == 5)
         {
             Send(*coder::writer::Writer().U8(5));
 
@@ -85,5 +107,4 @@ void diep::server::client::Client::Send(coder::writer::Writer const &writer)
 
 void diep::server::client::Client::Tick(uint32_t tick)
 {
-    
 }

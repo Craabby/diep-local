@@ -32,8 +32,6 @@ namespace diep::server
 
 Entity *CreateLivingObject(diep::server::GameServer *gameServer);
 Entity *CreateObject(diep::server::GameServer *gameServer);
-Entity *CreateTankBody(diep::server::GameServer *gameServer);
 Entity *CreateBarrel(diep::server::GameServer *gameServer);
-
 CameraEntity *CreateCameraEntity(diep::server::GameServer *gameServer);
 Camera *CreateCamera(diep::server::client::Client *client);
