@@ -18,8 +18,8 @@ void CameraComponent::Tick(uint32_t tick)
 
     PositionComponent &position = entity->gameServer->entities.registry.get<PositionComponent>(Player()->entity);
 
-    CameraX(position.position.X());
-    CameraY(position.position.Y());
+    CameraX(CameraX() - (CameraX() - position.position.X()) / 20);
+    CameraY(CameraY() - (CameraY() - position.position.Y()) / 20);
 }
 
 void CameraComponent::Wipe()

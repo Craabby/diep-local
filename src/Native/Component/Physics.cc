@@ -1,5 +1,6 @@
 #include <Native/Component/Physics.h>
 
+#include <Game.h>
 #include <Native/Entity.h>
 
 PhysicsComponent::PhysicsComponent(Entity *entity)
@@ -7,8 +8,36 @@ PhysicsComponent::PhysicsComponent(Entity *entity)
 {
 }
 
-void PhysicsComponent::ApplyPhysics()
+void PhysicsComponent::Tick(uint32_t tick)
 {
+    for (entityId i = 0; i < 16384; i++)
+    {
+        if (i == entity->id)
+            continue;
+        if (!entity->gameServer->entities.Exists(i))
+            continue;
+
+        Entity *entity = this->entity->gameServer->entities.inner[i];
+
+        if (!entity->gameServer->entities.registry.all_of<PhysicsComponent>(entity->entity))
+            continue;
+
+        PositionComponent &otherPosition = entity->gameServer->entities.registry.get<PositionComponent>(entity->entity);
+        PhysicsComponent &otherPhysics = entity->gameServer->entities.registry.get<PhysicsComponent>(entity->entity);
+        PositionComponent &position = entity->gameServer->entities.registry.get<PositionComponent>(this->entity->entity);
+
+        Vector<float> delta = *otherPosition.position.Clone().Subtract(position.position);
+
+        if (delta.Distance() < Size() + otherPhysics.Size())
+        {
+            OnCollision(otherPhysics);
+        }
+    }
+}
+
+void PhysicsComponent::OnCollision(PhysicsComponent &other)
+{
+    std::cout << "collision lol" << std::endl;
 }
 
 void PhysicsComponent::Wipe()
@@ -25,7 +54,7 @@ void PhysicsComponent::Size(float x)
 {
     if (Size() == x)
         return;
-    
+
     state.size |= 1;
     entity->state |= 1;
     netProperties.size = x;
@@ -35,7 +64,7 @@ void PhysicsComponent::Sides(uint32_t x)
 {
     if (Sides() == x)
         return;
-    
+
     state.sides |= 1;
     entity->state |= 1;
     netProperties.sides = x;

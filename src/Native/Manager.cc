@@ -45,19 +45,6 @@ void EntityManager::Tick(uint32_t tick)
         }
     }
 
-    for (entityId id = 0; id <= lastId; id++)
-    {
-        if (!Exists(id))
-            continue;
-
-        Entity *entity = inner[id];
-
-        if (!registry.all_of<PhysicsComponent>(entity->entity))
-            continue;
-
-        registry.get<PhysicsComponent>(entity->entity).ApplyPhysics();
-    }
-
     for (entityId i = 0; i <= lastId; i++)
     {
         if (!Exists(i))

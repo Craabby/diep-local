@@ -61,4 +61,6 @@ void Entity::Tick(uint32_t tick)
 {
     if (gameServer->entities.registry.all_of<PositionComponent>(entity))
         gameServer->entities.registry.get<PositionComponent>(entity).Tick(tick);
+    if (gameServer->entities.registry.all_of<PhysicsComponent>(entity))
+        gameServer->entities.registry.get<PhysicsComponent>(entity).Tick(tick);
 }

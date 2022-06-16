@@ -14,7 +14,7 @@ void PositionComponent::Tick(uint32_t tick)
 {
     position.Add(velocity);
 
-    velocity.Scale(0.5);
+    velocity.Scale(0.8);
 }
 
 void PositionComponent::Wipe()

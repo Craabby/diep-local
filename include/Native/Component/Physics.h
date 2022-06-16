@@ -34,7 +34,9 @@ public:
 
     PhysicsComponent(Entity *entity);
 
-    void ApplyPhysics();
+    void Tick(uint32_t tick);
+
+    void OnCollision(PhysicsComponent &other);
 
     void Wipe();
     std::vector<FieldId> FindUpdates();
