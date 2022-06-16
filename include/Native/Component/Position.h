@@ -26,7 +26,7 @@ class PositionComponent
 public:
     Entity *entity;
 
-    Vector<int32_t> position(0, 0);
+    Vector<int32_t> position;
 
     static constexpr FieldGroupId id = FieldGroupId::position;
     static inline std::array<FieldId, 4> fields = {FieldId::X, FieldId::Y, FieldId::Angle, FieldId::Motion};

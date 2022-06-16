@@ -53,7 +53,7 @@ uint32_t diep::coder::reader::Reader::Vu()
         out |= ((*this)[at++] & 0x7f) << i;
         i += 7;
     }
-    out |= ((*this)[at] & 0x7f) << i;
+    out |= ((*this)[at++] & 0x7f) << i;
 
     return out;
 }

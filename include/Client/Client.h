@@ -8,6 +8,7 @@
 #include <websocketpp/server.hpp>
 
 #include <Client/Socket.h>
+#include <Client/UserInput.h>
 #include <Coder/Writer.h>
 #include <Native/Entity.h>
 #include <Native/EntityFactory.h>
@@ -34,6 +35,7 @@ namespace diep::server::client
     class Client
     {
         uint32_t connectTick = 0;
+        UserInput inputs;
 
     public:
         GameServer *gameServer;

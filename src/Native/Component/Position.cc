@@ -1,9 +1,11 @@
 #include <Native/Component/Position.h>
 
 #include <Native/Entity.h>
+#include <Physics/Vector.h>
 
 PositionComponent::PositionComponent(Entity *entity)
-    : entity(entity)
+    : entity(entity),
+      position(Vector<int32_t>(0, 0))
 {
 }
 

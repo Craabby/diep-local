@@ -55,7 +55,13 @@ diep::server::client::Client::Client(websocketpp::connection_hdl connection, Gam
         if (!camera)
             return;
 
-        if (header == 2)
+        if (header == 1)
+        {
+            inputs.flags = packet->reader.Vu();
+            inputs.mouse.X((int32_t)(packet->reader.Vf()));
+            inputs.mouse.Y((int32_t)(packet->reader.Vf()));
+        }
+        else if (header == 2)
         {
             CameraComponent &camera = this->gameServer->entities.registry.get<CameraComponent>(this->camera->entity);
             RelationsComponent &relations = this->gameServer->entities.registry.get<RelationsComponent>(this->camera->entity);

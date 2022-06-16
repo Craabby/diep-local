@@ -54,12 +54,12 @@ public:
         return m_Y;
     }
 
-    T X(T x)
+    void X(T x)
     {
         m_X = x;
     }
 
-    T Y(T y)
+    void Y(T y)
     {
         m_Y = y;
     }
