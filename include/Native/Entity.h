@@ -25,8 +25,8 @@ public:
     bool isViewed = false;
 
     Entity(diep::server::GameServer *gameServer);
+    ~Entity();
 
     void Insert();
     void WipeState();
-    void Delete();
 };

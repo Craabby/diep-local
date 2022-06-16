@@ -31,6 +31,7 @@ public:
     bool isClientCamera = false;
 
     CameraEntity(diep::server::GameServer *gameServer);
+    ~CameraEntity();
 
     void SetLevel(uint32_t level);
     void SetFieldFactor(float fieldFactor);
@@ -47,7 +48,7 @@ class Camera : public CameraEntity
 
 public:
     diep::server::client::Client *client;
-    std::vector<Entity *> view;
+    std::vector<Entity *> view{};
 
     Entity *spectatee = nullptr;
 
