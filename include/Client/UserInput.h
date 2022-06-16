@@ -7,5 +7,6 @@
 struct UserInput
 {
     uint32_t flags;
-    Vector<int32_t> mouse = Vector<int32_t>(0, 0);
+    Vector<float> force = Vector<float>(0, 0);
+    Vector<float> mouse = Vector<float>(0, 0);
 };

@@ -59,6 +59,8 @@ void diep::server::GameServer::Tick(uint32_t tick)
     tickCount++;
 
     entities.Tick(tick);
+    for (client::Client *client : clients)
+        client->Tick(tick);
 }
 
 void diep::server::GameServer::Listen()

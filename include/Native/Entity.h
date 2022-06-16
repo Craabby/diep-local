@@ -29,4 +29,5 @@ public:
 
     void Insert();
     void WipeState();
+    void Tick(uint32_t tick);
 };

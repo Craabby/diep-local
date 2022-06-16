@@ -37,22 +37,11 @@ void EntityManager::Tick(uint32_t tick)
 
             [&]
             {
-            for (size_t i = 0; i < cameras.size(); i++)
-            {
-                // Entity *camera = inner[cameras.at(i)];
-                // CameraComponent &cameraComponent = registry.get<CameraComponent>(camera->entity);
-                // float deltaX = (cameraComponent.CameraX() - positionComponent.X());
-                // float deltaY = (cameraComponent.CameraY() - positionComponent.Y());
-                // float entityFov = 4500 + physicsComponent.Size() + physicsComponent.Width();
-                // if ((deltaX * deltaX + deltaY * deltaY) < entityFov)
-                // {
+                for (size_t i = 0; i < cameras.size(); i++)
+                {
                     collisionManager.InsertEntity(entity);
                     entity->isViewed = true;
-                //     return;
-                // }
-
-                // entity->isViewed = false;
-            } }();
+                } }();
         }
     }
 
@@ -67,6 +56,15 @@ void EntityManager::Tick(uint32_t tick)
             continue;
 
         registry.get<PhysicsComponent>(entity->entity).ApplyPhysics();
+    }
+
+    for (entityId i = 0; i <= lastId; i++)
+    {
+        if (!Exists(i))
+            return;
+        
+        Entity *entity = inner[i];
+        entity->Tick(tick);
     }
 
     for (size_t i = 0; i < cameras.size(); i++)

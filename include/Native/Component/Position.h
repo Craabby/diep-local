@@ -10,8 +10,8 @@ class PositionComponent
 {
     struct
     {
-        uint8_t x = 0;
-        uint8_t y = 0;
+        uint8_t x = 1;
+        uint8_t y = 1;
         uint8_t angle = 0;
         uint8_t motion = 0;
     } state;
@@ -26,7 +26,8 @@ class PositionComponent
 public:
     Entity *entity;
 
-    Vector<int32_t> position;
+    Vector<float> position;
+    Vector<float> velocity;
 
     static constexpr FieldGroupId id = FieldGroupId::position;
     static inline std::array<FieldId, 4> fields = {FieldId::X, FieldId::Y, FieldId::Angle, FieldId::Motion};
@@ -46,5 +47,6 @@ public:
     void Angle(float angle);
     void Motion(uint32_t motion);
 
-    void SetPosition(Vector<int32_t> position);
+    void SetPosition(const Vector<int32_t> &position);
+    void Tick(uint32_t tick);
 };

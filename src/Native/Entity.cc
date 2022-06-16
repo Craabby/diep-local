@@ -56,3 +56,9 @@ void Entity::WipeState()
     if (gameServer->entities.registry.all_of<TeamComponent>(entity))
         gameServer->entities.registry.get<TeamComponent>(entity).Wipe();
 }
+
+void Entity::Tick(uint32_t tick)
+{
+    if (gameServer->entities.registry.all_of<PositionComponent>(entity))
+        gameServer->entities.registry.get<PositionComponent>(entity).Tick(tick);
+}
