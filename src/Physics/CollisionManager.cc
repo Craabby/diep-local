@@ -35,7 +35,7 @@ void SpatialHashing::Clear()
     }
 }
 
-void SpatialHashing::Insert(Box &&box)
+void SpatialHashing::Insert(const Box &box)
 {
     int32_t startX = (box.x - box.w) >> CELL_FACTOR;
     int32_t startY = (box.y - box.h) >> CELL_FACTOR;
@@ -48,12 +48,12 @@ void SpatialHashing::Insert(Box &&box)
         {
             int32_t key = GetHash(x, y);
 
-            cells[key].push_back(&box);
+            cells[key].push_back(box);
         }
     }
 }
 
-std::vector<int16_t> SpatialHashing::Query(Box &&box)
+std::vector<int16_t> SpatialHashing::Query(const Box &box)
 {
     std::vector<int16_t> found{};
 
@@ -62,7 +62,7 @@ std::vector<int16_t> SpatialHashing::Query(Box &&box)
     int32_t endX = (box.x + box.h) >> CELL_FACTOR;
     int32_t endY = (box.y + box.h) >> CELL_FACTOR;
 
-    int32_t queryId = this->queryId++;
+    uint8_t queryId = this->queryId++;
 
     for (int32_t x = startX; x <= endX; x++)
     {
@@ -70,15 +70,15 @@ std::vector<int16_t> SpatialHashing::Query(Box &&box)
         {
             uint32_t key = GetHash(x, y);
 
-            std::vector<Box *> *cell = cells + key;
+            std::vector<Box> *cell = cells + key;
 
             for (size_t i = 0; i < cell->size(); i++)
             {
-                Box *box = cell->at(i);
-                if (box->queryId != queryId)
+                Box &box = cell->at(i);
+                if (box.queryId != queryId)
                 {
-                    box->queryId = queryId;
-                    found.push_back(box->id);
+                    box.queryId = queryId;
+                    found.push_back(box.id);
                 }
             }
         }
@@ -108,19 +108,9 @@ void DiepSpatialHashing::InsertEntity(Entity *entity)
         entity->id});
 }
 
-std::vector<Entity *> DiepSpatialHashing::Retrieve(int32_t x, int32_t y, int32_t w, int32_t h)
+std::vector<entityId> DiepSpatialHashing::Retrieve(int32_t x, int32_t y, int32_t w, int32_t h)
 {
     std::vector<entityId> ids = Query(Box{x, y, w, h, -1});
 
-    std::vector<Entity *> entities;
-
-    for (entityId id : ids)
-    {
-        Entity *entity = gameServer->entities.inner[id];
-
-        if (entity != nullptr && entity->hash != 0 && gameServer->entities.registry.all_of<PhysicsComponent>(entity->entity))
-            entities.push_back(entity);
-    }
-
-    return entities;
+    return ids;
 }

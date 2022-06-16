@@ -30,18 +30,13 @@ void EntityManager::Tick(uint32_t tick)
 
         Entity *entity = inner[id];
 
-        if (registry.all_of<PositionComponent, PhysicsComponent, RelationsComponent>(entity->entity) && (!registry.get<RelationsComponent>(entity->entity).isChild))
+        if (registry.all_of<PhysicsComponent>(entity->entity))
         {
             PositionComponent &positionComponent = registry.get<PositionComponent>(entity->entity);
             PhysicsComponent &physicsComponent = registry.get<PhysicsComponent>(entity->entity);
 
-            [&]
-            {
-                for (size_t i = 0; i < cameras.size(); i++)
-                {
-                    collisionManager.InsertEntity(entity);
-                    entity->isViewed = true;
-                } }();
+            collisionManager.InsertEntity(entity);
+            entity->isViewed = true;
         }
     }
 
@@ -49,7 +44,7 @@ void EntityManager::Tick(uint32_t tick)
     {
         if (!Exists(i))
             return;
-        
+
         Entity *entity = inner[i];
         entity->Tick(tick);
     }
@@ -75,6 +70,8 @@ void EntityManager::Tick(uint32_t tick)
 
         inner[id]->WipeState();
     }
+
+    collisionManager.Reset();
 }
 
 entityId EntityManager::Add(Entity *entity)
