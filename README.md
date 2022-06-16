@@ -1,5 +1,5 @@
-# Diep-local-C++
-## The C++ rewirte of Diep-local
+# Diep-local
+## The local diep server
 
 ### dependencies
 - websocket++
