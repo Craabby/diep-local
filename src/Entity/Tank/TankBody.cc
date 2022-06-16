@@ -24,5 +24,5 @@ TankBody::TankBody(CameraEntity *camera)
     relationsComponent.Team(camera);
     relationsComponent.Owner(camera);
     physicsComponent.Size(100);
-    physicsComponent.Sides(4);
+    physicsComponent.Sides(1);
 }

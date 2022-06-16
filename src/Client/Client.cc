@@ -55,7 +55,23 @@ diep::server::client::Client::Client(websocketpp::connection_hdl connection, Gam
         if (!camera)
             return;
 
-        if (header == 2)
+        if (header == 1)
+        {
+            inputs.flags = packet->reader.Vu();
+            inputs.mouse.X((int32_t)(packet->reader.Vf()));
+            inputs.mouse.Y((int32_t)(packet->reader.Vf()));
+
+            Vector<float> force(0, 0);
+            if (inputs.flags & 2) force.Y(force.Y() - 1);
+            if (inputs.flags & 4) force.X(force.X() - 1);
+            if (inputs.flags & 8) force.Y(force.Y() + 1);
+            if (inputs.flags & 16) force.X(force.X() + 1);
+        
+            force.Distance(10);
+
+            inputs.force = force;
+        }
+        else if (header == 2)
         {
             CameraComponent &camera = this->gameServer->entities.registry.get<CameraComponent>(this->camera->entity);
             RelationsComponent &relations = this->gameServer->entities.registry.get<RelationsComponent>(this->camera->entity);
@@ -101,4 +117,14 @@ void diep::server::client::Client::Send(coder::writer::Writer const &writer)
 
 void diep::server::client::Client::Tick(uint32_t tick)
 {
+    if (camera == nullptr)
+        return;
+
+    CameraComponent &cameraComponent = gameServer->entities.registry.get<CameraComponent>(camera->entity);
+    Entity *player = cameraComponent.Player();
+    if (player == nullptr)
+        return;
+    PositionComponent &playerPosition = gameServer->entities.registry.get<PositionComponent>(player->entity);
+
+    playerPosition.velocity.Add(*inputs.force.Clone().Scale(10));
 }

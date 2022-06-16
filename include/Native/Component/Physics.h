@@ -26,6 +26,8 @@ class PhysicsComponent
         float pushFactor = 8;
     } netProperties;
 
+    float m_Mass;
+
 public:
     Entity *entity;
 
@@ -34,7 +36,9 @@ public:
 
     PhysicsComponent(Entity *entity);
 
-    void ApplyPhysics();
+    void Tick(uint32_t tick);
+
+    void OnCollision(PhysicsComponent &other);
 
     void Wipe();
     std::vector<FieldId> FindUpdates();
@@ -42,6 +46,7 @@ public:
     uint32_t ObjectFlags();
     uint32_t Sides();
     float Size();
+    float Mass();
     float Width();
     float AbsorbtionFactor();
     float PushFactor();

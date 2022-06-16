@@ -30,43 +30,23 @@ void EntityManager::Tick(uint32_t tick)
 
         Entity *entity = inner[id];
 
-        if (registry.all_of<PositionComponent, PhysicsComponent, RelationsComponent>(entity->entity) && (!registry.get<RelationsComponent>(entity->entity).isChild))
+        if (registry.all_of<PhysicsComponent>(entity->entity))
         {
             PositionComponent &positionComponent = registry.get<PositionComponent>(entity->entity);
             PhysicsComponent &physicsComponent = registry.get<PhysicsComponent>(entity->entity);
 
-            [&]
-            {
-            for (size_t i = 0; i < cameras.size(); i++)
-            {
-                // Entity *camera = inner[cameras.at(i)];
-                // CameraComponent &cameraComponent = registry.get<CameraComponent>(camera->entity);
-                // float deltaX = (cameraComponent.CameraX() - positionComponent.X());
-                // float deltaY = (cameraComponent.CameraY() - positionComponent.Y());
-                // float entityFov = 4500 + physicsComponent.Size() + physicsComponent.Width();
-                // if ((deltaX * deltaX + deltaY * deltaY) < entityFov)
-                // {
-                    collisionManager.InsertEntity(entity);
-                    entity->isViewed = true;
-                //     return;
-                // }
-
-                // entity->isViewed = false;
-            } }();
+            collisionManager.InsertEntity(entity);
+            entity->isViewed = true;
         }
     }
 
-    for (entityId id = 0; id <= lastId; id++)
+    for (entityId i = 0; i <= lastId; i++)
     {
-        if (!Exists(id))
-            continue;
+        if (!Exists(i))
+            return;
 
-        Entity *entity = inner[id];
-
-        if (!registry.all_of<PhysicsComponent>(entity->entity))
-            continue;
-
-        registry.get<PhysicsComponent>(entity->entity).ApplyPhysics();
+        Entity *entity = inner[i];
+        entity->Tick(tick);
     }
 
     for (size_t i = 0; i < cameras.size(); i++)
@@ -90,6 +70,8 @@ void EntityManager::Tick(uint32_t tick)
 
         inner[id]->WipeState();
     }
+
+    collisionManager.Reset();
 }
 
 entityId EntityManager::Add(Entity *entity)

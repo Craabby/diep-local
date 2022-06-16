@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+#include <Game.h>
+#include <Native/Component/Position.h>
 #include <Native/Entity.h>
 
 CameraComponent::CameraComponent(Entity *entity)
@@ -11,6 +13,13 @@ CameraComponent::CameraComponent(Entity *entity)
 
 void CameraComponent::Tick(uint32_t tick)
 {
+    if (Player() == nullptr)
+        return;
+
+    PositionComponent &position = entity->gameServer->entities.registry.get<PositionComponent>(Player()->entity);
+
+    CameraX(CameraX() - (CameraX() - position.position.X()) / 20);
+    CameraY(CameraY() - (CameraY() - position.position.Y()) / 20);
 }
 
 void CameraComponent::Wipe()
@@ -112,7 +121,7 @@ void CameraComponent::Level(int32_t x)
 {
     if (Level() == x)
         return;
-    
+
     state.level |= 1;
     entity->state |= 1;
     netProperties.level = x;
@@ -122,10 +131,30 @@ void CameraComponent::StatsAvailable(int32_t x)
 {
     if (StatsAvailable() == x)
         return;
-    
+
     state.statsAvailable |= 1;
     entity->state |= 1;
     netProperties.statsAvailable = x;
+}
+
+void CameraComponent::CameraX(float x)
+{
+    if (CameraX() == x)
+        return;
+
+    state.cameraX |= 1;
+    entity->state |= 1;
+    netProperties.cameraX = x;
+}
+
+void CameraComponent::CameraY(float x)
+{
+    if (CameraY() == x)
+        return;
+
+    state.cameraY |= 1;
+    entity->state |= 1;
+    netProperties.cameraY = x;
 }
 
 int16_t CameraComponent::GuiUnknown()

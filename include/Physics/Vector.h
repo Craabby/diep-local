@@ -22,27 +22,44 @@ public:
         return Vector<_T>((_T)X(), (_T)Y());
     }
 
-    void Add(Vector<T> vector)
+    Vector<T> *Add(Vector<T> vector)
     {
         X(vector.X() + X());
-        X(vector.Y() + Y());
+        Y(vector.Y() + Y());
+
+        return this;
     }
 
-    void Subtract(Vector<T> vector)
+    Vector<T> *Subtract(Vector<T> vector)
     {
         X(vector.X() - X());
-        X(vector.Y() - Y());
+        Y(vector.Y() - Y());
+
+        return this;
     }
 
-    void Scale(T x)
+    Vector<T> *Scale(T x)
     {
         X(X() * x);
         Y(Y() * x);
+
+        return this;
     }
 
     T Distance()
     {
-        return std::sqrt<T>(X() * X() + Y() * Y());
+        return std::sqrt(X() * X() + Y() * Y());
+    }
+
+    Vector<T> *Distance(T x)
+    {
+        T distance = Distance();
+        if (distance == 0)
+            distance = 1;
+        X(X() / distance);
+        Y(Y() / distance);
+
+        return this;
     }
 
     T X() const
@@ -54,12 +71,12 @@ public:
         return m_Y;
     }
 
-    T X(T x)
+    void X(T x)
     {
         m_X = x;
     }
 
-    T Y(T y)
+    void Y(T y)
     {
         m_Y = y;
     }

@@ -1,16 +1,26 @@
 #include <Native/Component/Position.h>
 
 #include <Native/Entity.h>
+#include <Physics/Vector.h>
 
 PositionComponent::PositionComponent(Entity *entity)
-    : entity(entity)
+    : entity(entity),
+      position(Vector<float>(0, 0)),
+      velocity(Vector<float>(0, 0))
 {
+}
+
+void PositionComponent::Tick(uint32_t tick)
+{
+    position.Add(velocity);
+
+    velocity.Scale(0.9);
 }
 
 void PositionComponent::Wipe()
 {
-    state.x = 0;
-    state.y = 0;
+    // state.x = 0;
+    // state.y = 0;
     state.angle = 0;
     state.motion = 0;
 }
@@ -33,12 +43,12 @@ std::vector<FieldId> PositionComponent::FindUpdates()
 
 int32_t PositionComponent::X()
 {
-    return netProperties.x;
+    return (int32_t)position.X();
 }
 
 int32_t PositionComponent::Y()
 {
-    return netProperties.y;
+    return (int32_t)position.Y();
 }
 
 float PositionComponent::Angle()
