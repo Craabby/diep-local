@@ -10,5 +10,8 @@ SandboxArena::SandboxArena(diep::server::GameServer *gameServer)
     std::cout << "constructor called" << std::endl;
 
     gameServer->AppendComponentToEntity<ArenaComponent>(this);
-    // gameServer->AppendComponentToEntity<TeamComponent>(this);
+    gameServer->entities.registry.get<ArenaComponent>(entity).LeftX(-1250);
+    gameServer->entities.registry.get<ArenaComponent>(entity).TopY(-1250);
+    gameServer->entities.registry.get<ArenaComponent>(entity).RightX(1250);
+    gameServer->entities.registry.get<ArenaComponent>(entity).BottomY(1250);
 }
