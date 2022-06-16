@@ -26,6 +26,8 @@ class PhysicsComponent
         float pushFactor = 8;
     } netProperties;
 
+    float m_Mass;
+
 public:
     Entity *entity;
 
@@ -44,6 +46,7 @@ public:
     uint32_t ObjectFlags();
     uint32_t Sides();
     float Size();
+    float Mass();
     float Width();
     float AbsorbtionFactor();
     float PushFactor();

@@ -42,8 +42,6 @@ public:
     float Angle();
     uint32_t Motion();
 
-    void X(int32_t x);
-    void Y(int32_t y);
     void Angle(float angle);
     void Motion(uint32_t motion);
 
