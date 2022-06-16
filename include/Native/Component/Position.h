@@ -1,7 +1,8 @@
 #pragma once
 
-#include <Native/Component/types.h>
 #include <Const/Fields.h>
+#include <Native/Component/types.h>
+#include <Physics/Vector.h>
 
 class Entity;
 
@@ -25,6 +26,8 @@ class PositionComponent
 public:
     Entity *entity;
 
+    Vector<int32_t> position(0, 0);
+
     static constexpr FieldGroupId id = FieldGroupId::position;
     static inline std::array<FieldId, 4> fields = {FieldId::X, FieldId::Y, FieldId::Angle, FieldId::Motion};
 
@@ -42,4 +45,6 @@ public:
     void Y(int32_t y);
     void Angle(float angle);
     void Motion(uint32_t motion);
+
+    void SetPosition(Vector<int32_t> position);
 };
