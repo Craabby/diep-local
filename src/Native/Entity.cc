@@ -14,6 +14,7 @@ Entity::Entity(diep::server::GameServer *gameServer)
 Entity::~Entity()
 {
     WipeState();
+    std::cout << "remove " << id << std::endl;
     gameServer->entities.Remove(this);
 }
 

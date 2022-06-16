@@ -86,10 +86,7 @@ void diep::server::client::Client::Terminate()
     std::cout << "removed client" << std::endl;
     terminated = true;
     if (camera != nullptr)
-    {
-        gameServer->entities.Remove(camera);
         delete camera;
-    };
 }
 
 size_t diep::server::client::Client::GetId() const

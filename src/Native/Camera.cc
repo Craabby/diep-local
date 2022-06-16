@@ -19,13 +19,10 @@ CameraEntity::CameraEntity(diep::server::GameServer *gameServer)
 
 CameraEntity::~CameraEntity()
 {
-    std::cout << "CameraEntity::~CameraEntity()" << std::endl;
     CameraComponent &camera = gameServer->entities.registry.get<CameraComponent>(entity);
 
     if (camera.Player() != nullptr)
         delete camera.Player();
-        
-    gameServer->entities.Remove(this);
 }
 
 Camera::Camera(diep::server::client::Client *client)
@@ -63,113 +60,19 @@ void Camera::UpdateView(uint32_t tick)
     std::vector<Entity *> updates = {};
     std::vector<Entity *> creations = {};
 
-    // if (view.size() == 0)
-    // {
-    //     creations.push_back(gameServer->entities.inner[0]);
-    //     creations.push_back(this);
-    //     view.push_back(gameServer->entities.inner[0]);
-    //     view.push_back(this);
-    // }
-
-    // CameraComponent &camera = gameServer->entities.registry.get<CameraComponent>(entity);
-    // float fov = camera.Fov();
-    // float width = 1200 / fov;
-    // float height = 800 / fov;
-
-    // std::vector<Entity *> entitiesNearRange = gameServer->entities.collisionManager.Retrieve(
-    //     camera.CameraX(), camera.CameraY(), width, height);
-    // std::vector<Entity *> entitiesInRange = {};
-
-    // float l = camera.CameraX() - width;
-    // float r = camera.CameraX() + width;
-    // float t = camera.CameraY() - height;
-    // float b = camera.CameraY() + height;
-
-    // for (size_t i = 0; i < entitiesNearRange.size(); i++)
-    // {
-    //     Entity *entity = entitiesNearRange.at(i);
-    //     PhysicsComponent &physics = gameServer->entities.registry.get<PhysicsComponent>(entity->entity);
-    //     PositionComponent &position = gameServer->entities.registry.get<PositionComponent>(entity->entity);
-    //     float width = physics.Sides() == 2 ? physics.Width() / 2 : physics.Size();
-    //     float size = physics.Sides() == 2 ? physics.Size() / 2 : physics.Size();
-
-    //     if (position.X() + width < r &&
-    //         position.Y() - size > t &&
-    //         position.X() - width > l &&
-    //         position.Y() + size < b)
-    //     {
-    //         StyleComponent &style = gameServer->entities.registry.get<StyleComponent>(entity->entity);
-    //         if (entity != camera.Player() && !(style.Opacity() == 0))
-    //         {
-    //             entitiesInRange.push_back(entity);
-    //         }
-    //     }
-    // }
-
-    // for (entityId id = 0; id < gameServer->entities.lastId; id++)
-    // {
-    //     Entity *entity = gameServer->entities.inner[id];
-    //     if (entity == nullptr)
-    //         continue;
-    //     if (!gameServer->entities.registry.all_of<PhysicsComponent>(entity->entity))
-    //         continue;
-    //     PhysicsComponent &physics = gameServer->entities.registry.get<PhysicsComponent>(entity->entity);
-    //     if (physics.ObjectFlags() & 2)
-    //         entitiesInRange.push_back(entity);
-    // }
-
-    // if (camera.Player() != nullptr)
-    // {
-    //     entitiesInRange.push_back(camera.Player());
-    // }
-
-    // for (size_t i = 0; i < view.size(); i++)
-    // {
-    //     Entity *entity = view[i];
-
-    //     if (gameServer->entities.registry.all_of<RelationsComponent>(entity->entity))
-    //     {
-    //         RelationsComponent &relations = gameServer->entities.registry.get<RelationsComponent>(entity->entity);
-    //         if (std::find(entitiesInRange.begin(), entitiesInRange.end(), relations.rootParent) == entitiesInRange.end())
-    //         {
-    //             deletes.emplace_back(Deletion{entity->id, entity->preservedHash});
-    //             continue;
-    //         }
-    //     }
-
-    //     if (entity->hash == 0)
-    //     {
-    //         deletes.emplace_back(Deletion{entity->id, entity->preservedHash});
-    //     }
-    //     else if (entity->state & 2)
-    //     {
-    //         if (entity->state & 4)
-    //             deletes.emplace_back(Deletion{entity->id, entity->preservedHash, true});
-
-    //         creations.push_back(entity);
-    //     }
-    //     else if (entity->state & 1)
-    //     {
-    //         updates.push_back(entity);
-    //     }
-    // }
-
-    std::vector<Entity *> entitiesInView;
+    std::vector<Entity *> entitiesInView{};
 
     for (size_t i = 0; i < 16384; i++)
         if (gameServer->entities.inner[i] != nullptr)
-        {
             if (!gameServer->entities.registry.all_of<CameraComponent>(gameServer->entities.inner[i]->entity) || gameServer->entities.inner[i] == this)
                 entitiesInView.push_back(gameServer->entities.inner[i]);
-        }
+
     for (Entity *entity : view)
-    {
         if (std::find(entitiesInView.begin(), entitiesInView.end(), entity) == entitiesInView.end())
         {
             view.erase(std::find(view.begin(), view.end(), entity));
             deletes.push_back(Deletion{entity->id, entity->hash});
         }
-    }
 
     for (Entity *entity : entitiesInView)
     {
@@ -192,72 +95,6 @@ void Camera::UpdateView(uint32_t tick)
         if (!deletion.noDelete)
             RemoveFromView(deletion.id);
     }
-
-    // EntityManager &entities = gameServer->entities;
-    // for (size_t i = 0; i < entities.otherEntities.size(); i++)
-    // {
-    //     entityId id = entities.otherEntities.at(i);
-    //     if (std::find_if(view.begin(), view.end(), [id](Entity *entity)
-    //                      { return entity->id == id; }) == view.end())
-    //     {
-    //         Entity *entity = entities.inner[id];
-    //         if (entity == nullptr)
-    //             continue;
-    //         if (entities.registry.any_of<CameraComponent>(entity->entity))
-    //             continue;
-
-    //         creations.push_back(entity);
-    //         AddToView(entity);
-    //     }
-    // }
-
-    // for (Entity *entity : entitiesInRange)
-    // {
-    //     if (std::find(view.begin(), view.end(), entity) == view.end())
-    //     {
-    //         creations.push_back(entity);
-    //         AddToView(entity);
-
-    //         if (entities.registry.any_of<RelationsComponent>(entity->entity))
-    //         {
-    //             RelationsComponent &relations = entities.registry.get<RelationsComponent>(entity->entity);
-    //             if (!relations.isChild)
-    //             {
-    //                 for (Entity *child : relations.children)
-    //                 {
-    //                     view.push_back(child);
-    //                     creations.push_back(child);
-    //                 }
-    //             }
-    //         }
-    //     }
-    //     else
-    //     {
-    //         if (entities.registry.any_of<RelationsComponent>(entity->entity))
-    //         {
-    //             RelationsComponent &relations = entities.registry.get<RelationsComponent>(entity->entity);
-    //             if (!relations.isChild)
-    //             {
-    //                 for (Entity *entity : relations.children)
-    //                 {
-    //                     if (std::find(view.begin(), view.end(), entity) == view.end())
-    //                     {
-
-    //                         if (entities.registry.any_of<RelationsComponent>(entity->entity))
-    //                         {
-    //                             RelationsComponent &relations = entities.registry.get<RelationsComponent>(entity->entity);
-    //                             for (Entity *child : relations.children)
-    //                             {
-    //                                 view.push_back(child);
-    //                                 creations.push_back(child);
-    //                             }
-    //                         }
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
 
     writer->Vu((uint32_t)(creations.size() + updates.size()));
     for (size_t i = 0; i < updates.size(); i++)
@@ -444,20 +281,20 @@ void Camera::CompileUpdate(diep::coder::writer::Writer *writer, Entity *entity)
         bool updated = (std::find_if(updatedFields.begin(), updatedFields.end(), [i](FieldId x)
                                      { return static_cast<uint8_t>(x) == GetFieldList()[i].index; }) != updatedFields.end());
 
-        if (updated)
-        {
-            writer->U8((field.index - at) ^ 1);
-            at = field.index;
-        }
+        if (!updated)
+            continue;
+
+        writer->U8((field.index - at) ^ 1);
+        at = field.index;
 
 #define SEND_FIELD(fieldName, Component, encodingType) \
-    if (fieldId == FieldId::fieldName && updated)      \
+    if (fieldId == FieldId::fieldName)                 \
         writer->encodingType(gameServer->entities.registry.get<Component>(entity->entity).fieldName());
 
 #define SEND_FIELD_AMOUNT(fieldName, Component, EncodingType, amount)                                                           \
-    if (fieldId == FieldId::fieldName && updated)                                                                               \
+    if (fieldId == FieldId::fieldName)                                                                                          \
     {                                                                                                                           \
-        uint8_t at = -1;                                                                                                        \
+        int8_t at = -1;                                                                                                         \
         std::vector<uint8_t> updates = gameServer->entities.registry.get<Component>(entity->entity).fieldName()->FindUpdates(); \
         for (uint8_t updated : updates)                                                                                         \
         {                                                                                                                       \

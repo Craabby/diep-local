@@ -37,7 +37,7 @@ std::array<FieldDefinition, static_cast<size_t>(FieldId::kMaxFieldId)> fieldList
     FieldDefinition{.component = FieldGroupId::camera   , .id = 4 , .encodingType = EncodingType::Vi      , .index = 33}, // level;
     FieldDefinition{.component = FieldGroupId::team     , .id = 0 , .encodingType = EncodingType::Vu      , .index = 34}, // teamColor;
     FieldDefinition{.component = FieldGroupId::camera   , .id = 3 , .encodingType = EncodingType::Float   , .index = 35}, // FOV;
-    FieldDefinition{.component = FieldGroupId::camera   , .id = 11, .encodingType = EncodingType::Vi      , .index = 36, .amount = 10}, // statLimits;
+    FieldDefinition{.component = FieldGroupId::camera   , .id = 11, .encodingType = EncodingType::Vi      , .index = 36, .amount = 8}, // statLimits;
     FieldDefinition{.component = FieldGroupId::arena    , .id = 1 , .encodingType = EncodingType::Float   , .index = 37}, // leftX;
     FieldDefinition{.component = FieldGroupId::arena    , .id = 7 , .encodingType = EncodingType::Float   , .index = 38, .amount = 10}, // scoreboardScores;
     FieldDefinition{.component = FieldGroupId::camera   , .id = 10, .encodingType = EncodingType::Vi      , .index = 39, .amount = 8}, // statLevels;
