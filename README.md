@@ -1,5 +1,5 @@
 # Diep-local
-## The local diep server
+## The local diep server, inspired by [this](https://github.com/ABCxFF/diepcustom)
 
 ### dependencies
 - websocket++
